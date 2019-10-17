@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace BikeManagerAPI.Models
+{
+    public partial class Pagamento
+    {
+        public int CdFormapagamento { get; set; }
+        public int CdConta { get; set; }
+        public decimal VlPago { get; set; }
+        public DateTime DtPagamento { get; set; }
+        public DateTime DtRegistro { get; set; }
+        public DateTime? DtAlteracao { get; set; }
+
+        public Conta CdContaNavigation { get; set; }
+        public FormaPagamento CdFormaPagamentoNavigation { get; set; }
+    }
+}

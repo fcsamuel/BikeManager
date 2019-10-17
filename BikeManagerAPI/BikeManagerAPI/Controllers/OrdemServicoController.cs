@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using BikeManagerAPI.Models;
+
+namespace BikeManagerAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdemServicoController : ControllerBase
+    {
+        private readonly BikeManagerContext _context;
+
+        public OrdemServicoController(BikeManagerContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/OrdemServico
+        [HttpGet]
+        public IEnumerable<OrdemServico> GetOrdemServico()
+        {
+            return _context.OrdemServico;
+        }
+
+        // GET: api/OrdemServico/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrdemServico([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var ordemServico = await _context.OrdemServico.FindAsync(id);
+
+            if (ordemServico == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ordemServico);
+        }
+
+        // PUT: api/OrdemServico/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutOrdemServico([FromRoute] int id, [FromBody] OrdemServico ordemServico)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != ordemServico.CdOrdemServico)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(ordemServico).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!OrdemServicoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(ordemServico);
+        }
+
+        // POST: api/OrdemServico
+        [HttpPost]
+        public async Task<IActionResult> PostOrdemServico([FromBody] OrdemServico ordemServico)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ordemServico.DtAbertura = DateTime.Now;
+
+            _context.OrdemServico.Add(ordemServico);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (OrdemServicoExists(ordemServico.CdOrdemServico))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetOrdemServico", new { id = ordemServico.CdOrdemServico }, ordemServico);
+        }
+
+        // DELETE: api/OrdemServico/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrdemServico([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var ordemServico = await _context.OrdemServico.FindAsync(id);
+            if (ordemServico == null)
+            {
+                return NotFound();
+            }
+
+            _context.OrdemServico.Remove(ordemServico);
+            await _context.SaveChangesAsync();
+
+            return Ok(ordemServico);
+        }
+
+        private bool OrdemServicoExists(int id)
+        {
+            return _context.OrdemServico.Any(e => e.CdOrdemServico == id);
+        }
+    }
+}
