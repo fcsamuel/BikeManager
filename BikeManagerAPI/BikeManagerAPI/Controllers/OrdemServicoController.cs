@@ -60,6 +60,8 @@ namespace BikeManagerAPI.Controllers
                 return BadRequest();
             }
 
+            ordemServico.DtAlteracao = DateTime.Now;
+
             _context.Entry(ordemServico).State = EntityState.Modified;
 
             try
@@ -90,7 +92,7 @@ namespace BikeManagerAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            ordemServico.DtAbertura = DateTime.Now;
+            ordemServico.DtRegistro = DateTime.Now;
 
             _context.OrdemServico.Add(ordemServico);
             try

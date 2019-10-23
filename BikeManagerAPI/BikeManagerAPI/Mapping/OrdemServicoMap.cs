@@ -48,6 +48,14 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_total")
                 .HasColumnType("numeric(15,2)");
 
+            entity.Property(e => e.DtRegistro)
+                .HasColumnName("dt_registro")
+                .HasColumnType("date");
+
+            entity.Property(e => e.DtAlteracao)
+                .HasColumnName("dt_alteracao")
+                .HasColumnType("date");
+
             entity.HasOne(d => d.CdContaNavigation)
                 .WithMany(p => p.OrdemServico)
                 .HasForeignKey(d => d.CdConta)

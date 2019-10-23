@@ -20,6 +20,8 @@ namespace BikeManagerAPI.Models
         public DateTime? DtPrevConclusao { get; set; }
         public DateTime? DtConclusao { get; set; }
         public string DsObservacao { get; set; }
+        public DateTime DtRegistro { get; set; }
+        public DateTime DtAlteracao { get; set; }
 
         public Conta CdContaNavigation { get; set; }
         public ICollection<Estoque> Estoque { get; set; }
