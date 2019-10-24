@@ -25,10 +25,10 @@
         <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button>
-            <mat-icon (click)="this.callUpdate(element.marcaid)">edit</mat-icon>
+            <mat-icon (click)="this.callUpdate(element.cdMarca)">edit</mat-icon>
           </button>
           <button mat-icon-button>
-            <mat-icon (click)="this.deleteConfirmation(element.marcaid)">delete</mat-icon>
+            <mat-icon (click)="this.deleteConfirmation(element.dsMarca)">delete</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
