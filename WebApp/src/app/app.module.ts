@@ -12,12 +12,18 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule, MatRadioModule, MatButtonModule, MatTableModule, MatIconModule,
   MatPaginatorModule, MatSort, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule } from '@angular/material';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { MarcaListComponent } from './cadastros/marca/marca-list/marca-list.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
+import { OrdemServicoComponent } from './cadastros/ordem-servico/ordem-servico.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    MarcaComponent
+    MarcaComponent,
+    MarcaListComponent,
+    DialogComponent,
+    OrdemServicoComponent
   ],
   imports: [
     BrowserModule,
