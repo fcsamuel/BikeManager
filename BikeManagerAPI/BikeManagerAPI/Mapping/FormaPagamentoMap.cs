@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BikeManagerAPI.Mapping
 {
-    public class FormaPagamentoMap : IEntityTypeConfiguration<Estoque>
+    public class FormaPagamentoMap : IEntityTypeConfiguration<FormaPagamento>
     {
-        public void Configure(EntityTypeBuilder<Estoque> entity)
+        public void Configure(EntityTypeBuilder<FormaPagamento> entity)
         {
             entity.HasKey(e => e.CdFormaPagamento);
 
