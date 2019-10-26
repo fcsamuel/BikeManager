@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule, MatRadioModule, MatButtonModule, MatTableModule, MatIconModule,
-  MatPaginatorModule, MatSort, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule } from '@angular/material';
+  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule } from '@angular/material';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MarcaListComponent } from './cadastros/marca/marca-list/marca-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -20,10 +20,10 @@ import { OrdemServicoComponent } from './cadastros/ordem-servico/ordem-servico.c
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    DialogComponent,
     MarcaComponent,
     MarcaListComponent,
-    DialogComponent,
-    OrdemServicoComponent
+    OrdemServicoComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,8 +43,11 @@ import { OrdemServicoComponent } from './cadastros/ordem-servico/ordem-servico.c
     MatExpansionModule, 
     MatSelectModule,
     MatDialogModule,
+    MatDatepickerModule
+    
   ],
   providers: [HttpClient, DatePipe],
+  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

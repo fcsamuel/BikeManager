@@ -45,6 +45,7 @@ export class MarcaComponent implements OnInit {
       });
     }else {
       this.update();
+      this.router.navigate(["../marca-list"]);
     }
   }
   

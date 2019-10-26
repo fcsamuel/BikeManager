@@ -3,8 +3,8 @@ import { MatSort, MatDialog, MatTableDataSource, MatPaginator } from '@angular/m
 import { MarcaService } from '../marca.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { Marca } from '../../models/marca';
+import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-marca-list',
