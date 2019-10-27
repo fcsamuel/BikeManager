@@ -17,7 +17,7 @@ export class MarcaListComponent implements OnInit {
   public dataSource: any;
 
   @ViewChild(MatPaginator, {static: false}) paginatorCustom: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sortCustom: MatSort;
 
   constructor(private marcaService: MarcaService,
     public router: Router, 
@@ -44,13 +44,14 @@ export class MarcaListComponent implements OnInit {
     },
     error => {
       this.spinner.hide();
+      console.log("Erro no método delete(id: number) - marca-list.component.ts");
     });
   }
 
   deleteConfirmation(id: any) {
     let dialogRef = this.dialog.open(DialogComponent, {
       panelClass: 'custom-dialog',
-      data: 'Confirma a exclusão do registro?',
+      data: 'Deseja realmente excluir o registro?',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(isConfirm => {
@@ -70,6 +71,7 @@ export class MarcaListComponent implements OnInit {
     },
     error => {
       this.spinner.hide();
+      console.log("Erro no método listAll() - marca-list.component.ts");
     });
   }
 
@@ -83,13 +85,14 @@ export class MarcaListComponent implements OnInit {
     },
     error => {
       this.spinner.hide();
+      console.log("Erro no método list(id: number) - marca-list.component.ts");
     });
   }
 
   updateTable(marca: any) {
     this.dataSource = new MatTableDataSource<Marca>(marca);
     this.dataSource.paginator = this.paginatorCustom;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sortCustom;
   }
 
 
