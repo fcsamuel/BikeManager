@@ -37,7 +37,7 @@ export class CategoriaComponent implements OnInit {
         this.categoriaService.save(this.categoria).subscribe( sucesso => {
           if(sucesso != null) {
             this.spinner.hide();
-            this.backward();
+            this.backwards();
           }
         },
         error => {
@@ -53,7 +53,7 @@ export class CategoriaComponent implements OnInit {
       this.categoriaService.update(this.categoria).subscribe( sucesso => {
         if(sucesso != null) {
           this.spinner.hide();
-          this.backward();
+          this.backwards();
         }
       },
       error => {
@@ -61,7 +61,7 @@ export class CategoriaComponent implements OnInit {
       });
     }
   
-    backward() {
+    backwards() {
       this.router.navigate(["../categoria-list"]);
     }
   
