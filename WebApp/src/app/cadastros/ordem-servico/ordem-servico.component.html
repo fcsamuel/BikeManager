@@ -1,14 +1,57 @@
 <div class="row">
-    <div class="col s12 m2 l2">
-      <mat-form-field>
-        <input matInput placeholder="Código" type="number" [(ngModel)]="ordemServico.cdOrdemServico" required>
-      </mat-form-field>
-    </div>
-    <div class="col s12 m2 l2">
+  <div class="col s12 m2 l2">
     <mat-form-field>
-        <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Data de abertura" [(ngModel)]="ordemServico.cdOrdemServico" [formControl]="date" disabled>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+      <input matInput placeholder="Código" type="number" [(ngModel)]="ordemServico.cdOrdemServico" required>
     </mat-form-field>
-    </div>
   </div>
+  <div class="col s12 m2 l2">
+  <mat-form-field>
+      <input matInput [matDatepicker]="dtAbertura" [min]="minDate" placeholder="Data de abertura" [(ngModel)]="ordemServico.dtAbertura" [formControl]="date" disabled>
+      <mat-datepicker-toggle matSuffix [for]="dtAbertura"></mat-datepicker-toggle>
+      <mat-datepicker #dtAbertura></mat-datepicker>
+  </mat-form-field>
+  </div>
+  <div class="col s12 m2 l2">
+    <mat-form-field>
+        <input matInput [matDatepicker]="dtPrevConclusao" [min]="minDate" placeholder="Previsão de conclusão" [(ngModel)]="ordemServico.dtPrevConclusao" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="dtPrevConclusao"></mat-datepicker-toggle>
+        <mat-datepicker #dtPrevConclusao></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m2 l2">
+    <mat-form-field>
+        <input matInput [matDatepicker]="dtConclusao" [min]="minDate" placeholder="Data de conclusão" [(ngModel)]="ordemServico.dtConclusao" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="dtConclusao"></mat-datepicker-toggle>
+        <mat-datepicker #dtConclusao></mat-datepicker>
+    </mat-form-field>
+  </div>   
+</div>
+<div class="row">
+  <div class="col s12 m8 l8">
+    <mat-form-field class="cliente">
+      <input matInput  type="text" placeholder="Escolha um cliente" [(ngModel)]="ordemServico.cdClienteFornecedor" [matAutocomplete]="auto" required>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let element of this.clienteList" [value]="element.dsNomeRazao">
+          {{element.nrCpfCnpj + " - " + element.dsNomeRazao}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m8 l8">
+    <mat-form-field>
+      <input matInput placeholder="Descrição da bicicleta do cliente" type="text" [(ngModel)]="ordemServico.dsBicicleta">
+    </mat-form-field>
+  </div>
+  <div class="col s12 m8 l8">
+    <mat-form-field>
+        <textarea matInput placeholder="Observações" type="text" [(ngModel)]="ordemServico.dsObservacao" matTextareaAutosize matAutosizeMinRows=5></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m2 l2">
+    <mat-form-field>
+      <input matInput placeholder="Valor Total: R$400,00" type="number" [(ngModel)]="ordemServico.vlTotal" disabled>
+    </mat-form-field>
+  </div>
+</div>
