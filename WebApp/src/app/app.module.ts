@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatRadioModule, MatButtonModule, MatTableModule, MatIconModule,
-  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatAutocompleteModule, MatSlideToggleModule } from '@angular/material';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MarcaListComponent } from './cadastros/marca/marca-list/marca-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -18,6 +18,10 @@ import { OrdemServicoComponent } from './cadastros/ordem-servico/ordem-servico.c
 import { DatepickerComponent } from './shared/datepicker/datepicker.component';
 import { CategoriaComponent } from './cadastros/categoria/categoria.component';
 import { CategoriaListComponent } from './cadastros/categoria/categoria-list/categoria-list.component';
+import { ProdutoComponent } from './cadastros/produto/produto.component';
+import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
+import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
+import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { CategoriaListComponent } from './cadastros/categoria/categoria-list/cat
     OrdemServicoComponent,
     DatepickerComponent,
     CategoriaComponent,
-    CategoriaListComponent
+    CategoriaListComponent,
+    ProdutoComponent,
+    ClienteFornecedorComponent,
+    ClienteFornecedorListComponent,
+    ProdutoListComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,11 @@ import { CategoriaListComponent } from './cadastros/categoria/categoria-list/cat
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule
   ],
   providers: [HttpClient, DatePipe],
   entryComponents: [DialogComponent],
