@@ -13,11 +13,11 @@
     </button>
     <mat-table #table [dataSource]="this.dataSource" matSort class="table-striped">
       <ng-container matColumnDef="cdCategoria">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Código</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.cdCategoria}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="dsCategoria">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.dsCategoria}} </mat-cell>
       </ng-container>
       
