@@ -20,7 +20,7 @@ export class MarcaListComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sortCustom: MatSort;
 
   constructor(private marcaService: MarcaService,
-    public router: Router, 
+    public router: Router,
     private dialog: MatDialog,
     public spinner: NgxSpinnerService) { }
 

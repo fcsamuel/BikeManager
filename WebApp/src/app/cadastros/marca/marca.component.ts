@@ -37,7 +37,7 @@ export class MarcaComponent implements OnInit {
       this.marcaService.save(this.marca).subscribe( sucesso => {
         if(sucesso != null) {
           this.spinner.hide();
-          this.backward();
+          this.backwards();
         }
       },
       error => {
@@ -53,7 +53,7 @@ export class MarcaComponent implements OnInit {
     this.marcaService.update(this.marca).subscribe( sucesso => {
       if(sucesso != null) {
         this.spinner.hide();
-        this.backward();
+        this.backwards();
       }
     },
     error => {
@@ -61,7 +61,7 @@ export class MarcaComponent implements OnInit {
     });
   }
 
-  backward() {
+  backwards() {
     this.router.navigate(["../marca-list"]);
   }
 
