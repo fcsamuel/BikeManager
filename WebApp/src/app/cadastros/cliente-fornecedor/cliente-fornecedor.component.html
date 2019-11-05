@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col s12 m2 l2">
+        <mat-form-field>
+            <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor" required>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m4 l4">
+        <mat-form-field>
+            <mat-select placeholder="Tipo de cadastro" name="dsTipo" [(ngModel)]="clienteFornecedor.dsTipo">
+                <mat-option *ngFor="let element of this.tipoList" [value]="element.cdTipo">
+                    {{element.dsTipo}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field> 
+    </div>
+    <!--
+    <div class="col s12 m2 l2">
+        <mat-form-field>
+            <input matInput [matDatepicker]="dtNascimento" [max]="maxDate" placeholder="Data de nascimento" [(ngModel)]="clienteFornecedor.dtNascimento" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dtNascimento"></mat-datepicker-toggle>
+            <mat-datepicker #dtNascimento></mat-datepicker>
+        </mat-form-field>
+    </div>  
+    -->
+</div>
+<div class="row">
+    <div class="col s12 m10 l10">
+        <mat-form-field>
+            <input matInput placeholder="CPF/CNPJ" type="text" [(ngModel)]="clienteFornecedor.nrCpfCnpj" required>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m10 l10">
+        <mat-form-field>
+            <input matInput placeholder="Nome/Razão Social" type="text" [(ngModel)]="clienteFornecedor.dsNomeRazao" required>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m10 l10">
+        <mat-form-field>
+            <input matInput placeholder="Nome Fantasia" type="text" [(ngModel)]="clienteFornecedor.dsFantasia" required>
+        </mat-form-field>
+    </div>
+</div>
+<!--#region BOTOES-->
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="row footer-btn">
+            <div class="button-row col s12">
+                <button mat-raised-button color="grey" (click)="this.backward()">Voltar</button>
+                <button mat-raised-button color="blue" (click)="this.save()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#endregion-->
