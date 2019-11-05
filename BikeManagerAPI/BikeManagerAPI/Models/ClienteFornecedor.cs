@@ -17,6 +17,7 @@ namespace BikeManagerAPI.Models
         public string DsNomeRazao { get; set; }
         public string DsFantasia { get; set; }
         public string NrCpfCnpj { get; set; }
+        public string DsTipo { get; set; }
         public bool? FgAtivo { get; set; }
         public DateTime? DtNascimento { get; set; }
         public DateTime DtRegistro { get; set; }

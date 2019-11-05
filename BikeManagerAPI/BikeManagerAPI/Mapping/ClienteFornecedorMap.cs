@@ -50,6 +50,11 @@ namespace BikeManagerAPI.Mapping
                 .IsRequired()
                 .HasColumnName("nr_cpfcnpj")
                 .HasMaxLength(20);
+            entity.Property(e => e.DsTipo)
+                .IsRequired()
+                .HasColumnName("ds_tipo")
+                .HasMaxLength(2);
+
         }
     }
 }

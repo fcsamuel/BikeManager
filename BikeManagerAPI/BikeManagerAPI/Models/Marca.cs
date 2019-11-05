@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -8,13 +9,14 @@ namespace BikeManagerAPI.Models
         public Marca()
         {
             Produto = new HashSet<Produto>();
+
         }
 
         public int CdMarca { get; set; }
         public string DsMarca { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
+        [JsonIgnore]
         public ICollection<Produto> Produto { get; set; }
     }
 }
