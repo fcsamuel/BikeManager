@@ -7,6 +7,8 @@ import { OrdemServicoComponent } from './cadastros/ordem-servico/ordem-servico.c
 import { CategoriaComponent } from './cadastros/categoria/categoria.component';
 import { CategoriaListComponent } from './cadastros/categoria/categoria-list/categoria-list.component';
 import { ProdutoComponent } from './cadastros/produto/produto.component';
+import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
+import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
   {path: 'categoria-list', component: CategoriaListComponent},
   {path: 'categoria-edit/:id', component: CategoriaComponent},
   {path: 'produto', component: ProdutoComponent},
+  {path: 'produto-list', component: ProdutoListComponent},
+  {path: 'clientefornecedor', component: ClienteFornecedorComponent},
   {path: 'ordemservico', component: OrdemServicoComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

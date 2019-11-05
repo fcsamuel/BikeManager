@@ -22,6 +22,8 @@ import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
 import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
 import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
+import { ContatoComponent } from './cadastros/contato/contato.component';
+import { EnderecoComponent } from './cadastros/endereco/endereco.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-l
     ProdutoComponent,
     ClienteFornecedorComponent,
     ClienteFornecedorListComponent,
-    ProdutoListComponent
+    ProdutoListComponent,
+    ContatoComponent,
+    EnderecoComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,11 @@ import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-l
     MatAutocompleteModule,
     MatSlideToggleModule
   ],
-  providers: [HttpClient, DatePipe],
+  providers: [
+    HttpClient,
+    DatePipe,
+    DialogComponent
+  ],
   entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
