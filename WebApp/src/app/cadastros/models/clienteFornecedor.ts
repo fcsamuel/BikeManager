@@ -10,6 +10,7 @@ export class ClienteFornecedor {
     dtNascimento: Date;
     enderecoList: Array<Endereco>;
     contatoList: Array<Contato>;
+    fgTipo: string;
     dtRegistro: Date;
     dtAlteracao: Date;
 }
