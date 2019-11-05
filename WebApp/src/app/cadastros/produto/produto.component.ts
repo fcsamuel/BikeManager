@@ -115,5 +115,4 @@ export class ProdutoComponent implements OnInit {
         this.spinner.hide();
       })
     }
-
 }

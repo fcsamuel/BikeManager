@@ -1,0 +1,60 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+ <p style="font-size: 20px; color: white">Carregando...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col s12 m12 l12">
+    <button mat-icon-button>
+        <mat-icon (click)="this.callNew()">add_circle_outline</mat-icon>
+    </button>
+    <mat-table #table [dataSource]="this.dataSource" matSort class="table-striped">
+      <ng-container matColumnDef="cdProduto">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Código</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cdProduto}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dsProduto">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dsProduto}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dsModelo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dsModelo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dsMarca">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Marca</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cdMarcaNavigation.dsMarca}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dsCategoria">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cdCategoriaNavigation.dsCategoria}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dsInfAdicionais">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Inf. Adicionais</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dsInfAdicionais}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dtRegistro">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Registro</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{datePipe.transform(element.dtRegistro, 'dd/MM/yyyy')}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="editColumn">
+        <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button>
+            <mat-icon (click)="this.callUpdate(element.cdProduto)">edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon (click)="this.deleteConfirmation(element.cdProduto)">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      
+      <mat-header-row *matHeaderRowDef="this.displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: this.displayedColumns;"></mat-row>
+    </mat-table>  
+    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>  
+  </div>
+</div>
