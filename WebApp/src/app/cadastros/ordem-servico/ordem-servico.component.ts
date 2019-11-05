@@ -42,8 +42,7 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   backwards() {
-
-
+    this.router.navigate(["../ordem-servico-list"]);
   }
 
   getById(id: any) {
