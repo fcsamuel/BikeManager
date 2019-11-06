@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { DatePipe } from '@angular/common';
-import { Constants } from '../../models/constants';
 import { MarcaService } from '../../marca/marca.service';
 import { Marca } from '../../models/marca';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-produto-list',

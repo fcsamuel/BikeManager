@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatRadioModule, MatButtonModule, MatTableModule, MatIconModule,
-  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatAutocompleteModule, MatSlideToggleModule } from '@angular/material';
+  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatAutocompleteModule, MatSlideToggleModule, MatAccordion } from '@angular/material';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MarcaListComponent } from './cadastros/marca/marca-list/marca-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -24,6 +24,8 @@ import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/c
 import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
 import { ContatoComponent } from './cadastros/contato/contato.component';
 import { EnderecoComponent } from './cadastros/endereco/endereco.component';
+import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.component';
+import { MunicipioComponent } from './cadastros/municipio/municipio.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { EnderecoComponent } from './cadastros/endereco/endereco.component';
     ClienteFornecedorListComponent,
     ProdutoListComponent,
     ContatoComponent,
-    EnderecoComponent
+    EnderecoComponent,
+    NotaEntradaComponent,
+    MunicipioComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,7 @@ import { EnderecoComponent } from './cadastros/endereco/endereco.component';
     MatCheckboxModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatSlideToggleModule
+    MatSlideToggleModule  
   ],
   providers: [
     HttpClient,

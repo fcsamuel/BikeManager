@@ -9,6 +9,7 @@ export class Endereco {
     nrCep: string;
     dsRua: string;
     nrNumero: string;
+    dsBairro: string;
     dsReferencia: string;
     dsComplemento: string;
     dtRegistro: Date;

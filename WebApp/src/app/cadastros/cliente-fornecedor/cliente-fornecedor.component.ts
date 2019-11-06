@@ -7,6 +7,7 @@ import { ClienteFornecedor } from '../models/clienteFornecedor';
 import { Endereco } from '../models/endereco';
 import { Contato } from '../models/contato';
 import { Tipo } from '../models/tipo';
+import { Municipio } from '../models/municipio';
 
 @Component({
   selector: 'app-cliente-fornecedor',
@@ -15,10 +16,12 @@ import { Tipo } from '../models/tipo';
 })
 export class ClienteFornecedorComponent implements OnInit {
 
-  displayedColumns: string[] = ["cdClienteFornecedor", "nrCpfCnpj", "dsNomeRazao", "dsFantasia" /*,"dsContato"*/];
+  displayedColumns: string[] = ["cdClienteFornecedor", "nrCpfCnpj", "dsNomeRazao", "dsFantasia"];
   public dataSource: any;
   clienteFornecedor: ClienteFornecedor;
-  enderecoList: Array<Endereco> = new Array<Endereco>();;
+  endereco: Endereco;
+  enderecoList: Array<Endereco> = new Array<Endereco>();
+  municipioList: Array<Municipio> = new Array<Municipio>();
   contatoList: Array<Contato> = new Array<Contato>();
   tipoList: Array<Tipo> = new Array<Tipo>();
   edit: boolean;
@@ -26,15 +29,18 @@ export class ClienteFornecedorComponent implements OnInit {
   tipo: string;
 
   constructor(private clienteFornecedorService: ClienteFornecedorService,
+    private municipioService: MunicipioService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.clienteFornecedor = new ClienteFornecedor();
+    this.endereco = new Endereco();
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
+    this.load
     this.activatedRoute.params.subscribe(
       params => {
         if(params.id != undefined) {
@@ -93,14 +99,19 @@ export class ClienteFornecedorComponent implements OnInit {
   fill(clienteFornecedor: any) {
     this.clienteFornecedor = clienteFornecedor;
   }
-  
-  /*getTipo(tipo: string) {
-	if (tipo == "Cliente") {
-		this.produto.tipo = "C";
-	} else if (tipo == "Fornecedor") {
-		this.produto.tipo = "F";
-	} else {
-		this.produto.tipo = "CF";
-	}
-  }*/
+
+  loadClienteList() {
+    this.spinner.show();
+    this.clienteService.listAll().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.clienteList = sucesso;
+        this.spinner.hide();  
+        console.log(this.clienteList.length);
+      }
+    },
+    error => {
+      this.spinner.hide();
+    });
+  }
+
 }

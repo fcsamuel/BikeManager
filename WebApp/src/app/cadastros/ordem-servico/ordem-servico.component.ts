@@ -70,7 +70,7 @@ export class OrdemServicoComponent implements OnInit {
     },
     error => {
       this.spinner.hide();
-    })
+    });
   }
 
 }

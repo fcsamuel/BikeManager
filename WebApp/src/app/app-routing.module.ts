@@ -14,7 +14,7 @@ import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/clien
 const routes: Routes = [
   {path: 'marca', component: MarcaComponent},
   {path: 'marca-list', component: MarcaListComponent},
-  {path: 'marca-edit/:id', component: MarcaListComponent},
+  {path: 'marca-edit/:id', component: MarcaComponent},
   {path: 'categoria', component: CategoriaComponent},
   {path: 'categoria-list', component: CategoriaListComponent},
   {path: 'categoria-edit/:id', component: CategoriaComponent},
