@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -12,11 +13,11 @@ namespace BikeManagerAPI.Models
         public string NrCep { get; set; }
         public string DsRua { get; set; }
         public string NrNumero { get; set; }
+        public string DsBairro { get; set; }
         public string DsReferencia { get; set; }
         public string DsComplemento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
         public Municipio Cd { get; set; }
         public ClienteFornecedor CdClienteFornecedorNavigation { get; set; }
     }

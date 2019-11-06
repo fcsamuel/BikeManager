@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -22,10 +23,11 @@ namespace BikeManagerAPI.Models
         public decimal VlTotal { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
         public ClienteFornecedor CdClienteFornecedorNavigation { get; set; }
         public Conta CdContaNavigation { get; set; }
+        [JsonIgnore]
         public ICollection<Estoque> Estoque { get; set; }
+        [JsonIgnore]
         public ICollection<ItemNotaEntrada> ItemNotaEntrada { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Municipio> GetMunicipio()
         {
-            return _context.Municipio;
+            return _context.Municipio.Include(e => e.CdEstadoNavigation).AsNoTracking();
         }
 
         // GET: api/Municipio/5

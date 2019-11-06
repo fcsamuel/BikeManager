@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -19,7 +20,9 @@ namespace BikeManagerAPI.Models
         public DateTime? DtAlteracao { get; set; }
 
         public Produto CdProdutoNavigation { get; set; }
+        [JsonIgnore]
         public ICollection<ItemOrcamento> ItemOrcamento { get; set; }
+        [JsonIgnore]
         public ICollection<ItemOrdemServico> ItemOrdemServico { get; set; }
     }
 }

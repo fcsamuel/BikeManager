@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -15,7 +16,6 @@ namespace BikeManagerAPI.Models
         public decimal? NrMaximo { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
         public NotaEntrada CdNotaEntradaNavigation { get; set; }
         public OrdemServico CdOrdemServicoNavigation { get; set; }
     }

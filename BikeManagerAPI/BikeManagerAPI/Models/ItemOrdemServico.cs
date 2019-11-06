@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BikeManagerAPI.Models
@@ -14,7 +15,6 @@ namespace BikeManagerAPI.Models
         public string DsObservacao { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
         public OrdemServico CdOrdemServicoNavigation { get; set; }
         public Produto CdProdutoNavigation { get; set; }
         public TabelaPreco CdTabelaPrecoNavigation { get; set; }

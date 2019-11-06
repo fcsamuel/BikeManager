@@ -34,6 +34,10 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("ds_referencia")
                 .HasMaxLength(28);
 
+            entity.Property(e => e.DsBairro)
+                .HasColumnName("ds_bairro")
+                .HasMaxLength(28);
+
             entity.Property(e => e.DsRua)
                 .IsRequired()
                 .HasColumnName("ds_rua")
