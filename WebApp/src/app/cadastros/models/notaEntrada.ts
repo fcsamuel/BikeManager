@@ -1,9 +1,12 @@
 import { Conta } from "./conta";
 import { ClienteFornecedor } from "./clienteFornecedor";
+import { ItemNotaEntrada } from "./itemNotaEntrada";
 
 export class NotaEntrada {
     cdNotaEntrada: number;
+    cdConta: number;
     conta: Conta;
+    cdClienteFornecedor: number;
     clienteFornecedor: ClienteFornecedor;
     nrNota: string;
     nrSerie: string;
@@ -13,4 +16,5 @@ export class NotaEntrada {
     vlTotal: number;
     dtRegistro: Date;
     dtAlteracao: Date;
+    itemList: Array<ItemNotaEntrada>;
 }

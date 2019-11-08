@@ -1,5 +1,6 @@
 import { Marca } from "./marca";
 import { Categoria } from "./categoria";
+import { Estoque } from "./estoque";
 
 export class Produto {
     cdProduto: number;
@@ -7,9 +8,13 @@ export class Produto {
     dsModelo: string;
     dsInfAdicionais: string;
     fgAtivo: boolean;
+    fgTipo: string;
     fgBicicleta: boolean;
+    cdMarca: number;
     marca: Marca;
+    cdCategoria: number;
     categoria: Categoria;
     dtRegistro: Date;
     dtAlteracao: Date;
+    estoqueList: Array<Estoque>;
 }

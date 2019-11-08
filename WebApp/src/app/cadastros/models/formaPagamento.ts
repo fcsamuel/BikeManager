@@ -1,6 +1,6 @@
 export class FormaPagamento {
     cdFormaPagamento: number;
     dsFormaPagamento: string;
-    dtCadastro: Date;
+    dtRegistro: Date;
     dtAlteracao: Date;
 }

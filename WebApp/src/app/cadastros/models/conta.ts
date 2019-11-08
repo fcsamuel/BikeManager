@@ -1,5 +1,6 @@
 import { OrdemServico } from "./ordemServico";
 import { Pagamento } from "./pagamento";
+import { NotaEntrada } from "./notaEntrada";
 
 export class Conta {
     cdConta: number;
@@ -11,5 +12,5 @@ export class Conta {
     fgPago: boolean;
     pagamentoList: Array<Pagamento>;
     ordemServico: OrdemServico;
-    //notaEntrada: NotaEntrada;
+    notaEntrada: NotaEntrada;
 }

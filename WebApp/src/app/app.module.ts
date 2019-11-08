@@ -25,7 +25,6 @@ import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-l
 import { ContatoComponent } from './cadastros/contato/contato.component';
 import { EnderecoComponent } from './cadastros/endereco/endereco.component';
 import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.component';
-import { MunicipioComponent } from './cadastros/municipio/municipio.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +43,7 @@ import { MunicipioComponent } from './cadastros/municipio/municipio.component';
     ProdutoListComponent,
     ContatoComponent,
     EnderecoComponent,
-    NotaEntradaComponent,
-    MunicipioComponent
+    NotaEntradaComponent
   ],
   imports: [
     BrowserModule,

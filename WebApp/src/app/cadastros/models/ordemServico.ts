@@ -1,10 +1,13 @@
 import { Conta } from "./conta";
 import { ClienteFornecedor } from "./clienteFornecedor";
+import { ItemOrdemServico } from "./itemOrdemServico";
 
 export class OrdemServico {
     cdOrdemServico: number;
     dsOrdemServico: string;
+    cdConta: number;
     conta: Conta;
+    cdClienteFornecedor: number;
     clienteFornecedor: ClienteFornecedor; 
     dsBicicleta: string;
     vlTotal: number;
@@ -14,5 +17,5 @@ export class OrdemServico {
     dsObservacao: Date;
     dtRegistro: Date;
     dtAlteracao: Date;
-    //itensList: Array<ItemOrdemServico>;
+    itemList: Array<ItemOrdemServico>;
 }

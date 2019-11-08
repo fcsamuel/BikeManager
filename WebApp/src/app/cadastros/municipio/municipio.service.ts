@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../../shared/base.service';
 import { environment } from '../../../environments/environment';
+import 'rxjs/add/operator/catch';
 
 @Injectable({
   providedIn: 'root'

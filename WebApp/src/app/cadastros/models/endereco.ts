@@ -6,6 +6,9 @@ export class Endereco {
     cdEndereco: number;
     municipio: Municipio;
     clienteFornecedor: ClienteFornecedor;
+    cdClienteFornecedor: number;
+    cdMunicipio: number;
+    cdEstado: number;
     nrCep: string;
     dsRua: string;
     nrNumero: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClienteFornecedorService } from './cliente-fornecedor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
@@ -8,6 +8,8 @@ import { Endereco } from '../models/endereco';
 import { Contato } from '../models/contato';
 import { Tipo } from '../models/tipo';
 import { Municipio } from '../models/municipio';
+import { MunicipioService } from '../municipio/municipio.service';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-cliente-fornecedor',
@@ -16,17 +18,29 @@ import { Municipio } from '../models/municipio';
 })
 export class ClienteFornecedorComponent implements OnInit {
 
-  displayedColumns: string[] = ["cdClienteFornecedor", "nrCpfCnpj", "dsNomeRazao", "dsFantasia"];
-  public dataSource: any;
+  displayedColumns: string[] = ["nrCep", "dsRua", "nrNumero", "dsBairro", "dsComplemento", "dsMunicipio"];
+  public enderecoDataSource: any;
+  public contatoDataSource: any;
+
   clienteFornecedor: ClienteFornecedor;
   endereco: Endereco;
+  contato: Contato;
+
   enderecoList: Array<Endereco> = new Array<Endereco>();
   municipioList: Array<Municipio> = new Array<Municipio>();
   contatoList: Array<Contato> = new Array<Contato>();
   tipoList: Array<Tipo> = new Array<Tipo>();
+
+  
   edit: boolean;
+  editEndereco: boolean;
+  editContato: boolean;
+
   maxDate = new Date();
   tipo: string;
+
+  @ViewChild(MatPaginator, {static: false}) paginatorCustom: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sortCustom: MatSort;
 
   constructor(private clienteFornecedorService: ClienteFornecedorService,
     private municipioService: MunicipioService,
@@ -40,7 +54,7 @@ export class ClienteFornecedorComponent implements OnInit {
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
-    this.load
+    this.loadMunicipioList();
     this.activatedRoute.params.subscribe(
       params => {
         if(params.id != undefined) {
@@ -100,18 +114,41 @@ export class ClienteFornecedorComponent implements OnInit {
     this.clienteFornecedor = clienteFornecedor;
   }
 
-  loadClienteList() {
+  loadMunicipioList() {
     this.spinner.show();
-    this.clienteService.listAll().subscribe(sucesso => {
+    this.municipioService.listAll().subscribe(sucesso => {
       if (sucesso != null) {
-        this.clienteList = sucesso;
+        this.municipioList = sucesso;
         this.spinner.hide();  
-        console.log(this.clienteList.length);
+        console.log(this.municipioList);
       }
     },
     error => {
       this.spinner.hide();
     });
   }
+
+  addEndereco() {
+    this.enderecoList.push(this.endereco);
+    console.log(this.enderecoList);
+  }
+
+  setMunicipio(municipio: any) {
+    this.endereco.municipio = municipio;
+    console.log(this.endereco);
+  }
+
+  updateEnderecoTable(endereco: any) {
+    this.enderecoDataSource = new MatTableDataSource<Endereco>(endereco);
+    this.enderecoDataSource.paginator = this.paginatorCustom;
+    this.enderecoDataSource.sort = this.sortCustom;
+  }
+
+  updateContatoTable(contato: any) {
+    this.contatoDataSource = new MatTableDataSource<Endereco>(contato);
+    this.contatoDataSource.paginator = this.paginatorCustom;
+    this.contatoDataSource.sort = this.sortCustom;
+  }
+
 
 }
