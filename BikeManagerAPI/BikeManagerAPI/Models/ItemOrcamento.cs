@@ -14,8 +14,8 @@ namespace BikeManagerAPI.Models
         public int QtProduto { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public Orcamento CdOrcamentoNavigation { get; set; }
-        public Produto CdProdutoNavigation { get; set; }
-        public TabelaPreco CdTabelaPrecoNavigation { get; set; }
+        public Orcamento Orcamento { get; set; }
+        public Produto Produto { get; set; }
+        public TabelaPreco TabelaPreco { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace BikeManagerAPI.Models
         public decimal? NrMaximo { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public NotaEntrada CdNotaEntradaNavigation { get; set; }
-        public OrdemServico CdOrdemServicoNavigation { get; set; }
+        public NotaEntrada NotaEntrada { get; set; }
+        public OrdemServico OrdemServico { get; set; }
     }
 }

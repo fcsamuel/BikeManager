@@ -23,8 +23,8 @@ namespace BikeManagerAPI.Models
         public decimal VlTotal { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public ClienteFornecedor CdClienteFornecedorNavigation { get; set; }
-        public Conta CdContaNavigation { get; set; }
+        public ClienteFornecedor ClienteFornecedor { get; set; }
+        public Conta Conta { get; set; }
         [JsonIgnore]
         public ICollection<Estoque> Estoque { get; set; }
         [JsonIgnore]

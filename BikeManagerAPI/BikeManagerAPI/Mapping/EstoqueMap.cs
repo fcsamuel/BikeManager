@@ -49,13 +49,13 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("tp_lancamento")
                 .HasMaxLength(2);
 
-            entity.HasOne(d => d.CdNotaEntradaNavigation)
+            entity.HasOne(d => d.NotaEntrada)
                 .WithMany(p => p.Estoque)
                 .HasForeignKey(d => d.CdNotaEntrada)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("estoque_cd_notaentrada_fkey");
 
-            entity.HasOne(d => d.CdOrdemServicoNavigation)
+            entity.HasOne(d => d.OrdemServico)
                 .WithMany(p => p.Estoque)
                 .HasForeignKey(d => d.CdOrdemServico)
                 .HasConstraintName("estoque_cd_ordemservico_fkey");

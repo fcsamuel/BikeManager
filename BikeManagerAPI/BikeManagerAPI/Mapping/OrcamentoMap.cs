@@ -54,7 +54,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_total")
                 .HasColumnType("numeric(15,2)");
 
-            entity.HasOne(d => d.CdClienteFornecedorNavigation)
+            entity.HasOne(d => d.ClienteFornecedor)
                 .WithMany(p => p.Orcamento)
                 .HasForeignKey(d => d.CdClienteFornecedor)
                 .OnDelete(DeleteBehavior.ClientSetNull)

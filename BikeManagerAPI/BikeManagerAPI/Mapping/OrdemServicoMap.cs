@@ -56,7 +56,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("dt_alteracao")
                 .HasColumnType("date");
 
-            entity.HasOne(d => d.CdContaNavigation)
+            entity.HasOne(d => d.Conta)
                 .WithMany(p => p.OrdemServico)
                 .HasForeignKey(d => d.CdConta)
                 .OnDelete(DeleteBehavior.ClientSetNull)

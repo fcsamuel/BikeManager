@@ -12,7 +12,7 @@ namespace BikeManagerAPI.Models
         public DateTime DtPagamento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public Conta CdContaNavigation { get; set; }
-        public FormaPagamento CdFormaPagamentoNavigation { get; set; }
+        public Conta Conta { get; set; }
+        public FormaPagamento FormaPagamento { get; set; }
     }
 }

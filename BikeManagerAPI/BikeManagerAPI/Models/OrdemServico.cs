@@ -23,7 +23,7 @@ namespace BikeManagerAPI.Models
         public string DsObservacao { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime DtAlteracao { get; set; }
-        public Conta CdContaNavigation { get; set; }
+        public Conta Conta { get; set; }
         [JsonIgnore]
         public ICollection<Estoque> Estoque { get; set; }
         [JsonIgnore]

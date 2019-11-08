@@ -60,12 +60,12 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("nr_numero")
                 .HasMaxLength(10);
 
-            entity.HasOne(d => d.CdClienteFornecedorNavigation)
+            entity.HasOne(d => d.ClienteFornecedor)
                 .WithMany(p => p.Endereco)
                 .HasForeignKey(d => d.CdClienteFornecedor)
                 .HasConstraintName("endereco_cd_clientefornecedor_fkey");
 
-            entity.HasOne(d => d.Cd)
+            entity.HasOne(d => d.Municipio)
                 .WithMany(p => p.Endereco)
                 .HasForeignKey(d => new { d.CdMunicipio, d.CdEstado })
                 .OnDelete(DeleteBehavior.ClientSetNull)

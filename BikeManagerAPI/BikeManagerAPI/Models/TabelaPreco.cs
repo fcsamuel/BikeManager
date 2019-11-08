@@ -19,7 +19,7 @@ namespace BikeManagerAPI.Models
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
 
-        public Produto CdProdutoNavigation { get; set; }
+        public Produto Produto { get; set; }
         [JsonIgnore]
         public ICollection<ItemOrcamento> ItemOrcamento { get; set; }
         [JsonIgnore]

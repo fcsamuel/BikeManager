@@ -18,7 +18,7 @@ namespace BikeManagerAPI.Models
         public string DsComplemento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public Municipio Cd { get; set; }
-        public ClienteFornecedor CdClienteFornecedorNavigation { get; set; }
+        public Municipio Municipio { get; set; }
+        public ClienteFornecedor ClienteFornecedor { get; set; }
     }
 }

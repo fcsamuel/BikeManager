@@ -40,19 +40,19 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_unitario")
                 .HasColumnType("numeric(15,2)");
 
-            entity.HasOne(d => d.CdOrcamentoNavigation)
+            entity.HasOne(d => d.Orcamento)
                 .WithMany(p => p.ItemOrcamento)
                 .HasForeignKey(d => d.CdOrcamento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("produtoorcamento_cd_orcamento_fkey");
 
-            entity.HasOne(d => d.CdProdutoNavigation)
+            entity.HasOne(d => d.Produto)
                 .WithMany(p => p.ItemOrcamento)
                 .HasForeignKey(d => d.CdProduto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("produtoorcamento_cd_produto_fkey");
 
-            entity.HasOne(d => d.CdTabelaPrecoNavigation)
+            entity.HasOne(d => d.TabelaPreco)
                 .WithMany(p => p.ItemOrcamento)
                 .HasForeignKey(d => d.CdTabelaPreco)
                 .OnDelete(DeleteBehavior.ClientSetNull)

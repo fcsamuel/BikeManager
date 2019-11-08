@@ -36,13 +36,13 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_pago")
                 .HasColumnType("numeric(15,2)");
 
-            entity.HasOne(d => d.CdContaNavigation)
+            entity.HasOne(d => d.Conta)
                 .WithMany(p => p.Pagamento)
                 .HasForeignKey(d => d.CdConta)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pagamento_cd_conta_fkey");
 
-            entity.HasOne(d => d.CdFormaPagamentoNavigation)
+            entity.HasOne(d => d.FormaPagamento)
                 .WithMany(p => p.Pagamento)
                 .HasForeignKey(d => d.CdFormapagamento)
                 .OnDelete(DeleteBehavior.ClientSetNull)

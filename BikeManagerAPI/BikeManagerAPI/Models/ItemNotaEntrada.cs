@@ -13,7 +13,7 @@ namespace BikeManagerAPI.Models
         public decimal VlCusto { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public NotaEntrada CdNotaEntradaNavigation { get; set; }
-        public Produto CdProdutoNavigation { get; set; }
+        public NotaEntrada NotaEntrada { get; set; }
+        public Produto Produto { get; set; }
     }
 }

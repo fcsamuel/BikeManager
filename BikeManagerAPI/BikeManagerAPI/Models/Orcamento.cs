@@ -21,7 +21,7 @@ namespace BikeManagerAPI.Models
         public DateTime? DtAlteracao { get; set; }
         public string DsBicicleta { get; set; }
         public decimal VlTotal { get; set; }
-        public ClienteFornecedor CdClienteFornecedorNavigation { get; set; }
+        public ClienteFornecedor ClienteFornecedor { get; set; }
         [JsonIgnore]
         public ICollection<ItemOrcamento> ItemOrcamento { get; set; }
     }

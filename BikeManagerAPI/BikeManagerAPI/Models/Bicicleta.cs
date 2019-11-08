@@ -13,6 +13,6 @@ namespace BikeManagerAPI.Models
         public decimal VlTotal { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        public Produto CdProdutoNavigation { get; set; }
+        public Produto Produto { get; set; }
     }
 }

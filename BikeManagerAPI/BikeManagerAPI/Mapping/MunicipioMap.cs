@@ -33,7 +33,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("dt_registro")
                 .HasColumnType("date");
 
-            entity.HasOne(d => d.CdEstadoNavigation)
+            entity.HasOne(d => d.Estado)
                 .WithMany(p => p.Municipio)
                 .HasForeignKey(d => d.CdEstado)
                 .OnDelete(DeleteBehavior.ClientSetNull)

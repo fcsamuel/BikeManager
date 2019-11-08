@@ -42,7 +42,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("nr_numero")
                 .HasMaxLength(14);
 
-            entity.HasOne(d => d.CdClienteFornecedorNavigation)
+            entity.HasOne(d => d.ClienteFornecedor)
                 .WithMany(p => p.Contato)
                 .HasForeignKey(d => d.CdClienteFornecedor)
                 .OnDelete(DeleteBehavior.ClientSetNull)

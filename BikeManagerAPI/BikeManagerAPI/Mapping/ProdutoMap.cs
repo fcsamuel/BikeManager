@@ -49,14 +49,18 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("fg_ativo")
                 .HasDefaultValueSql("true");
 
+            entity.Property(e => e.FgAtivo)
+                .HasColumnName("fg_tipo")
+                .HasMaxLength(1);
+
             entity.Property(e => e.FgBicicleta).HasColumnName("fg_bicicleta");
 
-            entity.HasOne(d => d.CdCategoriaNavigation)
+            entity.HasOne(d => d.Categoria)
                 .WithMany(p => p.Produto)
                 .HasForeignKey(d => d.CdCategoria)
                 .HasConstraintName("produto_cd_categoria_fkey");
 
-            entity.HasOne(d => d.CdMarcaNavigation)
+            entity.HasOne(d => d.Marca)
                 .WithMany(p => p.Produto)
                 .HasForeignKey(d => d.CdMarca)
                 .HasConstraintName("produto_cd_marca_fkey");

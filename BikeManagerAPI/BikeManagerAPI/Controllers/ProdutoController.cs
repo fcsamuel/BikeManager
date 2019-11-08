@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Produto> GetProduto()
         {
-            return _context.Produto.Include(p => p.CdMarcaNavigation).Include(c => c.CdCategoriaNavigation).AsNoTracking();
+            return _context.Produto.Include(p => p.Marca).Include(c => c.Categoria).AsNoTracking();
         }
 
         // GET: api/Produto/5
