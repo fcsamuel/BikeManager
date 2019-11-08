@@ -51,6 +51,7 @@ export class ClienteFornecedorComponent implements OnInit {
   ngOnInit() {
     this.clienteFornecedor = new ClienteFornecedor();
     this.endereco = new Endereco();
+    this.enderecoList = new Array<Endereco>();
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
@@ -65,13 +66,13 @@ export class ClienteFornecedorComponent implements OnInit {
     );
   }
 
-  save() {
+  save(object: any, edit: any, service: any) {
     this.spinner.show();
-    if(!this.edit) {
-      this.clienteFornecedorService.save(this.clienteFornecedor).subscribe(sucesso => {
+    if(!edit) {
+      service.save(object).subscribe(sucesso => {
         if(sucesso != null) {
           this.spinner.hide();
-          this.backwards();
+          //this.backwards();
         }
       },
       error => {
@@ -79,7 +80,7 @@ export class ClienteFornecedorComponent implements OnInit {
       });
     }else {
       this.update();
-      this.router.navigate(["../cliente-list"]);
+      //this.backwards();
     }
   }
   
@@ -130,7 +131,16 @@ export class ClienteFornecedorComponent implements OnInit {
 
   addEndereco() {
     this.enderecoList.push(this.endereco);
-    console.log(this.enderecoList);
+    this.listAllEnderecos();
+  }
+
+  removerEndereco(id: any) {
+    var posicao = this.enderecoList.indexOf(id);
+    this.enderecoList.splice(posicao, 1);
+  }
+
+  listAllEnderecos() {
+    this.updateEnderecoTable(this.enderecoList);
   }
 
   setMunicipio(municipio: any) {
