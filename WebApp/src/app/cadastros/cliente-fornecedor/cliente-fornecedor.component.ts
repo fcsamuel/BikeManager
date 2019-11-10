@@ -9,7 +9,9 @@ import { Contato } from '../models/contato';
 import { Tipo } from '../models/tipo';
 import { Municipio } from '../models/municipio';
 import { MunicipioService } from '../municipio/municipio.service';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { EnderecoService } from '../endereco/endereco.service';
+import { ContatoService } from '../contato/contato.service';
 
 @Component({
   selector: 'app-cliente-fornecedor',
@@ -18,7 +20,9 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class ClienteFornecedorComponent implements OnInit {
 
-  displayedColumns: string[] = ["nrCep", "dsRua", "nrNumero", "dsBairro", "dsComplemento", "dsMunicipio"];
+  enderecoColumns: string[] = ["nrCep", "dsRua", "nrNumero", "dsBairro", "dsComplemento", "dsMunicipio", "editColumn"];
+  contatoColumns: string[] = ["dsContato", "nrNumero", "dsEmail", "editColumn"];
+
   public enderecoDataSource: any;
   public contatoDataSource: any;
 
@@ -26,12 +30,9 @@ export class ClienteFornecedorComponent implements OnInit {
   endereco: Endereco;
   contato: Contato;
 
-  enderecoList: Array<Endereco> = new Array<Endereco>();
   municipioList: Array<Municipio> = new Array<Municipio>();
-  contatoList: Array<Contato> = new Array<Contato>();
   tipoList: Array<Tipo> = new Array<Tipo>();
 
-  
   edit: boolean;
   editEndereco: boolean;
   editContato: boolean;
@@ -42,16 +43,21 @@ export class ClienteFornecedorComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginatorCustom: MatPaginator;
   @ViewChild(MatSort, {static: false}) sortCustom: MatSort;
 
-  constructor(private clienteFornecedorService: ClienteFornecedorService,
+  constructor(  private clienteFornecedorService: ClienteFornecedorService,
+    private enderecoService: EnderecoService,
+    private contatoService: ContatoService,
     private municipioService: MunicipioService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.clienteFornecedor = new ClienteFornecedor();
     this.endereco = new Endereco();
-    this.enderecoList = new Array<Endereco>();
+    this.contato = new Contato();
+    this.clienteFornecedor.enderecoList = new Array<Endereco>();
+    this.clienteFornecedor.contatoList = new Array<Contato>();
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
@@ -59,20 +65,45 @@ export class ClienteFornecedorComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         if(params.id != undefined) {
-          this.getById(params.id);
+          this.getByIdClienteFornecedor(params.id);
           this.edit = true;
         }
       }
     );
   }
 
-  save(object: any, edit: any, service: any) {
+  save() {
     this.spinner.show();
-    if(!edit) {
-      service.save(object).subscribe(sucesso => {
+    if(!this.edit) {
+      this.clienteFornecedorService.save(this.clienteFornecedor).subscribe(sucesso => {
         if(sucesso != null) {
           this.spinner.hide();
-          //this.backwards();
+          this.backwards();
+          /*for (let element of this.clienteFornecedor.enderecoList) {
+            this.enderecoService.save(element).subscribe(sucesso => {
+              if (sucesso != null) {
+                this.spinner.hide();
+                this.backwards();
+              }
+            }, error => {
+              this.spinner.hide();
+              console.log("Erro ao salvar endereço");
+              console.log(this.clienteFornecedor);
+            });
+          }*/
+          for (let element of this.clienteFornecedor.contatoList) {
+            this.contatoService.save(element).subscribe(sucesso => {
+              if (sucesso != null) {
+                this.spinner.hide();
+                this.backwards();
+              }
+            }, error => {
+              this.spinner.hide();
+              console.log("Erro ao salvar contato");
+              console.log(this.clienteFornecedor);
+            });
+          }
+          //this.contatoService.save(this.clienteFornecedor.contatoList);
         }
       },
       error => {
@@ -100,7 +131,7 @@ export class ClienteFornecedorComponent implements OnInit {
     this.router.navigate(["../cliente-list"]);
   }
 
-  getById(id: any) {
+  getByIdClienteFornecedor(id: number) {
     this.clienteFornecedorService.list(id).subscribe(sucesso => {
       if (sucesso != null) {
           this.fill(sucesso);
@@ -120,7 +151,7 @@ export class ClienteFornecedorComponent implements OnInit {
     this.municipioService.listAll().subscribe(sucesso => {
       if (sucesso != null) {
         this.municipioList = sucesso;
-        this.spinner.hide();  
+        this.spinner.hide();
         console.log(this.municipioList);
       }
     },
@@ -129,18 +160,60 @@ export class ClienteFornecedorComponent implements OnInit {
     });
   }
 
+  listAllEnderecos() {
+    this.updateEnderecoTable(this.clienteFornecedor.enderecoList);
+    this.endereco = new Endereco();
+  }
+
   addEndereco() {
-    this.enderecoList.push(this.endereco);
+    this.endereco.cdEndereco = this.clienteFornecedor.contatoList.length + 1;
+    this.endereco.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor; 
+    this.clienteFornecedor.enderecoList.push(this.endereco);
     this.listAllEnderecos();
   }
 
   removerEndereco(id: any) {
-    var posicao = this.enderecoList.indexOf(id);
-    this.enderecoList.splice(posicao, 1);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      panelClass: 'custom-dialog',
+      data: 'Deseja realmente excluir o registro?',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(isConfirm => {
+      if (isConfirm) {
+        var posicao = this.clienteFornecedor.enderecoList.indexOf(id);
+        this.clienteFornecedor.enderecoList.splice(posicao, 1);
+        this.listAllEnderecos();
+      }
+    });
   }
 
-  listAllEnderecos() {
-    this.updateEnderecoTable(this.enderecoList);
+  listAllContatos() {
+    this.updateContatoTable(this.clienteFornecedor.contatoList);
+    this.contato = new Contato();
+  }
+
+  addContato() {
+    this.contato.cdContato = this.clienteFornecedor.contatoList.length + 1;
+    this.contato.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor;
+    this.clienteFornecedor.contatoList.push(this.contato);
+    this.listAllContatos();
+    console.log(this.clienteFornecedor.contatoList);
+    
+  }
+
+  removerContato(id: any) {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      panelClass: 'custom-dialog',
+      data: 'Deseja realmente excluir o registro?',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(isConfirm => {
+      if (isConfirm) {
+        var posicao = this.clienteFornecedor.contatoList.indexOf(id);
+        this.clienteFornecedor.contatoList.splice(posicao, 1);
+        this.listAllContatos();
+      }
+    });
   }
 
   setMunicipio(municipio: any) {
@@ -155,7 +228,7 @@ export class ClienteFornecedorComponent implements OnInit {
   }
 
   updateContatoTable(contato: any) {
-    this.contatoDataSource = new MatTableDataSource<Endereco>(contato);
+    this.contatoDataSource = new MatTableDataSource<Contato>(contato);
     this.contatoDataSource.paginator = this.paginatorCustom;
     this.contatoDataSource.sort = this.sortCustom;
   }

@@ -1,21 +1,28 @@
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
     <p style="font-size: 20px; color: white">Carregando...</p>
 </ngx-spinner>
-
+<!--#region Inf. do Cliente/Fornecedor-->
 <div class="row">
-    <div class="col s12 m2 l2">
+    <div class="col s12 m1 l1">
         <mat-form-field>
             <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor"
                 required>
         </mat-form-field>
     </div>
-    <div class="col s12 m4 l4">
+    <div class="col s12 m3 l3">
         <mat-form-field>
             <mat-select placeholder="Tipo de cadastro" name="dsTipo" [(ngModel)]="clienteFornecedor.dsTipo">
                 <mat-option *ngFor="let element of this.tipoList" [value]="element.cdTipo">
                     {{element.dsTipo}}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m2 l2">
+        <mat-form-field>
+            <input matInput placeholder="CPF/CNPJ" type="text" [(ngModel)]="clienteFornecedor.nrCpfCnpj" required>
         </mat-form-field>
     </div>
     <div class="col s12 m2 l2">
@@ -27,16 +34,8 @@
         </mat-form-field>
     </div>
 </div>
-<!--#region Inf. do Cliente/Fornecedor-->
 <div class="row">
     <div class="col s12 m4 l4">
-        <mat-form-field>
-            <input matInput placeholder="CPF/CNPJ" type="text" [(ngModel)]="clienteFornecedor.nrCpfCnpj" required>
-        </mat-form-field>
-    </div>
-</div>
-<div class="row">
-    <div class="col s12 m10 l10">
         <mat-form-field>
             <input matInput placeholder="Nome/Razão Social" type="text" [(ngModel)]="clienteFornecedor.dsNomeRazao"
                 required>
@@ -44,7 +43,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m10 l10">
+    <div class="col s12 m4 l4">
         <mat-form-field>
             <input matInput placeholder="Nome Fantasia" type="text" [(ngModel)]="clienteFornecedor.dsFantasia" required>
         </mat-form-field>
@@ -75,9 +74,9 @@
                 </mat-form-field>
             </div>
             <div class="col s12 m2 l2">
-                    <mat-form-field>
-                        <input matInput placeholder="Bairro" type="text" [(ngModel)]="endereco.dsBairro" required>
-                    </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Bairro" type="text" [(ngModel)]="endereco.dsBairro" required>
+                </mat-form-field>
             </div>
         </div>
         <div class="row">
@@ -93,9 +92,10 @@
             </div>
             <div class="col s12 m2 l2">
                 <mat-form-field class="municipio">
-                    <input matInput  type="text" placeholder="Município" [matAutocomplete]="auto" required>
+                    <input matInput type="text" placeholder="Município" [matAutocomplete]="auto" required>
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let element of this.municipioList" (onSelectionChange)="setMunicipio(element)" [value]="element.dsMunicipio">
+                        <mat-option *ngFor="let element of this.municipioList"
+                            (onSelectionChange)="setMunicipio(element)" [value]="element.dsMunicipio">
                             {{element.dsMunicipio + " - " + element.estado.dsSigla}}
                         </mat-option>
                     </mat-autocomplete>
@@ -110,43 +110,44 @@
 
         <mat-table #table [dataSource]="this.enderecoDataSource" matSort class="table-striped">
             <ng-container matColumnDef="nrCep">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>CEP</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.nrCep}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>CEP</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nrCep}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="dsRua">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Rua</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.dsRua}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Rua</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dsRua}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="nrNumero">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Numero</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.nrNumero}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Numero</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nrNumero}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="dsBairro">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Bairro</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.dsBairro}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Bairro</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dsBairro}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="dsComplemento">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Complemento</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.dsComplemento}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Complemento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dsComplemento}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="dsMunicipio">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Municipio</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.municipio.dsMunicipio + " - " + element.municipio.estado.dsSigla}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Municipio</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    {{element.municipio.dsMunicipio + " - " + element.municipio.estado.dsSigla}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="editColumn">
-            <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <button mat-icon-button>
-                <mat-icon (click)="this.callUpdate(element.cdEndereco)">edit</mat-icon>
-                </button>
-                <button mat-icon-button>
-                <mat-icon (click)="this.deleteConfirmation(element.cdEndereco)">delete</mat-icon>
-                </button>
-            </mat-cell>
+                <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button>
+                        <mat-icon (click)="this.callUpdate(element.cdEndereco)">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon (click)="this.deleteConfirmation(element.cdEndereco)">delete</mat-icon>
+                    </button>
+                </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="this.displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: this.displayedColumns;"></mat-row>
-        </mat-table>  
+            <mat-header-row *matHeaderRowDef="this.enderecoColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: this.enderecoColumns;"></mat-row>
+        </mat-table>
         <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </mat-expansion-panel>
 </mat-accordion>
@@ -159,36 +160,52 @@
             <mat-panel-description>Insira contatos do cliente</mat-panel-description>
         </mat-expansion-panel-header>
         <div class="row">
-            <div class="col s12 m3 l3">
+            <div class="col s2 m2 l2">
                 <mat-form-field>
-                    <input matInput placeholder="Contatos" type="text" [(ngModel)]="endereco.nrCep" required>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m5 l5">
-                <mat-form-field>
-                    <input matInput placeholder="Rua" type="text" [(ngModel)]="endereco.dsRua" required>
+                    <input matInput placeholder="Nome" type="text" [(ngModel)]="contato.dsContato" required>
                 </mat-form-field>
             </div>
             <div class="col s12 m2 l2">
                 <mat-form-field>
-                    <input matInput placeholder="Número" type="text" [(ngModel)]="endereco.nrNumero" required>
+                    <input matInput placeholder="Telefone" type="text" [(ngModel)]="contato.nrNumero" required>
                 </mat-form-field>
+            </div>
+            <div class="col s13 m2 l2">
+                <mat-form-field>
+                    <input matInput placeholder="Email" type="text" [(ngModel)]="contato.dsEmail">
+                </mat-form-field>
+            </div>
+            <div class="col footer-btn">
+                <div class="button-col col s12">
+                    <button mat-raised-button color="grey" (click)="addContato()">Adicionar contato +</button>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12 m5 l5">
-                <mat-form-field>
-                    <input matInput placeholder="Referência" type="text" [(ngModel)]="endereco.dsReferencia" required>
-                </mat-form-field>
-            </div>
-            <div class="col s12 m5 l5">
-                <mat-form-field>
-                    <input matInput placeholder="Complemento" type="text" [(ngModel)]="endereco.dsComplemento" required>
-                </mat-form-field>
-            </div>
-        </div>
+        <mat-table #table [dataSource]="this.contatoDataSource" matSort class="table-striped">
+            <ng-container matColumnDef="dsContato">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dsContato}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nrNumero">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Número</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nrNumero}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="dsEmail">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dsEmail}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="editColumn">
+                <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button>
+                        <mat-icon (click)="this.removerContato(element.cdContato)">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="this.contatoColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: this.contatoColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </mat-expansion-panel>
 </mat-accordion>
 <!--#endregion-->
