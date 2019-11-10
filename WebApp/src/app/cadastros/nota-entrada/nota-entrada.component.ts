@@ -40,7 +40,7 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   backwards() {
-    this.router.navigate(["../ordem-servico-list"]);
+    this.router.navigate(["../nota-entrada-list"]);
   }
 
   getById(id: any) {
@@ -49,7 +49,7 @@ export class NotaEntradaComponent implements OnInit {
         this.fill(sucesso);
       }
     }, error => {
-      console.log("Ocorreu um erro no método getById(id: any) - ordem-servico.component.ts");
+      console.log("Ocorreu um erro no método getById(id: any) - nota-entrada.component.ts");
     })
   }
 
