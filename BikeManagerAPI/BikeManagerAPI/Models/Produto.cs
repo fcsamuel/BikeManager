@@ -23,7 +23,8 @@ namespace BikeManagerAPI.Models
         public string DsInfAdicionais { get; set; }
         public bool? FgAtivo { get; set; }
         public bool FgBicicleta { get; set; }
-        public bool FgTipo { get; set; }
+        public string FgTipo { get; set; }
+        public decimal VlServico { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
         public Categoria Categoria { get; set; }

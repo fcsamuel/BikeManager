@@ -16,7 +16,6 @@ namespace BikeManagerAPI.Models
         public string DsMunicipio { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-
         public Estado Estado { get; set; }
         [JsonIgnore]
         public ICollection<Endereco> Endereco { get; set; }

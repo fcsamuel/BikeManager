@@ -49,7 +49,11 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("fg_ativo")
                 .HasDefaultValueSql("true");
 
-            entity.Property(e => e.FgAtivo)
+            entity.Property(e => e.VlServico)
+                .HasColumnName("vl_servico")
+                .HasColumnType("numeric(15,3)");
+
+            entity.Property(e => e.FgTipo)
                 .HasColumnName("fg_tipo")
                 .HasMaxLength(1);
 
