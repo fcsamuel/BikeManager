@@ -1,0 +1,46 @@
+import { Injectable } from '@angular/core';
+import { BaseService } from '../../shared/base.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import 'rxjs/add/operator/catch';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class OrcamentoServiceService extends BaseService {
+
+  constructor(private http: HttpClient) {
+    super();
+  }
+
+  save(orcamento: any) : Observable<any>{
+    //Primeiro Parâmetro === URL
+    //Segundo Parâmetro === BODY - Corpo da Requisição
+    return this.http.post(environment.urlWebAPI + "Orcamento/", orcamento)
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
+  update(orcamento: any) : Observable<any>{
+    //Primeiro Parâmetro === URL
+    //Segundo Parâmetro === BODY - Corpo da Requisição
+    return this.http.put(environment.urlWebAPI + "Orcamento/" + orcamento.cdOrcamento, orcamento)
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
+  delete(id : number) : Observable<any> {
+    return this.http.delete(environment.urlWebAPI + "Orcamento/" + id)
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
+  listAll() : Observable<any> {
+    console.log("Passou pelo listAll() - orcamento.service.ts.");
+    return this.http.get(environment.urlWebAPI + "Orcamento/")
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
+  list(id: number) : Observable<any> {
+    return this.http.get(environment.urlWebAPI + "Orcamento/" + id)
+      .catch((error: any) => Observable.throw(error.error));
+  }
+}

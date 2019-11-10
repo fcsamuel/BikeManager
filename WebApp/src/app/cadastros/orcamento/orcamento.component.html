@@ -1,0 +1,119 @@
+<!--#region Dados gerais do orçamento-->
+<div class="row">
+    <div class="col s12 m1 l1">
+        <mat-form-field>
+            <input matInput placeholder="Código" type="number" [(ngModel)]="orcamento.cdOrcamento" required>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m1 l1">
+        <mat-form-field>
+            <input matInput [matDatepicker]="dtAbertura" [min]="minDate" placeholder="Abertura"
+                [(ngModel)]="orcamento.dtAbertura" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dtAbertura"></mat-datepicker-toggle>
+            <mat-datepicker #dtAbertura></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m1 l1">
+        <mat-form-field>
+            <input matInput [matDatepicker]="dtPrevConclusao" [min]="minDate" placeholder="Prev. conclusão"
+                [(ngModel)]="orcamento.dtPrevConclusao" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dtPrevConclusao"></mat-datepicker-toggle>
+            <mat-datepicker #dtPrevConclusao></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m1 l1">
+        <mat-form-field>
+            <input matInput [matDatepicker]="dtConclusao" [min]="minDate" placeholder="Conclusão"
+                [(ngModel)]="orcamento.dtConclusao" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dtConclusao"></mat-datepicker-toggle>
+            <mat-datepicker #dtConclusao></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4">
+        <mat-form-field class="cliente">
+            <input matInput type="text" placeholder="Escolha um cliente" [(ngModel)]="orcamento.cdClienteFornecedor"
+                [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let element of this.clienteList" [value]="element.dsNomeRazao">
+                    {{element.dsNomeRazao + " - " + element.nrCpfCnpj}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4">
+        <mat-form-field>
+            <input matInput placeholder="Descrição da bicicleta do cliente" type="text"
+                [(ngModel)]="orcamento.dsBicicleta">
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4">
+        <mat-form-field>
+            <textarea matInput placeholder="Observações" type="text" [(ngModel)]="orcamento.dsObservacao"
+                matTextareaAutosize matAutosizeMinRows=5></textarea>
+        </mat-form-field>
+    </div>
+</div>
+<!--#endregion-->
+<!--#region Lista de produtos-->
+<div class="row">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Produtos</mat-panel-title>
+                <mat-panel-description>Insira os produtos utilizados na O.S</mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row footer-btn">
+                <div class="button-row col s12">
+                    <button mat-raised-button color="grey" (click)="this.backward()">Adicionar Produto +</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <mat-form-field>
+                        <input matInput placeholder="Teste" type="text" [(ngModel)]="orcamento.dsObservacao">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<!--#endregion-->
+<!--#region Lista de Serviços-->
+<div class="row">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Serviços</mat-panel-title>
+                <mat-panel-description>Insira os produtos utilizados na O.S</mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row footer-btn">
+                <div class="button-row col s12">
+                    <button mat-raised-button color="grey" (click)="this.backward()">Adicionar Produto +</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <mat-form-field>
+                        <input matInput placeholder="Teste" type="text" [(ngModel)]="orcamento.dsObservacao">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<!--#endregion-->
+<!--#region Botoes-->
+<div class="row">
+    <div class="col s12 m2 l2">
+        <mat-form-field>
+            <input matInput placeholder="Valor Total: R$400,00" type="number" [(ngModel)]="orcamento.vlTotal" disabled>
+        </mat-form-field>
+    </div>
+</div>
+<!--#endregion-->
