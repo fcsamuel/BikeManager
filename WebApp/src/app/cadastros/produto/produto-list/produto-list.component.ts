@@ -16,7 +16,7 @@ import { Marca } from '../../models/marca';
 })
 export class ProdutoListComponent implements OnInit {
 
-  displayedColumns: string[] = ["cdProduto", "dsProduto", "dsModelo", "dsMarca", "dsCategoria", "dsInfAdicionais", "dtRegistro"];
+  displayedColumns: string[] = ["cdProduto", "dsProduto", "dsModelo", "dsMarca", "dsCategoria", "dsInfAdicionais", "dtRegistro", "editColumn"];
   public dataSource: any;
 
   @ViewChild(MatPaginator, {static: false}) paginatorCustom: MatPaginator;

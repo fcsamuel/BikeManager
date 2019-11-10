@@ -24,7 +24,7 @@ export class ProdutoService extends BaseService {
   update(produto: any) : Observable<any>{
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.put(environment.urlWebAPI +"Produto/"+produto.cdproduto, produto)
+    return this.http.put(environment.urlWebAPI +"Produto/"+produto.cdProduto, produto)
       .catch((error: any) => Observable.throw(error.error));
   }
 

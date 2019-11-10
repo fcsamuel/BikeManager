@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Produto } from '../models/produto';
 import { ProdutoService } from '../produto/produto.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,6 +54,7 @@ export class ProdutoComponent implements OnInit {
         },
         error => {
           this.spinner.hide();
+          console.log("Erro ao salvar o produto");
         });
       }else {
         this.update();
