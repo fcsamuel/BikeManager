@@ -22,9 +22,10 @@ import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
 import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
 import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
-import { ContatoComponent } from './cadastros/contato/contato.component';
-import { EnderecoComponent } from './cadastros/endereco/endereco.component';
 import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.component';
+import { OrcamentoComponent } from './cadastros/orcamento/orcamento.component';
+import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
+import { ServicoComponent } from './cadastros/servico/servico.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +42,10 @@ import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.comp
     ClienteFornecedorComponent,
     ClienteFornecedorListComponent,
     ProdutoListComponent,
-    ContatoComponent,
-    EnderecoComponent,
-    NotaEntradaComponent
+    NotaEntradaComponent,
+    OrcamentoComponent,
+    BicicletaComponent,
+    ServicoComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ export class Produto {
     fgAtivo: boolean;
     fgTipo: string;
     fgBicicleta: boolean;
+    vlServico: number;
     cdMarca: number;
     marca: Marca;
     cdCategoria: number;

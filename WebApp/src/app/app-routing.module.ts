@@ -9,6 +9,8 @@ import { CategoriaListComponent } from './cadastros/categoria/categoria-list/cat
 import { ProdutoComponent } from './cadastros/produto/produto.component';
 import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-list.component';
 import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
+import { OrcamentoComponent } from './cadastros/orcamento/orcamento.component';
+import { ServicoComponent } from './cadastros/servico/servico.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path: 'produto-list', component: ProdutoListComponent},
   {path: 'clientefornecedor', component: ClienteFornecedorComponent},
   {path: 'ordemservico', component: OrdemServicoComponent},
+  {path: 'orcamento', component: OrcamentoComponent},
+  {path: 'servico', component: ServicoComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
