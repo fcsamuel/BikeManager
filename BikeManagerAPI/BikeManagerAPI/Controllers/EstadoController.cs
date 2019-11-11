@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Estado> GetEstado()
         {
-            return _context.Estado;
+            return _context.Estado.AsNoTracking();
         }
 
         // GET: api/Estado/5
