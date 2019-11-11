@@ -3,6 +3,7 @@ import { Produto } from '../models/produto';
 import { ProdutoService } from '../produto/produto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ServicoListComponent } from './servico-list/servico-list.component';
 
 @Component({
   selector: 'app-servico',
