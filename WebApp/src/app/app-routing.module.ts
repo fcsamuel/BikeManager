@@ -11,6 +11,7 @@ import { ProdutoListComponent } from './cadastros/produto/produto-list/produto-l
 import { ClienteFornecedorComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor.component';
 import { OrcamentoComponent } from './cadastros/orcamento/orcamento.component';
 import { ServicoComponent } from './cadastros/servico/servico.component';
+import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
   {path: 'ordemservico', component: OrdemServicoComponent},
   {path: 'orcamento', component: OrcamentoComponent},
   {path: 'servico', component: ServicoComponent},
+  {path: 'servico-list', component: ServicoListComponent},
+  {path: 'servico-edit/:id', component: ServicoComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

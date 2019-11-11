@@ -26,6 +26,7 @@ import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.comp
 import { OrcamentoComponent } from './cadastros/orcamento/orcamento.component';
 import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 import { ServicoComponent } from './cadastros/servico/servico.component';
+import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ServicoComponent } from './cadastros/servico/servico.component';
     NotaEntradaComponent,
     OrcamentoComponent,
     BicicletaComponent,
-    ServicoComponent
+    ServicoComponent,
+    ServicoListComponent
   ],
   imports: [
     BrowserModule,

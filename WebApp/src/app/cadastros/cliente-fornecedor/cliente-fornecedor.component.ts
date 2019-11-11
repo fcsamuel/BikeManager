@@ -79,7 +79,7 @@ export class ClienteFornecedorComponent implements OnInit {
         if(sucesso != null) {
           this.spinner.hide();
           this.backwards();
-          /*for (let element of this.clienteFornecedor.enderecoList) {
+          for (let element of this.clienteFornecedor.enderecoList) {
             this.enderecoService.save(element).subscribe(sucesso => {
               if (sucesso != null) {
                 this.spinner.hide();
@@ -90,7 +90,7 @@ export class ClienteFornecedorComponent implements OnInit {
               console.log("Erro ao salvar endereço");
               console.log(this.clienteFornecedor);
             });
-          }*/
+          }
           for (let element of this.clienteFornecedor.contatoList) {
             this.contatoService.save(element).subscribe(sucesso => {
               if (sucesso != null) {
