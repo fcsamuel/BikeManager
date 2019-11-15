@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteFornecedorListComponent implements OnInit {
 
+  dataSource: any;
+
+  displayedColumns: string[] = ['cdClienteFornecedor', 'nrCpfCnpj', 'dsNomeRazao', 'dsFantasia', 'editColumn'];
+
   constructor() { }
 
   ngOnInit() {
