@@ -2,6 +2,64 @@
     <div class="col s12 m1 s1">
         <mat-form-field>
             <input matInput placeholder="Código" type="number" [(ngModel)]="notaEntrada.cdNotaEntrada" required>
-        </mat-form-field>   
+        </mat-form-field>
     </div>
+    <div class="col s12 m1 s1">
+        <mat-form-field>
+            <input matInput placeholder="Número" type="text" [(ngModel)]="notaEntrada.nrNota" required>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m1 s1">
+        <mat-form-field>
+            <input matInput placeholder="Série" type="text" [(ngModel)]="notaEntrada.nrSerie" required>
+        </mat-form-field>
+    </div>
+    <div class="col s12 m1 s1">
+        <mat-form-field>
+            <input matInput [matDatepicker]="dtEmissao" [max]="maxDate" placeholder="Emissão"
+                [(ngModel)]="notaEntrada.dtEmissao" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dtEmissao"></mat-datepicker-toggle>
+            <mat-datepicker #dtConclusao></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4">
+        <mat-form-field class="cliente">
+            <input matInput type="text" placeholder="Selecione o fornecedor"
+                [(ngModel)]="notaEntrada.cdClienteFornecedor" [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let element of this.fornecedorList" (onSelectionChange)="setFornecedor(element)" [value]="element.dsNomeRazao">
+                    {{element.dsNomeRazao + " - " + element.nrCpfCnpj}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 s4">
+        <mat-form-field>
+            <input matInput placeholder="Chave de acesso" type="number" [(ngModel)]="notaEntrada.nrChaveAcesso" required>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Serviços</mat-panel-title>
+                <mat-panel-description>Insira os serviços da O.S</mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row footer-btn">
+                <div class="button-row col s12">
+                    <button mat-raised-button color="grey" (click)="this.backward()">Adicionar Produto +</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l3">
+
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

@@ -5,8 +5,7 @@
 <div class="row">
     <div class="col s12 m1 l1">
         <mat-form-field>
-            <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor"
-                required>
+            <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor"  disabled>
         </mat-form-field>
     </div>
     <div class="col s12 m3 l3">
@@ -162,7 +161,7 @@
         <div class="row">
             <div class="col s2 m2 l2">
                 <mat-form-field>
-                    <input matInput placeholder="Nome" type="text" [(ngModel)]="contato.dsContato" required>
+                    <input matInput placeholder="Nome" type="text" [(ngModel)]="contato.nmContato" required>
                 </mat-form-field>
             </div>
             <div class="col s12 m2 l2">
@@ -182,9 +181,9 @@
             </div>
         </div>
         <mat-table #table [dataSource]="this.contatoDataSource" matSort class="table-striped">
-            <ng-container matColumnDef="dsContato">
+            <ng-container matColumnDef="nmContato">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.dsContato}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element.nmContato}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="nrNumero">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Número</mat-header-cell>

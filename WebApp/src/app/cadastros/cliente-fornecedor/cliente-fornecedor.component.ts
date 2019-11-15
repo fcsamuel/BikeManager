@@ -21,7 +21,7 @@ import { ContatoService } from '../contato/contato.service';
 export class ClienteFornecedorComponent implements OnInit {
 
   enderecoColumns: string[] = ["nrCep", "dsRua", "nrNumero", "dsBairro", "dsComplemento", "dsMunicipio", "editColumn"];
-  contatoColumns: string[] = ["dsContato", "nrNumero", "dsEmail", "editColumn"];
+  contatoColumns: string[] = ["nmContato", "nrNumero", "dsEmail", "editColumn"];
 
   public enderecoDataSource: any;
   public contatoDataSource: any;
@@ -58,10 +58,14 @@ export class ClienteFornecedorComponent implements OnInit {
     this.contato = new Contato();
     this.clienteFornecedor.enderecoList = new Array<Endereco>();
     this.clienteFornecedor.contatoList = new Array<Contato>();
+    this.loadMunicipioList();
+    this.clienteFornecedorService.getId().subscribe(sucesso => {
+      if (sucesso)
+        this.clienteFornecedor.cdClienteFornecedor = sucesso;
+    })
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
-    this.loadMunicipioList();
     this.activatedRoute.params.subscribe(
       params => {
         if(params.id != undefined) {
@@ -74,6 +78,8 @@ export class ClienteFornecedorComponent implements OnInit {
 
   save() {
     this.spinner.show();
+    console.log(this.clienteFornecedor);
+    this.clienteFornecedor.enderecoList.forEach(e => e.municipio = null);
     if(!this.edit) {
       this.clienteFornecedorService.save(this.clienteFornecedor).subscribe(sucesso => {
         if(sucesso != null) {
@@ -166,7 +172,6 @@ export class ClienteFornecedorComponent implements OnInit {
   }
 
   addEndereco() {
-    this.endereco.cdEndereco = this.clienteFornecedor.contatoList.length + 1;
     this.endereco.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor; 
     this.clienteFornecedor.enderecoList.push(this.endereco);
     this.listAllEnderecos();
@@ -193,7 +198,6 @@ export class ClienteFornecedorComponent implements OnInit {
   }
 
   addContato() {
-    this.contato.cdContato = this.clienteFornecedor.contatoList.length + 1;
     this.contato.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor;
     this.clienteFornecedor.contatoList.push(this.contato);
     this.listAllContatos();
@@ -217,6 +221,8 @@ export class ClienteFornecedorComponent implements OnInit {
   }
 
   setMunicipio(municipio: any) {
+    this.endereco.cdMunicipio = municipio.cdMunicipio;
+    this.endereco.cdEstado = municipio.cdEstado;
     this.endereco.municipio = municipio;
     console.log(this.endereco);
   }

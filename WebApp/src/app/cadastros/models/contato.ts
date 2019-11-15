@@ -2,7 +2,7 @@ import { ClienteFornecedor } from "./clienteFornecedor";
 
 export class Contato {
     cdContato: number;
-    dsContato: string;
+    nmContato: string;
     cdClienteFornecedor: number;
     clienteFornecedor: ClienteFornecedor;
     nrNumero: string;

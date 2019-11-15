@@ -44,6 +44,7 @@ export class ProdutoComponent implements OnInit {
     save() {
       console.log(this.produto);
       this.produto.fgTipo = 'P';
+      this.produto.fgBicicleta = false;
       this.spinner.show();
       if(!this.edit) {
         this.produtoService.save(this.produto).subscribe(sucesso => {

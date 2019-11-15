@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ClienteFornecedorService } from '../cliente-fornecedor/cliente-fornecedor.service';
 import { ClienteFornecedor } from '../models/clienteFornecedor';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-nota-entrada',
@@ -16,8 +17,11 @@ export class NotaEntradaComponent implements OnInit {
   notaEntrada: NotaEntrada;
   edit: boolean;
   fornecedorList: Array<ClienteFornecedor> = new Array<ClienteFornecedor>();
+  fornecedor = new ClienteFornecedor();
 
+  date = new FormControl(new Date());
   minDate = new Date();
+  maxDate = new Date();
 
   constructor(private notaEntradaService: NotaEntradaService,
     public activatedRoute: ActivatedRoute,
@@ -69,6 +73,11 @@ export class NotaEntradaComponent implements OnInit {
     error => {
       this.spinner.hide();
     })
+  }
+
+  setFornecedor(fornecedor: any) {
+    this.notaEntrada.clienteFornecedor = fornecedor;
+
   }
 
 }
