@@ -94,7 +94,11 @@ namespace BikeManagerAPI.Controllers
 
             clienteFornecedor.DtRegistro = DateTime.Now;
 
+            //clienteFornecedor.EnderecoList.ToList().ForEach(e => {e.})
+
             _context.ClienteFornecedor.Add(clienteFornecedor);
+
+            //_context.Endereco.AddRange(clienteFornecedor.EnderecoList);
 
             try
             {
@@ -139,6 +143,12 @@ namespace BikeManagerAPI.Controllers
         private bool ClienteFornecedorExists(int id)
         {
             return _context.ClienteFornecedor.Any(e => e.CdClienteFornecedor == id);
+        }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.ClienteFornecedor.Count() + 1;
         }
     }
 }

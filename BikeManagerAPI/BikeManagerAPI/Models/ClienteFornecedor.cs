@@ -8,8 +8,8 @@ namespace BikeManagerAPI.Models
     {
         public ClienteFornecedor()
         {
-            Contato = new HashSet<Contato>();
-            Endereco = new HashSet<Endereco>();
+            ContatoList = new HashSet<Contato>();
+            EnderecoList = new HashSet<Endereco>();
             NotaEntrada = new HashSet<NotaEntrada>();
             Orcamento = new HashSet<Orcamento>();
         }
@@ -23,10 +23,8 @@ namespace BikeManagerAPI.Models
         public DateTime? DtNascimento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
-        [JsonIgnore]
-        public ICollection<Contato> Contato { get; set; }
-        [JsonIgnore]
-        public ICollection<Endereco> Endereco { get; set; }
+        public ICollection<Contato> ContatoList { get; set; }
+        public ICollection<Endereco> EnderecoList { get; set; }
         [JsonIgnore]
         public ICollection<NotaEntrada> NotaEntrada { get; set; }
         [JsonIgnore]

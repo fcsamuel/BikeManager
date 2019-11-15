@@ -20,14 +20,14 @@ namespace BikeManagerAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Contato
+        // GET: api/ContatoList
         [HttpGet]
         public IEnumerable<Contato> GetContato()
         {
             return _context.Contato;
         }
 
-        // GET: api/Contato/5
+        // GET: api/ContatoList/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetContato([FromRoute] int id)
         {
@@ -46,7 +46,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(contato);
         }
 
-        // PUT: api/Contato/5
+        // PUT: api/ContatoList/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutContato([FromRoute] int id, [FromBody] Contato contato)
         {
@@ -83,7 +83,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(contato);
         }
 
-        // POST: api/Contato
+        // POST: api/ContatoList
         [HttpPost]
         public async Task<IActionResult> PostContato([FromBody] Contato contato)
         {
@@ -115,7 +115,7 @@ namespace BikeManagerAPI.Controllers
             return CreatedAtAction("GetContato", new { id = contato.CdContato }, contato);
         }
 
-        // DELETE: api/Contato/5
+        // DELETE: api/ContatoList/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContato([FromRoute] int id)
         {

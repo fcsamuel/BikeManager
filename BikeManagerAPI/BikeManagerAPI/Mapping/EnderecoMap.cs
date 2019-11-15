@@ -61,7 +61,7 @@ namespace BikeManagerAPI.Mapping
                 .HasMaxLength(10);
 
             entity.HasOne(d => d.ClienteFornecedor)
-                .WithMany(p => p.Endereco)
+                .WithMany(p => p.EnderecoList)
                 .HasForeignKey(d => d.CdClienteFornecedor)
                 .HasConstraintName("endereco_cd_clientefornecedor_fkey");
 

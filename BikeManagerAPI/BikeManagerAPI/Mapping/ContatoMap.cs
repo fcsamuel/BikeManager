@@ -43,7 +43,7 @@ namespace BikeManagerAPI.Mapping
                 .HasMaxLength(14);
 
             entity.HasOne(d => d.ClienteFornecedor)
-                .WithMany(p => p.Contato)
+                .WithMany(p => p.ContatoList)
                 .HasForeignKey(d => d.CdClienteFornecedor)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("contato_cd_clientefornecedor_fkey");
