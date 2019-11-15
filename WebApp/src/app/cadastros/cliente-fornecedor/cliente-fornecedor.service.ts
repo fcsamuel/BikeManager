@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/catch';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,11 @@ export class ClienteFornecedorService extends BaseService {
 
   list(id: number) : Observable<any> {
     return this.http.get(environment.urlWebAPI +"ClienteFornecedor/"+ id)
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
+  getId() : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"ClienteFornecedor/GetLastId")
       .catch((error: any) => Observable.throw(error.error));
   }
 }
