@@ -20,14 +20,14 @@ namespace BikeManagerAPI.Controllers
             _context = context;
         }
 
-        // GET: api/TabelaPreco
+        // GET: api/TabelaPrecoList
         [HttpGet]
         public IEnumerable<TabelaPreco> GetTabelaPreco()
         {
             return _context.TabelaPreco;
         }
 
-        // GET: api/TabelaPreco/5
+        // GET: api/TabelaPrecoList/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTabelaPreco([FromRoute] int id)
         {
@@ -46,7 +46,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(tabelaPreco);
         }
 
-        // PUT: api/TabelaPreco/5
+        // PUT: api/TabelaPrecoList/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTabelaPreco([FromRoute] int id, [FromBody] TabelaPreco tabelaPreco)
         {
@@ -83,7 +83,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(tabelaPreco);
         }
 
-        // POST: api/TabelaPreco
+        // POST: api/TabelaPrecoList
         [HttpPost]
         public async Task<IActionResult> PostTabelaPreco([FromBody] TabelaPreco tabelaPreco)
         {
@@ -114,7 +114,7 @@ namespace BikeManagerAPI.Controllers
             return CreatedAtAction("GetTabelaPreco", new { id = tabelaPreco.CdTabelaPreco }, tabelaPreco);
         }
 
-        // DELETE: api/TabelaPreco/5
+        // DELETE: api/TabelaPrecoList/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTabelaPreco([FromRoute] int id)
         {

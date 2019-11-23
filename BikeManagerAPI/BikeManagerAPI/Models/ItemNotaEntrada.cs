@@ -11,6 +11,7 @@ namespace BikeManagerAPI.Models
         public decimal VlUnitario { get; set; }
         public decimal VlTotal { get; set; }
         public decimal VlCusto { get; set; }
+        public decimal QtProduto { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
         public NotaEntrada NotaEntrada { get; set; }

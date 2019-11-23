@@ -13,6 +13,7 @@ namespace BikeManagerAPI.Models
         public string DsEmail { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        [JsonIgnore]
         public ClienteFornecedor ClienteFornecedor { get; set; }
     }
 }

@@ -32,14 +32,6 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("dt_registro")
                 .HasColumnType("date");
 
-            entity.Property(e => e.NrMaximo)
-                .HasColumnName("nr_maximo")
-                .HasColumnType("numeric(15,2)");
-
-            entity.Property(e => e.NrMinimo)
-                .HasColumnName("nr_minimo")
-                .HasColumnType("numeric(15,2)");
-
             entity.Property(e => e.QtProduto)
                 .HasColumnName("qt_produto")
                 .HasColumnType("numeric(15,2)");
@@ -48,6 +40,10 @@ namespace BikeManagerAPI.Mapping
                 .IsRequired()
                 .HasColumnName("tp_lancamento")
                 .HasMaxLength(2);
+
+            entity.Property(e => e.VlCusto)
+                .HasColumnName("vl_custo")
+                .HasColumnType("numeric(15,2)");
 
             entity.HasOne(d => d.NotaEntrada)
                 .WithMany(p => p.Estoque)

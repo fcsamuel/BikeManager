@@ -40,6 +40,10 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_unitario")
                 .HasColumnType("numeric(15,2)");
 
+            entity.Property(e => e.VlUnitario)
+                .HasColumnName("vl_unitario")
+                .HasColumnType("numeric(15,2)");
+
             entity.HasOne(d => d.NotaEntrada)
                 .WithMany(p => p.ItemNotaEntrada)
                 .HasForeignKey(d => d.CdNotaEntrada)

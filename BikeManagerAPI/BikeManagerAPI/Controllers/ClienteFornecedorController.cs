@@ -36,7 +36,7 @@ namespace BikeManagerAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var clienteFornecedor = await _context.ClienteFornecedor.FindAsync(id);
+            var clienteFornecedor = await _context.ClienteFornecedor.Include(c => c.ContatoList).Include(f => f.EnderecoList).ThenInclude(e => e.Municipio).Where(f => f.CdClienteFornecedor == id).FirstOrDefaultAsync();
 
             if (clienteFornecedor == null)
             {

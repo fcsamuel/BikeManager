@@ -12,7 +12,7 @@ namespace BikeManagerAPI.Models
             ItemNotaEntrada = new HashSet<ItemNotaEntrada>();
             ItemOrcamento = new HashSet<ItemOrcamento>();
             ItemOrdemServico = new HashSet<ItemOrdemServico>();
-            TabelaPreco = new HashSet<TabelaPreco>();
+            TabelaPrecoList = new HashSet<TabelaPreco>();
         }
 
         public int CdProduto { get; set; }
@@ -38,6 +38,6 @@ namespace BikeManagerAPI.Models
         [JsonIgnore]
         public ICollection<ItemOrdemServico> ItemOrdemServico { get; set; }
         [JsonIgnore]
-        public ICollection<TabelaPreco> TabelaPreco { get; set; }
+        public ICollection<TabelaPreco> TabelaPrecoList { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace BikeManagerAPI.Models
         public decimal NrMargemLucro { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        public decimal vlCustoMedio { get; set; }
 
         public Produto Produto { get; set; }
         [JsonIgnore]

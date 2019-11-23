@@ -139,5 +139,12 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.Estoque.Any(e => e.CdProduto == id);
         }
+
+        [HttpGet("FindStockByProduct")]
+        public IEnumerable<Estoque> FindStockByProduct(int id)
+        {
+            return _context.Estoque.Where(e => e.CdProduto == id);
+
+        }
     }
 }

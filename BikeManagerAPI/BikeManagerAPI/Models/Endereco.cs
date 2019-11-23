@@ -19,6 +19,7 @@ namespace BikeManagerAPI.Models
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
         public Municipio Municipio { get; set; }
+        [JsonIgnore]
         public ClienteFornecedor ClienteFornecedor { get; set; }
     }
 }
