@@ -1,6 +1,7 @@
 import { Marca } from "./marca";
 import { Categoria } from "./categoria";
 import { Estoque } from "./estoque";
+import { TabelaPreco } from "./tabelaPreco";
 
 export class Produto {
     cdProduto: number;
@@ -18,4 +19,5 @@ export class Produto {
     dtRegistro: Date;
     dtAlteracao: Date;
     estoqueList: Array<Estoque>;
+    tabelaPrecoList: Array<TabelaPreco>;
 }

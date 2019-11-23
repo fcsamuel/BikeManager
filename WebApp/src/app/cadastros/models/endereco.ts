@@ -5,6 +5,8 @@ import { Municipio } from "./municipio";
 export class Endereco {
     cdEndereco: number;
     municipio: Municipio;
+    dsMunicipio: string;
+    dsSigla: string
     clienteFornecedor: ClienteFornecedor;
     cdClienteFornecedor: number;
     cdMunicipio: number;

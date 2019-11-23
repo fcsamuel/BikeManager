@@ -8,8 +8,8 @@ export class Estoque {
     cdNotaEntrada: number;
     qtProduto: number;
     tpLancamento: string;
-    nrMinimo: number;
-    nrMaximo: number;
+    vlCustoMedio: number;
+    vlCusto: number;
     dtRegistro: Date;
     dtAlteracao: Date;
     notaEntrada: NotaEntrada;
