@@ -21,6 +21,7 @@ export class OrdemServicoComponent implements OnInit {
   edit: boolean;
   clienteList: Array<ClienteFornecedor> = new Array<ClienteFornecedor>();
   produtoList: Array<Produto> = new Array<Produto>(); 
+  produtoServicoList: Array<Produto> = new Array<Produto>();
   produto: Produto;
   item: ItemOrdemServico;
 
@@ -61,7 +62,7 @@ export class OrdemServicoComponent implements OnInit {
       }
     }, error => {
       console.log("Ocorreu um erro no método getById(id: any) - ordem-servico.component.ts");
-    })
+    });
   }
 
   fill(ordemServico: any) {
@@ -85,12 +86,14 @@ export class OrdemServicoComponent implements OnInit {
     this.spinner.show();
     this.produtoService.listAll().subscribe(sucesso => {
       if (sucesso != null) {
-        this.produtoList = sucesso;
+        this.produtoServicoList = sucesso;
+        this.produtoServicoList.forEach(p => p.fgTipo == 'P' ? this.produtoList.push(p) : null);
         this.spinner.hide();
       }
     },
       error => {
         this.spinner.hide();
+        console.log(error);
       });
   }
 
@@ -100,12 +103,12 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   addItem() {
-    //this.item = this.produtoToItem(this.produto);
-    this.ordemServico.itemList.push();
+    this.item.produto = this.produto;
+    this.ordemServico.itemList.push()
   }
 /*
   produtoToItem(produto: any) : ItemOrdemServico {
-    this.item.
+    
   }
 */
 }

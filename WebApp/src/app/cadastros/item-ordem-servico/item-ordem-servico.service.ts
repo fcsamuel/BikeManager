@@ -1,51 +1,49 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../../shared/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContatoService extends BaseService {
+export class ItemOrdemServicoService extends BaseService {
 
   constructor(private http: HttpClient) {
     super();
   }
 
-  save(contato: any) : Observable<any>{
+  save(itemOrdemServico: any): Observable<any> {
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.post(environment.urlWebAPI + "Contato/", contato)
+    return this.http.post(environment.urlWebAPI + "ItemOrdemServico/", itemOrdemServico)
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  update(contato: any) : Observable<any>{
+  update(itemOrdemServico: any): Observable<any> {
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.put(environment.urlWebAPI + "Contato/" + contato.cdContato, contato)
+    return this.http.put(environment.urlWebAPI + "ItemOrdemServico/" + itemOrdemServico.cdItemOrdemServico, itemOrdemServico)
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  delete(id : number) : Observable<any> {
-    return this.http.delete(environment.urlWebAPI + "Contato/" + id)
+  delete(id: number): Observable<any> {
+    return this.http.delete(environment.urlWebAPI + "ItemOrdemServico/" + id)
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  listAll() : Observable<any> {
-    console.log("Passou pelo listAll() - contato.service.ts.");
-    return this.http.get(environment.urlWebAPI + "Contato/")
+  listAll(): Observable<any> {
+    return this.http.get(environment.urlWebAPI + "ItemOrdemServico/")
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  list(id: number) : Observable<any> {
-    return this.http.get(environment.urlWebAPI + "Contato/" + id)
+  list(id: number): Observable<any> {
+    return this.http.get(environment.urlWebAPI + "ItemOrdemServico/" + id)
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  getLastId() : Observable<any> {
-    return this.http.get(environment.urlWebAPI +"Contato/GetLastId")
+  getId(): Observable<any> {
+    return this.http.get(environment.urlWebAPI + "ItemOrdemServico/GetLastId")
       .catch((error: any) => Observable.throw(error.error));
   }
-
 }

@@ -75,7 +75,7 @@
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let element of this.produtoList" (onSelectionChange)="setProduto(element)"
                 [value]="element.dsProduto">
-                {{element.dsProduto + " - " }} <!--+ element.tabelaPreco.vlTotal-->
+                {{element.dsProduto + " - " + element.dsModelo}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>

@@ -69,11 +69,7 @@ export class ServicoListComponent implements OnInit {
     this.servicoService.listAll().subscribe(sucesso => {
       if (sucesso != null) {
         this.produtoServicoList = sucesso;
-        for (let servico of this.produtoServicoList) {
-          if (servico.fgTipo == 'S') {
-            this.servicoList.push(servico);
-          }
-        }
+        this.produtoServicoList.forEach(ps => ps.fgTipo == 'S' ? this.servicoList.push(ps) : null);
         this.updateTable(this.servicoList);
         this.spinner.hide();
         console.log("Passou pelo listAll() - servico-list.component.ts com sucesso.");

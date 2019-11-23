@@ -27,6 +27,7 @@ import { OrcamentoComponent } from './cadastros/orcamento/orcamento.component';
 import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 import { ServicoComponent } from './cadastros/servico/servico.component';
 import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
+import { BicicletaListComponent } from './cadastros/bicicleta/bicicleta-list/bicicleta-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ServicoListComponent } from './cadastros/servico/servico-list/servico-l
     OrcamentoComponent,
     BicicletaComponent,
     ServicoComponent,
-    ServicoListComponent
+    ServicoListComponent,
+    BicicletaListComponent
   ],
   imports: [
     BrowserModule,

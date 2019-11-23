@@ -14,6 +14,7 @@ import { ServicoComponent } from './cadastros/servico/servico.component';
 import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
 import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.component';
 import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
+import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 
 
 const routes: Routes = [
@@ -27,12 +28,14 @@ const routes: Routes = [
   {path: 'produto-list', component: ProdutoListComponent},
   {path: 'clientefornecedor', component: ClienteFornecedorComponent},
   {path: 'clientefornecedor-list', component: ClienteFornecedorListComponent},
+  {path: 'clientefornecedor-edit/:id', component: ClienteFornecedorComponent},
   {path: 'ordemservico', component: OrdemServicoComponent},
   {path: 'orcamento', component: OrcamentoComponent},
   {path: 'servico', component: ServicoComponent},
   {path: 'servico-list', component: ServicoListComponent},
   {path: 'servico-edit/:id', component: ServicoComponent},
   {path: 'notaentrada', component: NotaEntradaComponent},
+  {path: 'bicicleta', component: BicicletaComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
