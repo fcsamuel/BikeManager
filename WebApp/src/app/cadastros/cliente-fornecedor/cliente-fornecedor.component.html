@@ -131,7 +131,7 @@
             <ng-container matColumnDef="dsMunicipio">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Municipio</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    {{element.municipio.dsMunicipio + " - " + element.municipio.estado.dsSigla}} </mat-cell>
+                    {{element.municipio == null ? (element.dsMunicipio + " - " + element.dsSigla) : element.municipio.dsMunicipio}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="editColumn">
                 <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>

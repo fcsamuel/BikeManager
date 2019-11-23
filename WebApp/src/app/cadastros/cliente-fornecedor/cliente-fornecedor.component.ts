@@ -37,13 +37,16 @@ export class ClienteFornecedorComponent implements OnInit {
   editEndereco: boolean;
   editContato: boolean;
 
+  cdEndereco: number;
+  cdContato: number;
+
   maxDate = new Date();
   tipo: string;
 
-  @ViewChild(MatPaginator, {static: false}) paginatorCustom: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sortCustom: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginatorCustom: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sortCustom: MatSort;
 
-  constructor(  private clienteFornecedorService: ClienteFornecedorService,
+  constructor(private clienteFornecedorService: ClienteFornecedorService,
     private enderecoService: EnderecoService,
     private contatoService: ContatoService,
     private municipioService: MunicipioService,
@@ -59,93 +62,89 @@ export class ClienteFornecedorComponent implements OnInit {
     this.clienteFornecedor.enderecoList = new Array<Endereco>();
     this.clienteFornecedor.contatoList = new Array<Contato>();
     this.loadMunicipioList();
-    this.clienteFornecedorService.getId().subscribe(sucesso => {
+    this.clienteFornecedorService.getLastId().subscribe(sucesso => {
       if (sucesso)
         this.clienteFornecedor.cdClienteFornecedor = sucesso;
-    })
+    });
     this.tipoList.push(new Tipo('C', "Cliente"));
     this.tipoList.push(new Tipo('F', "Fornecedor"));
     this.tipoList.push(new Tipo('CF', "Cliente/Fornecedor"));
     this.activatedRoute.params.subscribe(
       params => {
-        if(params.id != undefined) {
-          this.getByIdClienteFornecedor(params.id);
+        if (params.id != undefined) {
+          this.getById(params.id);
           this.edit = true;
         }
       }
     );
+  }
+  getById(id: any) {
+    this.clienteFornecedorService.list(id).subscribe(sucesso => {
+      if (sucesso != null) {
+        this.fill(sucesso);
+        console.log(sucesso);
+        this.updateEnderecoTable(sucesso.enderecoList);
+        this.updateContatoTable(sucesso.contatoList);
+        this.contatoService.getLastId().subscribe(sucesso => {
+          if (sucesso)
+            this.cdContato = sucesso;
+        });
+      }
+    },
+      error => {
+        console.log("ERRO");
+      });
   }
 
   save() {
     this.spinner.show();
     console.log(this.clienteFornecedor);
     this.clienteFornecedor.enderecoList.forEach(e => e.municipio = null);
-    if(!this.edit) {
+    if (!this.edit) {
       this.clienteFornecedorService.save(this.clienteFornecedor).subscribe(sucesso => {
-        if(sucesso != null) {
+        if (sucesso != null) {
           this.spinner.hide();
           this.backwards();
-          for (let element of this.clienteFornecedor.enderecoList) {
-            this.enderecoService.save(element).subscribe(sucesso => {
-              if (sucesso != null) {
-                this.spinner.hide();
-                this.backwards();
-              }
-            }, error => {
-              this.spinner.hide();
-              console.log("Erro ao salvar endereço");
-              console.log(this.clienteFornecedor);
-            });
-          }
-          for (let element of this.clienteFornecedor.contatoList) {
-            this.contatoService.save(element).subscribe(sucesso => {
-              if (sucesso != null) {
-                this.spinner.hide();
-                this.backwards();
-              }
-            }, error => {
-              this.spinner.hide();
-              console.log("Erro ao salvar contato");
-              console.log(this.clienteFornecedor);
-            });
-          }
-          //this.contatoService.save(this.clienteFornecedor.contatoList);
         }
       },
-      error => {
-        this.spinner.hide();
-      });
-    }else {
+        error => {
+          this.spinner.hide();
+        });
+    } else {
       this.update();
-      //this.backwards();
+      console.log(this.clienteFornecedor);
+      this.backwards();
     }
   }
-  
+
   update() {
+    console.log(this.clienteFornecedor);
     this.clienteFornecedorService.update(this.clienteFornecedor).subscribe(sucesso => {
-      if(sucesso != null) {
+      if (sucesso != null) {
         this.spinner.hide();
         this.backwards();
       }
     },
-    error => {
-      this.spinner.hide();
-    });
+      error => {
+        this.spinner.hide();
+      });
+    this.updateEnderecos();
+    this.updateContatos();
   }
 
   backwards() {
-    this.router.navigate(["../cliente-list"]);
+    this.router.navigate(["../clientefornecedor-list"]);
   }
 
   getByIdClienteFornecedor(id: number) {
     this.clienteFornecedorService.list(id).subscribe(sucesso => {
       if (sucesso != null) {
-          this.fill(sucesso);
+        this.fill(sucesso);
       }
-    }, 
-    error => {
-      this.spinner.hide();
-    }); 
+    },
+      error => {
+        this.spinner.hide();
+      });
   }
 
   fill(clienteFornecedor: any) {
@@ -161,9 +160,9 @@ export class ClienteFornecedorComponent implements OnInit {
         console.log(this.municipioList);
       }
     },
-    error => {
-      this.spinner.hide();
-    });
+      error => {
+        this.spinner.hide();
+      });
   }
 
   listAllEnderecos() {
@@ -172,7 +171,9 @@ export class ClienteFornecedorComponent implements OnInit {
   }
 
   addEndereco() {
-    this.endereco.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor; 
+    this.endereco.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor;
+    var id = this.clienteFornecedor.enderecoList.length + 1;
+    this.endereco.cdEndereco = id;
     this.clienteFornecedor.enderecoList.push(this.endereco);
     this.listAllEnderecos();
   }
@@ -199,10 +200,10 @@ export class ClienteFornecedorComponent implements OnInit {
 
   addContato() {
     this.contato.cdClienteFornecedor = this.clienteFornecedor.cdClienteFornecedor;
+    var id = this.clienteFornecedor.contatoList.length + 1;
+    this.contato.cdContato = id;
     this.clienteFornecedor.contatoList.push(this.contato);
     this.listAllContatos();
-    console.log(this.clienteFornecedor.contatoList);
-    
   }
 
   removerContato(id: any) {
@@ -224,6 +225,8 @@ export class ClienteFornecedorComponent implements OnInit {
     this.endereco.cdMunicipio = municipio.cdMunicipio;
     this.endereco.cdEstado = municipio.cdEstado;
     this.endereco.municipio = municipio;
+    this.endereco.dsMunicipio = municipio.dsMunicipio;
+    this.endereco.dsSigla = municipio.estado.dsSigla;
     console.log(this.endereco);
   }
 
@@ -239,5 +242,24 @@ export class ClienteFornecedorComponent implements OnInit {
     this.contatoDataSource.sort = this.sortCustom;
   }
 
+  updateEnderecos() {
+    this.clienteFornecedorService.listAll().subscribe(sucesso => {
+      this.clienteFornecedor.enderecoList.forEach(c => c.cdEndereco != sucesso.cdEndereco ? this.enderecoService.save(c).subscribe(sucesso => {
+        if (sucesso != null) {
+          console.log(sucesso);
+        }
+      }) : console.log("já cadastrado"));
+    });
+  }
+
+  updateContatos() {
+    this.contatoService.listAll().subscribe(sucesso => {
+      this.clienteFornecedor.contatoList.forEach(c => c.cdContato != sucesso.cdContato ? this.contatoService.save(c).subscribe(sucesso => {
+        if (sucesso != null) {
+          console.log(sucesso);
+        }
+      }) : console.log("já cadastrado"));
+    });
+  }
 
 }

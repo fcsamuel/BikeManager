@@ -27,6 +27,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Nome Fantasia</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.dsFantasia}} </mat-cell>
           </ng-container>
+          <!--
         <ng-container matColumnDef="nrContato">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Contato</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.contatoList[0].nrNumero}} </mat-cell>
@@ -35,14 +36,15 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Endereço</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.enderecoList[0].dsRua + ", " + element.enderecoList[0].nrNumero + " - " + element.enderecoList[0].nrCep} </mat-cell>
           </ng-container>
+          -->
         <ng-container matColumnDef="editColumn">
           <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button>
-              <mat-icon (click)="this.callUpdate(element.cdCategoria)">edit</mat-icon>
+              <mat-icon (click)="this.callUpdate(element.cdClienteFornecedor)">edit</mat-icon>
             </button>
             <button mat-icon-button>
-              <mat-icon (click)="this.deleteConfirmation(element.cdCategoria)">delete</mat-icon>
+              <mat-icon (click)="this.deleteConfirmation(element.cdClienteFornecedor)">delete</mat-icon>
             </button>
           </mat-cell>
         </ng-container>

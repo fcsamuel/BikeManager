@@ -44,7 +44,7 @@ export class ClienteFornecedorService extends BaseService {
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  getId() : Observable<any> {
+  getLastId() : Observable<any> {
     return this.http.get(environment.urlWebAPI +"ClienteFornecedor/GetLastId")
       .catch((error: any) => Observable.throw(error.error));
   }
