@@ -42,4 +42,9 @@ export class NotaEntradaService extends BaseService {
     return this.http.get(environment.urlWebAPI + "NotaEntrada/" + id)
       .catch((error: any) => Observable.throw(error.error));
   }
+
+  getLastId() : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"NotaEntrada/GetLastId")
+      .catch((error: any) => Observable.throw(error.error));
+  }
 }
