@@ -6,10 +6,11 @@ export class Conta {
     cdConta: number;
     dsTipo: string;
     vlTotal: number;
-    qtParcelas: number;
+    //qtParcelas: number;
     dtVencimento: Date;
-    dtPagamento: Date;
+    //dtPagamento: Date;
     fgPago: boolean;
+    vlPago: number;
     pagamentoList: Array<Pagamento>;
     ordemServico: OrdemServico;
     notaEntrada: NotaEntrada;

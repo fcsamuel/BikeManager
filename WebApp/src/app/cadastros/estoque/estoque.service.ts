@@ -13,8 +13,18 @@ export class EstoqueService extends BaseService {
     super();
   }
 
+  listAll() : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"Estoque/")
+      .catch((error: any) => Observable.throw(error.error));
+  }
+
   findStockByProduct(id: number) : Observable<any> {
     return this.http.get(environment.urlWebAPI + "Estoque/findStockByProduct")
     .catch((error: any) => Observable.throw(error.error));
+  }
+
+  getLastId() : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"Estoque/GetLastId")
+      .catch((error: any) => Observable.throw(error.error));
   }
 }

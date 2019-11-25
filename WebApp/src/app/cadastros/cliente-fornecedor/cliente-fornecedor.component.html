@@ -5,7 +5,8 @@
 <div class="row">
     <div class="col s12 m1 l1">
         <mat-form-field>
-            <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor"  disabled>
+            <input matInput placeholder="Código" type="number" [(ngModel)]="clienteFornecedor.cdClienteFornecedor"
+                disabled>
         </mat-form-field>
     </div>
     <div class="col s12 m3 l3">
@@ -131,7 +132,8 @@
             <ng-container matColumnDef="dsMunicipio">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Municipio</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    {{element.municipio == null ? (element.dsMunicipio + " - " + element.dsSigla) : element.municipio.dsMunicipio}} </mat-cell>
+                    {{element.municipio == null ? (element.dsMunicipio + " - " + element.dsSigla) : element.municipio.dsMunicipio}}
+                </mat-cell>
             </ng-container>
             <ng-container matColumnDef="editColumn">
                 <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
@@ -213,7 +215,7 @@
     <div class="col s12 m12 l12">
         <div class="row footer-btn">
             <div class="button-row col s12">
-                <button mat-raised-button color="grey" (click)="this.backward()">Voltar</button>
+                <button mat-raised-button color="grey" (click)="this.backward()">Cancelar</button>
                 <button mat-raised-button color="blue" (click)="this.save()">Salvar</button>
             </div>
         </div>

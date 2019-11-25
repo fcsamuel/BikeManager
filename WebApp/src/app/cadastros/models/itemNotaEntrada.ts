@@ -8,6 +8,7 @@ export class ItemNotaEntrada {
     //vlUnitario: number;
     vlTotal: number;
     vlCusto: number;
+    vlCustoMedio: number;
     qtProduto: number;
     dtRegistro: Date;
     dtAlteracao: Date;

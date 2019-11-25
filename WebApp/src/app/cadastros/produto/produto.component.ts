@@ -42,7 +42,6 @@ export class ProdutoComponent implements OnInit {
     }
   
     save() {
-      console.log(this.produto);
       this.produto.fgTipo = 'P';
       this.produto.fgBicicleta = false;
       this.spinner.show();

@@ -9,6 +9,7 @@ import { ClienteFornecedorService } from '../cliente-fornecedor/cliente-forneced
 import { ProdutoService } from '../produto/produto.service';
 import { Produto } from '../models/produto';
 import { ItemOrdemServico } from '../models/itemOrdemServico';
+import { FormaPagamentoService } from '../forma-pagamento/forma-pagamento.service';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -20,7 +21,7 @@ export class OrdemServicoComponent implements OnInit {
   ordemServico: OrdemServico;
   edit: boolean;
   clienteList: Array<ClienteFornecedor> = new Array<ClienteFornecedor>();
-  produtoList: Array<Produto> = new Array<Produto>(); 
+  produtoList: Array<Produto> = new Array<Produto>();
   produtoServicoList: Array<Produto> = new Array<Produto>();
   produto: Produto;
   item: ItemOrdemServico;
@@ -33,12 +34,15 @@ export class OrdemServicoComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private clienteService: ClienteFornecedorService,
-    private produtoService: ProdutoService) { }
+    private produtoService: ProdutoService,
+    private formaPagamentoService: FormaPagamentoService) { }
 
   ngOnInit() {
     this.ordemServico = new OrdemServico();
+    this.getLastId();
     this.loadClienteList();
     this.loadProdutoList();
+    //this.loadFormaPagamentoList();
     this.produto = new Produto();
     this.item = new ItemOrdemServico();
     this.activatedRoute.params.subscribe(
@@ -53,6 +57,13 @@ export class OrdemServicoComponent implements OnInit {
   }
   backwards() {
     this.router.navigate(["../ordem-servico-list"]);
+  }
+
+  getLastId() {
+    this.ordemServicoService.getLastId().subscribe(sucesso => {
+      if (sucesso) 
+        this.ordemServico.cdOrdemServico = sucesso;
+    });
   }
 
   getById(id: any) {
@@ -106,9 +117,9 @@ export class OrdemServicoComponent implements OnInit {
     this.item.produto = this.produto;
     this.ordemServico.itemList.push()
   }
-/*
-  produtoToItem(produto: any) : ItemOrdemServico {
-    
-  }
-*/
+  /*
+    produtoToItem(produto: any) : ItemOrdemServico {
+      
+    }
+  */
 }

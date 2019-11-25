@@ -78,6 +78,7 @@ export class ClienteFornecedorComponent implements OnInit {
       }
     );
   }
+  
   getById(id: any) {
     this.clienteFornecedorService.list(id).subscribe(sucesso => {
       if (sucesso != null) {
