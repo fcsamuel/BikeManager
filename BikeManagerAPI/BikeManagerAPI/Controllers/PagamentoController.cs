@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Pagamento> GetPagamento()
         {
-            return _context.Pagamento;
+            return _context.Pagamento.Include(p => p.FormaPagamento).AsNoTracking();
         }
 
         // GET: api/Pagamento/5

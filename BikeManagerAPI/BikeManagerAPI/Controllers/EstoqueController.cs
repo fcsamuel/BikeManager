@@ -146,5 +146,11 @@ namespace BikeManagerAPI.Controllers
             return _context.Estoque.Where(e => e.CdProduto == id);
 
         }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.Estoque.Count() + 1;
+        }
     }
 }

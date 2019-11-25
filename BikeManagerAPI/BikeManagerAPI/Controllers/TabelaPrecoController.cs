@@ -139,5 +139,11 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.TabelaPreco.Any(e => e.CdTabelaPreco == id);
         }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.TabelaPreco.Count() + 1;
+        }
     }
 }

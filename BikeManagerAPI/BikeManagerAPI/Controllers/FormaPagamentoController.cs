@@ -139,5 +139,11 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.FormaPagamento.Any(e => e.CdFormaPagamento == id);
         }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.FormaPagamento.Count() + 1;
+        }
     }
 }

@@ -139,5 +139,12 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.Conta.Any(e => e.CdConta == id);
         }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.Conta.Count() + 1;
+        }
+            
     }
 }

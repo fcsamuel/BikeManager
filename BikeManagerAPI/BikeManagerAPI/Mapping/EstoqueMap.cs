@@ -12,7 +12,7 @@ namespace BikeManagerAPI.Mapping
     {
         public void Configure(EntityTypeBuilder<Estoque> entity)
         {
-            entity.HasKey(e => new { e.CdProduto, e.CdNotaEntrada });
+            entity.HasKey(e => new { e.CdEstoque });
 
             entity.ToTable("estoque");
 
@@ -45,10 +45,14 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_custo")
                 .HasColumnType("numeric(15,2)");
 
+            entity.Property(e => e.VlCustoMedio)
+                .HasColumnName("vl_customedio")
+                .HasColumnType("numeric(15,2)");
+
             entity.HasOne(d => d.NotaEntrada)
                 .WithMany(p => p.Estoque)
                 .HasForeignKey(d => d.CdNotaEntrada)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                //.OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("estoque_cd_notaentrada_fkey");
 
             entity.HasOne(d => d.OrdemServico)
