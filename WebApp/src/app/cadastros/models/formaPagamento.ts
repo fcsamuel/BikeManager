@@ -3,4 +3,5 @@ export class FormaPagamento {
     dsFormaPagamento: string;
     dtRegistro: Date;
     dtAlteracao: Date;
+    qtParcelas: number;
 }

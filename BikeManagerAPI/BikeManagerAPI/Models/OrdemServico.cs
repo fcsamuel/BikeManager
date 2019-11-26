@@ -26,7 +26,6 @@ namespace BikeManagerAPI.Models
         public Conta Conta { get; set; }
         [JsonIgnore]
         public ICollection<Estoque> Estoque { get; set; }
-        [JsonIgnore]
         public ICollection<ItemOrdemServico> ItemOrdemServico { get; set; }
     }
 }

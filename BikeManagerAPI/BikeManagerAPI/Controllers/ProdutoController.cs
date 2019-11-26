@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Produto> GetProduto()
         {
-            return _context.Produto.Include(p => p.Marca).Include(p => p.Categoria).Include(p => p.TabelaPrecoList).AsNoTracking();
+            return _context.Produto.Include(p => p.Marca).Include(p => p.Categoria).Include(p => p.TabelaPrecoList);
         }
 
         // GET: api/Produto/5
@@ -36,7 +36,7 @@ namespace BikeManagerAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var produto = await _context.Produto.FindAsync(id);
+            var produto = _context.Produto.Include(p => p.Marca).Include(p => p.Categoria).Include(p => p.TabelaPrecoList).SingleOrDefault(t => t.CdProduto == id);
 
             if (produto == null)
             {

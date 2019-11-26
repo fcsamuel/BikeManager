@@ -145,5 +145,17 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.TabelaPreco.Count() + 1;
         }
+
+        [HttpGet("FindTbPrecoByProduct/{id}")]
+        public IEnumerable<TabelaPreco> findTbPrecoByProduct(int id)
+        {
+            return _context.TabelaPreco.Where(t => t.CdProduto == id);
+        }
+
+        [HttpGet("GetLastTbPrecoByProduct/{id}")]
+        public TabelaPreco GetLastTbPrecoByProduct(int id)
+        {
+            return _context.TabelaPreco.Where(e => e.CdProduto == id).LastOrDefault();
+        }
     }
 }

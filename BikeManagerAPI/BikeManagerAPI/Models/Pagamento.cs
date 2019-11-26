@@ -6,7 +6,8 @@ namespace BikeManagerAPI.Models
 {
     public partial class Pagamento
     {
-        public int CdFormapagamento { get; set; }
+        public int CdPagamento { get; set; }
+        public int CdFormaPagamento { get; set; }
         public int CdConta { get; set; }
         public decimal VlPago { get; set; }
         public DateTime DtPagamento { get; set; }

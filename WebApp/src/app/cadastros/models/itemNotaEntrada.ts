@@ -5,7 +5,7 @@ import { Estoque } from "./estoque";
 export class ItemNotaEntrada {
     cdNotaEntrada: number;
     cdProduto: number;
-    //vlUnitario: number;
+    vlUnitario: number;
     vlTotal: number;
     vlCusto: number;
     vlCustoMedio: number;

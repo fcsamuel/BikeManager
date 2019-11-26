@@ -1,5 +1,6 @@
 import { Produto } from "./produto";
 import { Orcamento } from "./orcamento";
+import { TabelaPreco } from "./tabelaPreco";
 
 export class ItemOrcamento {
     cdProduto: number;
@@ -12,5 +13,5 @@ export class ItemOrcamento {
     dtAlteracao: Date;
     orcamento: Orcamento;
     produto: Produto;
-    //tabelaPreco: TabelaPreco;
+    tabelaPreco: TabelaPreco;
 }

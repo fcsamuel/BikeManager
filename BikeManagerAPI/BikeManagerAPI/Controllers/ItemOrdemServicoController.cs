@@ -28,15 +28,15 @@ namespace BikeManagerAPI.Controllers
         }
 
         // GET: api/ItemOrdemServico/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetItemOrdemServico([FromRoute] int id)
+        [HttpGet("{cdProduto}/{cdOrdemServico}")]
+        public async Task<IActionResult> GetItemOrdemServico([FromRoute] int cdProduto, [FromRoute] int cdOrdemServico)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var itemOrdemServico = await _context.ItemOrdemServico.FindAsync(id);
+            var itemOrdemServico = await _context.ItemOrdemServico.FindAsync(cdProduto, cdOrdemServico);
 
             if (itemOrdemServico == null)
             {
@@ -115,15 +115,15 @@ namespace BikeManagerAPI.Controllers
         }
 
         // DELETE: api/ItemOrdemServico/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemOrdemServico([FromRoute] int id)
+        [HttpDelete("{cdProduto}/{cdOrdemServico}")]
+        public async Task<IActionResult> DeleteItemOrdemServico([FromRoute] int cdProduto, [FromRoute] int cdOrdemServico)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var itemOrdemServico = await _context.ItemOrdemServico.FindAsync(id);
+            var itemOrdemServico = await _context.ItemOrdemServico.FindAsync(cdProduto, cdOrdemServico);
             if (itemOrdemServico == null)
             {
                 return NotFound();

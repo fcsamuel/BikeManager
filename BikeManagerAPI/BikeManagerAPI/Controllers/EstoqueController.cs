@@ -140,17 +140,22 @@ namespace BikeManagerAPI.Controllers
             return _context.Estoque.Any(e => e.CdProduto == id);
         }
 
-        [HttpGet("FindStockByProduct")]
+        [HttpGet("FindStockByProduct/{id}")]
         public IEnumerable<Estoque> FindStockByProduct(int id)
         {
             return _context.Estoque.Where(e => e.CdProduto == id);
-
         }
 
         [HttpGet("GetLastId")]
-        public int GetLastId()
+        public int GetLastId()  
         {
             return _context.Estoque.Count() + 1;
+        }
+
+        [HttpGet("GetLastStockOfProduct/{id}")]
+        public Estoque GetLastStockOfProduct(int id)
+        {
+            return _context.Estoque.Where(e => e.CdProduto == id).LastOrDefault();
         }
     }
 }

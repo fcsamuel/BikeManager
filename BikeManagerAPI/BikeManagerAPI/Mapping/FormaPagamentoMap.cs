@@ -32,6 +32,10 @@ namespace BikeManagerAPI.Mapping
             entity.Property(e => e.DtRegistro)
                 .HasColumnName("dt_registro")
                 .HasColumnType("date");
+
+            entity.Property(e => e.QtParcelas)
+                .HasColumnName("qt_parcelas")
+                .HasColumnType("integer");
         }
     }
 }

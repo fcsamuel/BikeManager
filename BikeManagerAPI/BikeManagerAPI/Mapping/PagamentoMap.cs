@@ -12,13 +12,17 @@ namespace BikeManagerAPI.Mapping
     {
         public void Configure(EntityTypeBuilder<Pagamento> entity)
         {
-            entity.HasKey(e => new { e.CdConta, e.CdFormapagamento });
+            entity.HasKey(e => e.CdPagamento);
 
             entity.ToTable("pagamento");
 
+            entity.Property(e => e.CdPagamento)
+                .HasColumnName("cd_pagamento")
+                .ValueGeneratedNever();
+
             entity.Property(e => e.CdConta).HasColumnName("cd_conta");
 
-            entity.Property(e => e.CdFormapagamento).HasColumnName("cd_formapagamento");
+            entity.Property(e => e.CdFormaPagamento).HasColumnName("cd_formapagamento");
 
             entity.Property(e => e.DtAlteracao)
                 .HasColumnName("dt_alteracao")
@@ -39,13 +43,11 @@ namespace BikeManagerAPI.Mapping
             entity.HasOne(d => d.Conta)
                 .WithMany(p => p.Pagamento)
                 .HasForeignKey(d => d.CdConta)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pagamento_cd_conta_fkey");
 
             entity.HasOne(d => d.FormaPagamento)
                 .WithMany(p => p.Pagamento)
-                .HasForeignKey(d => d.CdFormapagamento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasForeignKey(d => d.CdFormaPagamento)
                 .HasConstraintName("pagamento_cd_formapagamento_fkey");
         }
     }

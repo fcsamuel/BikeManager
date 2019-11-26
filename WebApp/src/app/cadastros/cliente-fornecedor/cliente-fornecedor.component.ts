@@ -99,7 +99,6 @@ export class ClienteFornecedorComponent implements OnInit {
 
   save() {
     this.spinner.show();
-    console.log(this.clienteFornecedor);
     this.clienteFornecedor.enderecoList.forEach(e => e.municipio = null);
     if (!this.edit) {
       this.clienteFornecedorService.save(this.clienteFornecedor).subscribe(sucesso => {

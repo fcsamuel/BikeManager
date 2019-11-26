@@ -23,12 +23,12 @@ export class ItemOrdemServicoService extends BaseService {
   update(itemOrdemServico: any): Observable<any> {
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.put(environment.urlWebAPI + "ItemOrdemServico/" + itemOrdemServico.cdItemOrdemServico, itemOrdemServico)
+    return this.http.put(environment.urlWebAPI + "ItemOrdemServico/" + itemOrdemServico.cdProduto + itemOrdemServico.cdOrdemServico,  itemOrdemServico)
       .catch((error: any) => Observable.throw(error.error));
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete(environment.urlWebAPI + "ItemOrdemServico/" + id)
+  delete(cdOrdemServico: number, cdProduto: number): Observable<any> {
+    return this.http.delete(environment.urlWebAPI + "ItemOrdemServico/" + cdProduto + cdOrdemServico)
       .catch((error: any) => Observable.throw(error.error));
   }
 

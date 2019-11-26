@@ -13,6 +13,7 @@ namespace BikeManagerAPI.Models
         public decimal QtProduto { get; set; }
         public decimal VlCusto { get; set; }
         public decimal? VlCustoMedio { get; set; }
+        public decimal? qtAtual { get; set; }
         public string TpLancamento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }

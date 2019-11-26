@@ -15,4 +15,6 @@ export class ItemOrdemServico {
     ordemServico: OrdemServico;
     produto: Produto;
     tabelaPreco: TabelaPreco;
+    countItem: number;
+    tpItem: string;
 }

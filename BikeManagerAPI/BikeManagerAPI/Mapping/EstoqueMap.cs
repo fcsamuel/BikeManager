@@ -49,6 +49,10 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_customedio")
                 .HasColumnType("numeric(15,2)");
 
+            entity.Property(e => e.qtAtual)
+                .HasColumnName("qt_atual")
+                .HasColumnType("numeric(15,2)");
+
             entity.HasOne(d => d.NotaEntrada)
                 .WithMany(p => p.Estoque)
                 .HasForeignKey(d => d.CdNotaEntrada)

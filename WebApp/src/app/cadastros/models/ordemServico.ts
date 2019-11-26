@@ -11,6 +11,7 @@ export class OrdemServico {
     clienteFornecedor: ClienteFornecedor; 
     dsBicicleta: string;
     vlTotal: number;
+    vlPendente: number;
     dtAbertura: Date;
     dtPrevConclusao: Date;
     dtConclusao: Date;

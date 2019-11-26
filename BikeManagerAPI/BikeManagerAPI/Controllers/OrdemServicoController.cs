@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<OrdemServico> GetOrdemServico()
         {
-            return _context.OrdemServico;
+            return _context.OrdemServico.Include(os => os.ItemOrdemServico).AsNoTracking(); 
         }
 
         // GET: api/OrdemServico/5

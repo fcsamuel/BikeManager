@@ -15,6 +15,7 @@ namespace BikeManagerAPI.Models
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
         public NotaEntrada NotaEntrada { get; set; }
+        [JsonIgnore]
         public Produto Produto { get; set; }
     }
 }

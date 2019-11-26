@@ -6,7 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ClienteFornecedorService } from '../cliente-fornecedor/cliente-fornecedor.service';
 import { ClienteFornecedor } from '../models/clienteFornecedor';
 import { FormControl } from '@angular/forms';
-import { TabelaPrecoServiceService } from '../tabela-preco/tabela-preco-service.service';
 import { ProdutoService } from '../produto/produto.service';
 import { Produto } from '../models/produto';
 import { ItemNotaEntrada } from '../models/itemNotaEntrada';
@@ -21,6 +20,8 @@ import { FormaPagamento } from '../models/formaPagamento';
 import { Pagamento } from '../models/pagamento';
 import { PagamentoService } from '../pagamento/pagamento.service';
 import { DatePipe } from '@angular/common';
+import { TabelaPrecoService } from '../tabela-preco/tabela-preco.service';
+import { ItemitemNotaEntradaService } from '../item-nota-entrada/item-nota-entrada.service';
 
 @Component({
   selector: 'app-nota-entrada',
@@ -70,13 +71,14 @@ export class NotaEntradaComponent implements OnInit {
     public router: Router,
     public spinner: NgxSpinnerService,
     public fornecedorService: ClienteFornecedorService,
-    public tbPrecoService: TabelaPrecoServiceService,
     public estoqueService: EstoqueService,
     public produtoService: ProdutoService,
     public contaService: ContaService,
     public formaPagamentoService: FormaPagamentoService,
     public pagamentoService: PagamentoService,
-    public datePipe: DatePipe) { }
+    public tbPrecoService: TabelaPrecoService,
+    public datePipe: DatePipe,
+    public itemService: ItemitemNotaEntradaService) { }
 
   ngOnInit() {
     this.loadFornecedorList();
@@ -102,7 +104,6 @@ export class NotaEntradaComponent implements OnInit {
   initObjects() {
     this.notaEntrada = new NotaEntrada();
     this.notaEntrada.vlTotal = 0;
-    this.notaEntrada.vlPendente = 0;
     this.produto = new Produto();
     this.item = new ItemNotaEntrada();
     this.tbPreco = new TabelaPreco();
@@ -114,25 +115,34 @@ export class NotaEntradaComponent implements OnInit {
     this.pagamento = new Pagamento();
   }
 
-  save() {
+  save() {  
     this.spinner.show();
     this.setConta();
+    this.notaEntrada.clienteFornecedor = null;
     console.log(this.notaEntrada);
-    /*if (!this.edit) {
-      this.notaEntradaService.save(this.notaEntrada).subscribe(sucesso => {
-        if (sucesso != null) {
-          this.spinner.hide();
-          this.backwards();
-        }
-      },
-        error => {  
-          this.spinner.hide();
-          console.log("Erro save() NotaEntrada");
-        });
+    if (!this.edit) {
+      try {
+        this.notaEntradaService.save(this.notaEntrada).subscribe(sucesso => {
+          if (sucesso != null) {
+            this.saveEstoque();
+            this.spinner.hide();
+            this.backwards();
+            this.notaEntrada.itemList.forEach(i => { this.itemService.save(i).subscribe(sucesso, error => { console.log("Erro ao salvar item") }) });
+          }
+        },
+          error => {
+            this.spinner.hide();
+            console.log("Erro save() NotaEntrada");
+          });
+      } catch (e) {
+        console.log("Erro ao salvar NotaEntrada")
+        console.log(e);
+      }
     } else {
       this.update();
       this.backwards();
-    }*/
+    }
+    console.log(this.notaEntrada.itemList);
   }
 
   update() {
@@ -157,6 +167,8 @@ export class NotaEntradaComponent implements OnInit {
     this.contaService.getLastId().subscribe(sucesso => {
       if (sucesso != null && sucesso != undefined) {
         this.conta.cdConta = sucesso;
+        this.notaEntrada.cdConta = sucesso;
+        console.log(sucesso);
       }
     })
   }
@@ -208,87 +220,32 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   setFornecedor(fornecedor: any) {
-    this.notaEntrada.clienteFornecedor = fornecedor;
     this.notaEntrada.cdClienteFornecedor = fornecedor.cdClienteFornecedor;
   }
 
   setProduto(produto: any) {
     this.cleanItems();
+    this.estoqueService.findStockByProduct(produto.cdProduto).subscribe(sucesso => {
+      if (sucesso != null) {
+        this.item.estoqueList = sucesso;
+      }
+    });
     this.item.qtProduto = 1;
     this.item.produto = produto;
     this.item.cdProduto = produto.cdProduto;
     this.estoque.cdProduto = produto.cdProduto;
-    this.estoqueService.listAll().subscribe(sucesso => {
+    this.getEstoque(produto.cdProduto);
+
+  }
+
+  getEstoque(id: any) {
+    this.estoqueService.findStockByProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
         this.estoqueList = sucesso;
-        this.item.estoqueList = new Array<Estoque>();
-        this.estoqueList.forEach(e => e.cdProduto == produto.cdProduto ? this.item.estoqueList.push(e) : null);
-      }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+      }
     }, error => {
       console.log("Erro no setProduto(produto)");
-    })
-  }
-
-  cleanItems() {
-    this.item.produto = new Produto();
-    this.estoque = new Estoque();
-    this.estoqueList = new Array<Estoque>();
-  }
-
-  addItem() {
-    this.setTbPreco();
-    this.setEstoque();
-    this.notaEntrada.itemList.push(this.item);
-    this.notaEntrada.vlTotal += this.item.vlTotal;
-    this.notaEntrada.vlPendente += this.item.vlTotal;
-    this.listAllItems();
-  }
-
-  listAllItems() {
-    this.updateItemTable(this.notaEntrada.itemList);
-    this.item = new ItemNotaEntrada();
-  }
-
-  listAllPagamentos() {
-    this.updatePagamentoTable(this.pagamentoList);
-  }
-
-  addPagamento() {
-    this.setPagamento();
-    this.conta.pagamentoList.push(this.pagamento);
-    this.listAllPagamentos();
-    this.cleanPagamento();
-  }
-
-  setPagamento() {
-    this.formaPagamentoService.list(this.pagamento.cdFormaPagamento).subscribe(sucesso => {
-      if (sucesso != null) {
-        this.pagamento.formaPagamento = sucesso;
-      }
     });
-    this.pagamento.conta = this.conta;
-    this.pagamento.cdConta = this.conta.cdConta;
-    this.conta.vlPago += this.pagamento.vlPago;
-    this.notaEntrada.vlPendente -= this.pagamento.vlPago;
-  }
-
-  cleanPagamento() {
-    this.pagamento = new Pagamento();
-    this.formaPagamento = new FormaPagamento();
-  }
-
-  setConta() {
-    this.notaEntrada.conta = this.conta;
-  }
-
-  setTbPreco() {
-    this.tbPrecoService.getLastId().subscribe(sucesso => {
-      if (sucesso != null) {
-        this.tbPreco.cdTabelaPreco = sucesso;
-      }
-    });
-    this.tbPreco.cdProduto = this.item.cdProduto;
-    this.tbPreco.vlTotal = this.item.vlTotal;
   }
 
   setEstoque() {
@@ -303,6 +260,94 @@ export class NotaEntradaComponent implements OnInit {
     this.estoque.tpLancamento = 'NE';
     this.estoque.vlCusto = this.item.vlCusto;
     this.estoque.vlCustoMedio = this.item.vlCustoMedio;
+    let i = this.estoqueList.length;
+    if (this.estoqueList[i - 1] != undefined) {
+      this.estoque.qtAtual = (this.estoqueList[i - 1].qtAtual + this.estoque.qtProduto);
+    } else {
+      this.estoque.qtAtual = 0 + this.estoque.qtProduto;
+    }
+
+  }
+
+  saveEstoque() {
+    this.estoqueService.save(this.estoque).subscribe(sucesso => {
+      if (sucesso != null) {
+        console.log("Estoque salvo");
+      }
+    }, error => {
+      console.log("Erro ao salvar estoque");
+    })
+  }
+
+  cleanItems() {
+    this.item.produto = new Produto();
+    this.estoque = new Estoque();
+    this.estoqueList = new Array<Estoque>();
+  }
+
+  addItem() {
+    this.setTbPreco();
+    this.setEstoque();
+    this.item.cdNotaEntrada = this.notaEntrada.cdNotaEntrada;
+    this.notaEntrada.itemList.push(this.item);
+    this.notaEntrada.vlTotal += this.item.vlTotal;
+    this.listAllItems();
+  }
+
+  listAllItems() {
+    this.updateItemTable(this.notaEntrada.itemList);
+    this.item = new ItemNotaEntrada();
+  }
+
+  listAllPagamentos() {
+    this.updatePagamentoTable(this.pagamentoList);
+  }
+
+  /*addPagamento() {
+    this.setPagamento();
+    this.conta.pagamentoList.push(this.pagamento);
+    this.listAllPagamentos();
+    this.cleanPagamento();
+  }/*
+
+  /*setPagamento() {
+    this.formaPagamentoService.list(this.pagamento.cdFormaPagamento).subscribe(sucesso => {
+      if (sucesso != null) {
+        this.pagamento.formaPagamento = sucesso;
+      }
+    });
+    this.notaEntrada.conta = this.conta;
+    this.pagamento.cdConta = this.conta.cdConta;
+    this.conta.vlPago += this.pagamento.vlPago;
+  }*/
+
+  cleanPagamento() {
+    this.pagamento = new Pagamento();
+  }
+
+  setConta() {
+    this.contaService.getLastId().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.conta.cdConta = sucesso;
+      }
+    });
+    this.conta.qtParcelas;
+    this.conta.dsTipo = 'AP';
+    this.conta.dtVencimento = new Date();
+    this.conta.dtVencimento.setDate(this.conta.dtVencimento.getDate() + 30);
+    this.conta.vlPago = 0;
+    this.conta.vlTotal = this.notaEntrada.vlTotal;
+    this.notaEntrada.conta = this.conta;
+  }
+
+  setTbPreco() {
+    this.tbPrecoService.getLastId().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.tbPreco.cdTabelaPreco = sucesso;
+      }
+    });
+    this.tbPreco.cdProduto = this.item.cdProduto;
+    this.tbPreco.vlVenda = this.item.vlTotal;
   }
 
   calculaCustoMedio() {
@@ -319,7 +364,7 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   calculaPrecoVenda() {
-    this.tbPreco.vlTotal = this.item.vlCustoMedio + (this.item.vlCustoMedio * this.tbPreco.nrMargemLucro / 100);
+    this.tbPreco.vlVenda = this.item.vlCustoMedio + (this.item.vlCustoMedio * this.tbPreco.nrMargemLucro / 100);
   }
 
   updateItemTable(item: any) {

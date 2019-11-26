@@ -6,7 +6,7 @@ export class Conta {
     cdConta: number;
     dsTipo: string;
     vlTotal: number;
-    //qtParcelas: number;
+    qtParcelas: number;
     dtVencimento: Date;
     //dtPagamento: Date;
     fgPago: boolean;

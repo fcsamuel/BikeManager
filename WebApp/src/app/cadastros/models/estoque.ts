@@ -9,6 +9,7 @@ export class Estoque {
     qtProduto: number;
     tpLancamento: string;
     vlCusto: number;
+    qtAtual: number;
     vlCustoMedio: number;
     dtRegistro: Date;
     dtAlteracao: Date;

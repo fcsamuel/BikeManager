@@ -34,8 +34,8 @@
   <div class="col s12 m4 l4">
     <mat-form-field class="cliente">
       <input matInput type="text" placeholder="Escolha um cliente" [(ngModel)]="ordemServico.cdClienteFornecedor"
-        [matAutocomplete]="auto" required>
-      <mat-autocomplete #auto="matAutocomplete">
+        [matAutocomplete]="autoClient" required>
+      <mat-autocomplete #autoClient="matAutocomplete">
         <mat-option *ngFor="let element of this.clienteList" [value]="element.dsNomeRazao">
           {{element.dsNomeRazao + " - " + element.nrCpfCnpj}}
         </mat-option>
@@ -47,7 +47,7 @@
   <div class="col s12 m4 l4">
     <mat-form-field>
       <input matInput placeholder="Descrição da bicicleta do cliente" type="text"
-        [(ngModel)]="ordemServico.dsBicicleta"> 
+        [(ngModel)]="ordemServico.dsBicicleta">
     </mat-form-field>
   </div>
 </div>
@@ -68,11 +68,12 @@
         <mat-panel-title>Produtos</mat-panel-title>
         <mat-panel-description>Insira os produtos utilizados na O.S</mat-panel-description>
       </mat-expansion-panel-header>
+      <!--#region Inserção do produto-->
       <div class="row">
         <div class="col s12 m3 l3">
-          <mat-form-field class="municipio">
-            <input matInput type="text" placeholder="Selecione o produto" [matAutocomplete]="auto" required>
-            <mat-autocomplete #auto="matAutocomplete">
+          <mat-form-field class="produto">
+            <input matInput type="text" placeholder="Selecione o produto" [matAutocomplete]="autoProduct" required>
+            <mat-autocomplete #autoProduct="matAutocomplete">
               <mat-option *ngFor="let element of this.produtoList" (onSelectionChange)="setProduto(element)"
                 [value]="element.dsProduto">
                 {{element.dsProduto + " - " + element.dsModelo}}
@@ -80,12 +81,66 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div class="row footer-btn">
-          <div class="button-row col s12">
-            <button mat-raised-button color="grey" (click)="this.backward()">Adicionar Produto +</button>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Valor unitário (R$)" type="number" [(ngModel)]="tbPreco.vlVenda" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Quantidade" type="number" [(ngModel)]="item.qtProduto"
+              (keyup)="calculaVlTotalItem()" required>
+          </mat-form-field>
+        </div>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Total Produto (R$)" type="number" [(ngModel)]="item.vlTotal" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col footer-btn">
+          <div class="button-col col s12">
+            <button mat-raised-button color="grey" (click)="this.addItem()">Adicionar Item +</button>
           </div>
         </div>
       </div>
+      <!--#endregion-->
+      <!--#region Tabela de itens-->
+      <mat-table #table1 [dataSource]="this.itemDataSource" matSort class="table-striped">
+        <ng-container matColumnDef="countItem">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Código</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.countItem}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dsProduto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Produto</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.produto.dsProduto}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="vlUnitario">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Valor unitário</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{"R$" + element.vlUnitario}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="qtProduto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Quantidade</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.qtProduto}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="vlTotal">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Total</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{"R$" + element.vlTotal}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="editColumn">
+          <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <mat-icon (click)="this.callUpdate(element.cdNotaEntrada)">edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon (click)="this.deleteConfirmation(element.cdNotaEntrada)">delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="this.itemColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: this.itemColumns;"></mat-row>
+      </mat-table>
+      <!--#endregion-->
     </mat-expansion-panel>
   </mat-accordion>
 </div>
@@ -98,28 +153,115 @@
         <mat-panel-title>Serviços</mat-panel-title>
         <mat-panel-description>Insira os serviços da O.S</mat-panel-description>
       </mat-expansion-panel-header>
-      <div class="row footer-btn">
-        <div class="button-row col s12">
-          <button mat-raised-button color="grey" (click)="this.backward()">Adicionar Produto +</button>
-        </div>
-      </div>
+      <!--#region Inserção de serviços-->
       <div class="row">
         <div class="col s12 m3 l3">
-          <mat-form-field>
-            <input matInput placeholder="Teste" type="text" [(ngModel)]="ordemServico.dsObservacao">
+          <mat-form-field class="servico">
+            <input matInput type="text" placeholder="Selecione o serviço" [matAutocomplete]="autoServico" required>
+            <mat-autocomplete #autoServico="matAutocomplete">
+              <mat-option *ngFor="let element of this.servicoList" (onSelectionChange)="setServico(element)"
+                [value]="element.dsProduto">
+                {{element.dsProduto}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Custo do serviço" type="number" [(ngModel)]="servico.vlServico"
+              (keyup)="this.calculaCustoMedio()" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Quantidade" type="number" [(ngModel)]="item.qtProduto"
+              (keyup)="calculaVlTotalItem()" required>
+          </mat-form-field>
+        </div>
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Valor total serviço" type="number" [(ngModel)]="item.vlTotal"
+              (keyup)="this.calculaCustoMedio()" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col footer-btn">
+          <div class="button-col col s12">
+            <button mat-raised-button color="grey" (click)="this.addServico()">Adicionar Serviço +</button>
+          </div>
+        </div>
       </div>
+      <!--#endregion-->
+      <!--#region Tabela de serviços-->
+      <mat-table #table2 [dataSource]="this.servicoDataSource" matSort class="table-striped">
+        <ng-container matColumnDef="dsProduto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Produto</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.produto.dsProduto}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="vlUnitario">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Valor unitário</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{"R$" + element.vlUnitario}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="qtProduto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Quantidade</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.qtProduto}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="vlTotal">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Total</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{"R$" + element.vlTotal}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="editColumn">
+          <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <mat-icon (click)="this.callUpdate(element)">edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon (click)="this.deleteConfirmation(element.cdNotaEntrada)">delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="this.servicoColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: this.servicoColumns;"></mat-row>
+      </mat-table>
+      <!--#region Tabela de serviços-->
     </mat-expansion-panel>
   </mat-accordion>
 </div>
 <!--#endregion-->
-<!--#region Botoes-->
+<!--#region Lista de pagamentos-->
 <div class="row">
-  <div class="col s12 m2 l2">
-    <mat-form-field>
-      <input matInput placeholder="Valor Total: R$400,00" type="number" [(ngModel)]="ordemServico.vlTotal" disabled>
-    </mat-form-field>
-  </div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Pagamentos</mat-panel-title>
+        <mat-panel-description>Insira o pagamento da nota</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col s12 m1 l1">
+          <mat-form-field>
+            <input matInput placeholder="Total da nota" type="number" [(ngModel)]="ordemServico.vlTotal" disabled>
+          </mat-form-field>
+        </div>
+        <!--
+        <div class="row">
+          <div class="col s12 m2 l2">
+            <mat-form-field>
+              <mat-select placeholder="Forma de pagamento" name="formaPagamento"
+                [(ngModel)]="pagamento.cdFormaPagamento">
+                <mat-option *ngFor="let element of this.formaPagamentoList" [value]="element.cdFormaPagamento">
+                  {{element.dsFormaPagamento}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col footer-btn">
+            <div class="button-col col s12">
+              <button mat-raised-button color="grey" (click)="this.addPagamento()">Adicionar Pagamento +</button>
+            </div>
+          </div>
+          -->
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
 <!--#endregion-->

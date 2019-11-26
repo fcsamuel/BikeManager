@@ -15,6 +15,7 @@ namespace BikeManagerAPI.Models
         public string DsFormaPagamento { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        public int? QtParcelas { get; set; }
         [JsonIgnore]
         public ICollection<Pagamento> Pagamento { get; set; }
     }

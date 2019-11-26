@@ -1,3 +1,4 @@
+<!--#region Informações gerais da Nota de Entrada-->
 <div class="row">
     <div class="col s12 m1 s1">
         <mat-form-field>
@@ -6,12 +7,12 @@
     </div>
     <div class="col s12 m1 s1">
         <mat-form-field>
-            <input matInput placeholder="Número" type="text" [(ngModel)]="notaEntrada.nrNota" required>
+            <input matInput placeholder="Número" type="number" [(ngModel)]="notaEntrada.nrNota" required>
         </mat-form-field>
     </div>
     <div class="col s12 m1 s1">
         <mat-form-field>
-            <input matInput placeholder="Série" type="text" [(ngModel)]="notaEntrada.nrSerie" required>
+            <input matInput placeholder="Série" type="number" [(ngModel)]="notaEntrada.nrSerie" required>
         </mat-form-field>
     </div>
     <div class="col s12 m1 s1">
@@ -43,7 +44,13 @@
                 required>
         </mat-form-field>
     </div>
+    <div class="col s12 m1 s1">
+        <mat-form-field>
+            <input matInput placeholder="Parcelas" type="number" [(ngModel)]="conta.qtParcelas" required>
+        </mat-form-field>
+    </div>
 </div>
+<!--#endregion-->
 <!--#region Lista de produtos-->
 <div class="row">
     <mat-accordion>
@@ -96,7 +103,7 @@
                 </div>
                 <div class="col s12 m1 l1">
                     <mat-form-field>
-                        <input matInput placeholder="Valor de venda" type="number" [(ngModel)]="tbPreco.vlTotal"
+                        <input matInput placeholder="Valor de venda" type="number" [(ngModel)]="tbPreco.vlVenda"
                             disabled>
                     </mat-form-field>
                 </div>
@@ -106,7 +113,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--#region Tabela de Itens-->
             <mat-table #table [dataSource]="this.itemDataSource" matSort class="table-striped">
                 <ng-container matColumnDef="dsProduto">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Produto</mat-header-cell>
@@ -138,99 +145,13 @@
                 <mat-header-row *matHeaderRowDef="this.itemColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: this.itemColumns;"></mat-row>
             </mat-table>
-        </mat-expansion-panel>
-    </mat-accordion>
-</div>
-<!--#endregion-->
-<!--#region Lista de pagamentos-->
-<div class="row">
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Pagamentos</mat-panel-title>
-                <mat-panel-description>Insira o pagamento da nota</mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="row">
-                <div class="col s12 m1 l1">
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="dtVencimento" [min]="minDate" placeholder="Data de vencimento"
-                            [(ngModel)]="conta.dtVencimento" [formControl]="date">
-                        <mat-datepicker-toggle matSuffix [for]="dtVencimento"></mat-datepicker-toggle>
-                        <mat-datepicker #dtVencimento></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="col s12 m1 l1">
-                    <mat-form-field>
-                        <input matInput placeholder="Total da nota" type="number" [(ngModel)]="notaEntrada.vlTotal" disabled>
-                    </mat-form-field>
-                </div>
-                <div class="col s12 m1 l1">
-                        <mat-form-field>
-                            <input matInput placeholder="Valor pendente" type="number" [(ngModel)]="notaEntrada.vlPendente" disabled>
-                        </mat-form-field>
-                    </div>
+            <!--#endregion-->
+            <div class="col s12 m1 l1">
+                <mat-form-field>
+                    <input matInput placeholder="Total da nota" type="number" [(ngModel)]="notaEntrada.vlTotal"
+                        disabled>
+                </mat-form-field>
             </div>
-            <div class="row">
-                <div class="col s12 m2 l2">
-                    <mat-form-field>
-                        <mat-select placeholder="Forma de pagamento" name="formaPagamento"
-                            [(ngModel)]="pagamento.cdFormaPagamento">
-                            <mat-option *ngFor="let element of this.formaPagamentoList"
-                                [value]="element.cdFormaPagamento">
-                                {{element.dsFormaPagamento}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col s12 m1 l1">
-                    <mat-form-field>
-                        <input matInput placeholder="Valor pago" type="number" [(ngModel)]="pagamento.vlPago" required>
-                    </mat-form-field>
-                </div>
-                <div class="col s12 m1 l1">
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="dtPagamento" [min]="minDate" placeholder="Data do pagamento"
-                            [(ngModel)]="pagamento.dtPagamento" [formControl]="date">
-                        <mat-datepicker-toggle matSuffix [for]="dtPagamento"></mat-datepicker-toggle>
-                        <mat-datepicker #dtPagamento></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="col footer-btn">
-                    <div class="button-col col s12">
-                        <button mat-raised-button color="grey" (click)="this.addPagamento()">Adicionar Pagamento +
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <mat-table #table [dataSource]="this.pagamentoDataSource" matSort class="table-striped">
-                <ng-container matColumnDef="dsFormaPagamento">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Forma de pagamento</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.cdFormaPagamento}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="vlPago">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Pago</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.vlPago}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="dtPagamento">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Data de Pagamento</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{datePipe.transform(element.dtPagamento, 'dd/MM/yyyy')}}
-                    </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="editColumn">
-                    <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                        <button mat-icon-button>
-                            <mat-icon (click)="this.callUpdate(element.cdPagamento)">edit</mat-icon>
-                        </button>
-                        <button mat-icon-button>
-                            <mat-icon (click)="this.deleteConfirmation(element.cdPagamento)">delete</mat-icon>
-                        </button>
-                    </mat-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="this.pagamentoColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: this.pagamentoColumns"></mat-row>
-            </mat-table>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

@@ -14,7 +14,6 @@ export class NotaEntrada {
     nrChaveAcesso: string;
     dtEmissao: Date;
     vlTotal: number;
-    vlPendente: number;
     dtRegistro: Date;
     dtAlteracao: Date;
     itemList: Array<ItemNotaEntrada>;

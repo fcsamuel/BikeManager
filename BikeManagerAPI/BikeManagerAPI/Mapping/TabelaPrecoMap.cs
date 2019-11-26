@@ -34,7 +34,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("nr_margemlucro")
                 .HasColumnType("numeric(15,2)");
 
-            entity.Property(e => e.VlTotal)
+            entity.Property(e => e.VlVenda)
                 .HasColumnName("vl_total")
                 .HasColumnType("numeric(15,2)");
 
