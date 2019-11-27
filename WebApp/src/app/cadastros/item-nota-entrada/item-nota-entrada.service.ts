@@ -3,6 +3,7 @@ import { BaseService } from '../../shared/base.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import 'rxjs/add/operator/catch';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class ItemitemNotaEntradaService extends BaseService {
   update(itemNotaEntrada: any): Observable<any> {
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.put(environment.urlWebAPI + "ItemNotaEntrada/" + itemNotaEntrada.cdItemNotaEntrada, itemNotaEntrada)
+    return this.http.put(environment.urlWebAPI + "ItemNotaEntrada/" + itemNotaEntrada.cdProduto +  "/" + itemNotaEntrada.cdNotaEntrada, itemNotaEntrada)
       .catch((error: any) => Observable.throw(error.error));
   }
 
