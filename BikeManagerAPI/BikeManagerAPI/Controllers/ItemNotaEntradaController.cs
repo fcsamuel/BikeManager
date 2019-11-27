@@ -47,15 +47,15 @@ namespace BikeManagerAPI.Controllers
         }
 
         // PUT: api/ItemNotaEntrada/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutItemNotaEntrada([FromRoute] int id, [FromBody] ItemNotaEntrada itemNotaEntrada)
+        [HttpPut("{cdProduto}/{cdNotaEntrada}")]
+        public async Task<IActionResult> PutItemNotaEntrada([FromRoute] int cdProduto, [FromRoute] int cdNotaEntrada, [FromBody] ItemNotaEntrada itemNotaEntrada)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != itemNotaEntrada.CdProduto)
+            if (cdProduto != itemNotaEntrada.CdProduto && cdNotaEntrada != itemNotaEntrada.CdNotaEntrada)
             {
                 return BadRequest();
             }
@@ -70,7 +70,7 @@ namespace BikeManagerAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemNotaEntradaExists(id))
+                if (!ItemNotaEntradaExists(cdProduto, cdNotaEntrada))
                 {
                     return NotFound();
                 }
@@ -101,7 +101,7 @@ namespace BikeManagerAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ItemNotaEntradaExists(itemNotaEntrada.CdProduto))
+                if (ItemNotaEntradaExists(itemNotaEntrada.CdProduto, itemNotaEntrada.CdNotaEntrada))
                 {
                     return new StatusCodeResult(StatusCodes.Status409Conflict);
                 }
@@ -115,15 +115,15 @@ namespace BikeManagerAPI.Controllers
         }
 
         // DELETE: api/ItemNotaEntrada/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemNotaEntrada([FromRoute] int id)
+        [HttpDelete("{cdProduto}/{cdNotaEntrada}")]
+        public async Task<IActionResult> DeleteItemNotaEntrada([FromRoute] int cdProduto, int cdNotaEntrada)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var itemNotaEntrada = await _context.ItemNotaEntrada.FindAsync(id);
+            var itemNotaEntrada = await _context.ItemNotaEntrada.FindAsync(cdProduto, cdNotaEntrada);
             if (itemNotaEntrada == null)
             {
                 return NotFound();
@@ -135,9 +135,9 @@ namespace BikeManagerAPI.Controllers
             return Ok(itemNotaEntrada);
         }
 
-        private bool ItemNotaEntradaExists(int id)
+        private bool ItemNotaEntradaExists(int cdProduto, int cdNotaEntrada)
         {
-            return _context.ItemNotaEntrada.Any(e => e.CdProduto == id);
+            return _context.ItemNotaEntrada.Any(e => e.CdProduto == cdProduto && e.CdNotaEntrada == cdNotaEntrada);
         }
     }
 }

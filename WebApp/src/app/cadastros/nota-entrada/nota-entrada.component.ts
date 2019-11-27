@@ -165,22 +165,22 @@ export class NotaEntradaComponent implements OnInit {
     this.updateConta();
   }
   updateConta() {
-    this.notaEntradaService.listAll().subscribe(sucesso => {
-      this.contaService.update
-      this.notaEntrada.conta.forEach(i => (i.cdNotaEntrada && i.cdProduto) != (i.cdProduto && i.cdNotaEntrada) ? this.itemService.save(i).subscribe(sucesso => {
-        if (sucesso != null) {
-          console.log(sucesso);
-        }
-      }) : console.log("já cadastrado"));
+    this.contaService.update(this.conta).subscribe(sucesso => {
+      if (sucesso != null) {
+        console.log("Conta alterada com sucesso.");
+      }
+    }, error => {
+      console.log("Erro ao alterar conta");
     });
   }
+
   updateItens() {
-    this.notaEntradaService.listAll().subscribe(sucesso => {
-      this.notaEntrada.itemList.forEach(i => (i.cdNotaEntrada && i.cdProduto) != (i.cdProduto && i.cdNotaEntrada) ? this.itemService.save(i).subscribe(sucesso => {
+    this.notaEntrada.itemList.forEach(i => {
+      this.itemService.update(i).subscribe(sucesso => {
         if (sucesso != null) {
-          console.log(sucesso);
+          console.log("Item alterado com sucesso");
         }
-      }) : console.log("já cadastrado"));
+      });
     });
   }
 

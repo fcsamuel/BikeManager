@@ -23,7 +23,7 @@ export class ItemOrdemServicoService extends BaseService {
   update(itemOrdemServico: any): Observable<any> {
     //Primeiro Parâmetro === URL
     //Segundo Parâmetro === BODY - Corpo da Requisição
-    return this.http.put(environment.urlWebAPI + "ItemOrdemServico/" + itemOrdemServico.cdProduto + itemOrdemServico.cdOrdemServico,  itemOrdemServico)
+    return this.http.put(environment.urlWebAPI + "ItemOrdemServico/" + itemOrdemServico.cdProduto + "/" + itemOrdemServico.cdOrdemServico,  itemOrdemServico)
       .catch((error: any) => Observable.throw(error.error));
   }
 
