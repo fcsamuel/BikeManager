@@ -115,16 +115,21 @@ export class NotaEntradaComponent implements OnInit {
     this.pagamento = new Pagamento();
   }
 
-  save() {  
+  save() {
+    if (!this.edit) {
+
+    }
     this.spinner.show();
     this.setConta();
     this.notaEntrada.clienteFornecedor = null;
+    this.notaEntrada.fgLancada = true;
     console.log(this.notaEntrada);
     if (!this.edit) {
       try {
         this.notaEntradaService.save(this.notaEntrada).subscribe(sucesso => {
           if (sucesso != null) {
             this.saveEstoque();
+            this.saveTbPreco();
             this.spinner.hide();
             this.backwards();
             this.notaEntrada.itemList.forEach(i => { this.itemService.save(i).subscribe(sucesso, error => { console.log("Erro ao salvar item") }) });
@@ -146,7 +151,37 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   update() {
-    throw new Error("Method not implemented.");
+    console.log(this.notaEntrada);
+    this.notaEntradaService.update(this.notaEntrada).subscribe(sucesso => {
+      if (sucesso != null) {
+        this.spinner.hide();
+        this.backwards();
+      }
+    },
+      error => {
+        this.spinner.hide();
+      });
+    this.updateItens();
+    this.updateConta();
+  }
+  updateConta() {
+    this.notaEntradaService.listAll().subscribe(sucesso => {
+      this.contaService.update
+      this.notaEntrada.conta.forEach(i => (i.cdNotaEntrada && i.cdProduto) != (i.cdProduto && i.cdNotaEntrada) ? this.itemService.save(i).subscribe(sucesso => {
+        if (sucesso != null) {
+          console.log(sucesso);
+        }
+      }) : console.log("já cadastrado"));
+    });
+  }
+  updateItens() {
+    this.notaEntradaService.listAll().subscribe(sucesso => {
+      this.notaEntrada.itemList.forEach(i => (i.cdNotaEntrada && i.cdProduto) != (i.cdProduto && i.cdNotaEntrada) ? this.itemService.save(i).subscribe(sucesso => {
+        if (sucesso != null) {
+          console.log(sucesso);
+        }
+      }) : console.log("já cadastrado"));
+    });
   }
 
   backwards() {
@@ -228,6 +263,7 @@ export class NotaEntradaComponent implements OnInit {
     this.estoqueService.findStockByProduct(produto.cdProduto).subscribe(sucesso => {
       if (sucesso != null) {
         this.item.estoqueList = sucesso;
+        console.log(this.item.estoqueList);
       }
     });
     this.item.qtProduto = 1;
@@ -276,6 +312,16 @@ export class NotaEntradaComponent implements OnInit {
       }
     }, error => {
       console.log("Erro ao salvar estoque");
+    })
+  }
+
+  saveTbPreco() {
+    this.tbPrecoService.save(this.estoque).subscribe(sucesso => {
+      if (sucesso != null) {
+        console.log("TabelaPreco Salva");
+      }
+    }, error => {
+      console.log("Erro ao salvar TbPreco");
     })
   }
 

@@ -28,6 +28,7 @@ import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 import { ServicoComponent } from './cadastros/servico/servico.component';
 import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
 import { BicicletaListComponent } from './cadastros/bicicleta/bicicleta-list/bicicleta-list.component';
+import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BicicletaListComponent } from './cadastros/bicicleta/bicicleta-list/bic
     BicicletaComponent,
     ServicoComponent,
     ServicoListComponent,
-    BicicletaListComponent
+    BicicletaListComponent,
+    NotaEntradaListComponent
   ],
   imports: [
     BrowserModule,

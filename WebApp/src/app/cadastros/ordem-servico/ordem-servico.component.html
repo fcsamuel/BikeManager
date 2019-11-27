@@ -21,6 +21,7 @@
       <mat-datepicker #dtPrevConclusao></mat-datepicker>
     </mat-form-field>
   </div>
+  <!--
   <div class="col s12 m1 l1">
     <mat-form-field>
       <input matInput [matDatepicker]="dtConclusao" [min]="minDate" placeholder="Conclusão"
@@ -29,6 +30,7 @@
       <mat-datepicker #dtConclusao></mat-datepicker>
     </mat-form-field>
   </div>
+-->
 </div>
 <div class="row">
   <div class="col s12 m4 l4">
@@ -223,7 +225,7 @@
         <mat-header-row *matHeaderRowDef="this.servicoColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: this.servicoColumns;"></mat-row>
       </mat-table>
-      <!--#region Tabela de serviços-->
+      <!--#endregion-->
     </mat-expansion-panel>
   </mat-accordion>
 </div>
@@ -263,5 +265,17 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+<!--#endregion-->
+<!--#region BOTOES-->
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="row footer-btn">
+            <div class="button-row col s12">
+                <button mat-raised-button color="grey" (click)="this.backward()">Cancelar</button>
+                <button mat-raised-button color="blue" (click)="this.save()">Salvar</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!--#endregion-->

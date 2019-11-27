@@ -40,7 +40,7 @@
 <div class="row">
     <div class="col s12 m4 s4">
         <mat-form-field>
-            <input matInput placeholder="Chave de acesso" type="number" [(ngModel)]="notaEntrada.nrChaveAcesso"
+            <input matInput placeholder="Chave de acesso" type="number" [minLength]="44" [maxLength]="54" [(ngModel)]="notaEntrada.nrChaveAcesso"
                 required>
         </mat-form-field>
     </div>

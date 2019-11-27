@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<NotaEntrada> GetNotaEntrada()
         {
-            return _context.NotaEntrada;
+            return _context.NotaEntrada.Include(n => n.ItemNotaEntrada).Include(f => f.ClienteFornecedor).Include(c => c.Conta).AsNoTracking();
         }
 
         // GET: api/NotaEntrada/5

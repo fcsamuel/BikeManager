@@ -21,7 +21,7 @@ namespace BikeManagerAPI.Models
         public DateTime? DtPagamento { get; set; }
         public bool FgPago { get; set; }
         public DateTime DtRegistro { get; set; }
-        public DateTime DtAlteracao { get; set; }
+        public DateTime? DtAlteracao { get; set; }
         [JsonIgnore]
         public ICollection<NotaEntrada> NotaEntrada { get; set; }
         [JsonIgnore]

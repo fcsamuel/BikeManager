@@ -15,6 +15,7 @@ import { ServicoListComponent } from './cadastros/servico/servico-list/servico-l
 import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.component';
 import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
 import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
+import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'servico-list', component: ServicoListComponent},
   {path: 'servico-edit/:id', component: ServicoComponent},
   {path: 'notaentrada', component: NotaEntradaComponent},
+  {path: 'notaentrada-list', component: NotaEntradaListComponent},
   {path: 'bicicleta', component: BicicletaComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
