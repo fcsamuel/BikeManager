@@ -14,6 +14,7 @@ namespace BikeManagerAPI.Models
 
         public int CdOrdemServico { get; set; }
         public int CdClienteFornecedor { get; set; }
+        public ClienteFornecedor ClienteFornecedor { get; set; }
         public int CdConta { get; set; }
         public string DsBicicleta { get; set; }
         public decimal VlTotal { get; set; }

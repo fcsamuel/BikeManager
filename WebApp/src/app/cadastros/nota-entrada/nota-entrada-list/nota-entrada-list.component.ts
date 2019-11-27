@@ -30,8 +30,7 @@ export class NotaEntradaListComponent implements OnInit {
   constructor(private router: Router,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
-    private notaEntradaService: NotaEntradaService,
-    private fornecedorService: ClienteFornecedorService) { }
+    private notaEntradaService: NotaEntradaService) { }
 
   ngOnInit() {
     this.listAll();
@@ -74,8 +73,8 @@ export class NotaEntradaListComponent implements OnInit {
         this.delete(id);
       }
     });
-  }*/
-
+  }
+*/
 
   updateTable(notaEntrada: any) {
     this.dataSource = new MatTableDataSource<NotaEntrada>(notaEntrada);

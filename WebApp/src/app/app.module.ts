@@ -29,6 +29,7 @@ import { ServicoComponent } from './cadastros/servico/servico.component';
 import { ServicoListComponent } from './cadastros/servico/servico-list/servico-list.component';
 import { BicicletaListComponent } from './cadastros/bicicleta/bicicleta-list/bicicleta-list.component';
 import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
+import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servico-list/ordem-servico-list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-
     ServicoComponent,
     ServicoListComponent,
     BicicletaListComponent,
-    NotaEntradaListComponent
+    NotaEntradaListComponent,
+    OrdemServicoListComponent
   ],
   imports: [
     BrowserModule,
