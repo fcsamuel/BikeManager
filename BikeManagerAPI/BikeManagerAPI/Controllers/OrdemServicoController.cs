@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<OrdemServico> GetOrdemServico()
         {
-            return _context.OrdemServico.Include(os => os.ItemOrdemServico).Include(c => c.ClienteFornecedor).AsNoTracking(); 
+            return _context.OrdemServico.Include(os => os.ItemList).Include(c => c.ClienteFornecedor).AsNoTracking(); 
         }
 
         // GET: api/OrdemServico/5
@@ -94,6 +94,17 @@ namespace BikeManagerAPI.Controllers
 
             ordemServico.DtRegistro = DateTime.Now;
 
+            if (ordemServico.CdConta == 0)
+            {
+                var idConta = _context.Conta.Count() + 1;
+                ordemServico.CdConta = idConta;
+                ordemServico.Conta.CdConta = idConta;
+                
+                
+            }
+
+            ordemServico.ItemList.ToList().ForEach(i => i.Produto = null);
+
             _context.OrdemServico.Add(ordemServico);
             try
             {
@@ -111,7 +122,8 @@ namespace BikeManagerAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetOrdemServico", new { id = ordemServico.CdOrdemServico }, ordemServico);
+            //return CreatedAtAction("GetOrdemServico", new { id = ordemServico.CdOrdemServico }, ordemServico);
+            return Ok(ordemServico);
         }
 
         // DELETE: api/OrdemServico/5

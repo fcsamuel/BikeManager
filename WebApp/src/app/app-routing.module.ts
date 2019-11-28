@@ -16,6 +16,7 @@ import { NotaEntradaComponent } from './cadastros/nota-entrada/nota-entrada.comp
 import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/cliente-fornecedor-list/cliente-fornecedor-list.component';
 import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
+import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servico-list/ordem-servico-list.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'clientefornecedor-list', component: ClienteFornecedorListComponent},
   {path: 'clientefornecedor-edit/:id', component: ClienteFornecedorComponent},
   {path: 'ordemservico', component: OrdemServicoComponent},
+  {path: 'ordemservico-list', component: OrdemServicoListComponent},
   {path: 'orcamento', component: OrcamentoComponent},
   {path: 'servico', component: ServicoComponent},
   {path: 'servico-list', component: ServicoListComponent},

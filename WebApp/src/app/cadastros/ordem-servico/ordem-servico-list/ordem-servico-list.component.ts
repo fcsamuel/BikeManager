@@ -8,6 +8,7 @@ import { Conta } from '../../models/conta';
 import { ClienteFornecedor } from '../../models/clienteFornecedor';
 import { ItemOrdemServicoService } from '../../item-ordem-servico/item-ordem-servico.service';
 import { ItemOrdemServico } from '../../models/itemOrdemServico';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ordem-servico-list',
@@ -16,7 +17,7 @@ import { ItemOrdemServico } from '../../models/itemOrdemServico';
 })
 export class OrdemServicoListComponent implements OnInit {
 
-  displayedColumns: string[] = ['cdOrdemServico', 'dsClienteFornecedor', 'vlTotal', 'dtPrevConclusao', 'dtConclusao'];
+  displayedColumns: string[] = ['cdOrdemServico', 'dsClienteFornecedor', 'vlTotal', 'dtPrevConclusao', 'dtConclusao', 'editColumn'];
   dataSource: any;
 
   conta: Conta;
@@ -31,7 +32,8 @@ export class OrdemServicoListComponent implements OnInit {
   constructor(private router: Router,
   private spinner: NgxSpinnerService,
   private dialog: MatDialog,
-  private ordemServicoService: OrdemServicoService) { }
+  private ordemServicoService: OrdemServicoService,
+  private datePipe: DatePipe) { }
 
   ngOnInit() {
 
@@ -57,11 +59,11 @@ export class OrdemServicoListComponent implements OnInit {
   }
 
   callUpdate(id: number) {
-    this.router.navigate(["../notaentrada-edit/" + id]);
+    this.router.navigate(["../ordemservico-edit/" + id]);
   }
 
   callNew() {
-    this.router.navigate(["../notaentrada"]);
+    this.router.navigate(["../ordemservico"]);
   }
 
   updateTable(ordemServico: any) {

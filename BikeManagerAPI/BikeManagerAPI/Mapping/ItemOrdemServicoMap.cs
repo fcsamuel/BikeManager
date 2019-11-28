@@ -45,7 +45,7 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnType("numeric(15,2)");
 
             entity.HasOne(d => d.OrdemServico)
-                .WithMany(p => p.ItemOrdemServico)
+                .WithMany(p => p.ItemList)
                 .HasForeignKey(d => d.CdOrdemServico)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("itemordemservico_cd_ordemservico_fkey");

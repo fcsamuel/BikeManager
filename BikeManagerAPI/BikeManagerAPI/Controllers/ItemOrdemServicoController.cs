@@ -20,14 +20,14 @@ namespace BikeManagerAPI.Controllers
             _context = context;
         }
 
-        // GET: api/ItemOrdemServico
+        // GET: api/ItemList
         [HttpGet]
         public IEnumerable<ItemOrdemServico> GetItemOrdemServico()
         {
             return _context.ItemOrdemServico;
         }
 
-        // GET: api/ItemOrdemServico/5
+        // GET: api/ItemList/5
         [HttpGet("{cdProduto}/{cdOrdemServico}")]
         public async Task<IActionResult> GetItemOrdemServico([FromRoute] int cdProduto, [FromRoute] int cdOrdemServico)
         {
@@ -46,7 +46,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(itemOrdemServico);
         }
 
-        // PUT: api/ItemOrdemServico/5
+        // PUT: api/ItemList/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItemOrdemServico([FromRoute] int id, [FromBody] ItemOrdemServico itemOrdemServico)
         {
@@ -83,7 +83,7 @@ namespace BikeManagerAPI.Controllers
             return Ok(itemOrdemServico);
         }
 
-        // POST: api/ItemOrdemServico
+        // POST: api/ItemList
         [HttpPost]
         public async Task<IActionResult> PostItemOrdemServico([FromBody] ItemOrdemServico itemOrdemServico)
         {
@@ -114,7 +114,7 @@ namespace BikeManagerAPI.Controllers
             return CreatedAtAction("GetItemOrdemServico", new { id = itemOrdemServico.CdProduto }, itemOrdemServico);
         }
 
-        // DELETE: api/ItemOrdemServico/5
+        // DELETE: api/ItemList/5
         [HttpDelete("{cdProduto}/{cdOrdemServico}")]
         public async Task<IActionResult> DeleteItemOrdemServico([FromRoute] int cdProduto, [FromRoute] int cdOrdemServico)
         {

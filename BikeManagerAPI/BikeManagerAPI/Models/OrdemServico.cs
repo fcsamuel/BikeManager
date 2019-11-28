@@ -9,7 +9,7 @@ namespace BikeManagerAPI.Models
         public OrdemServico()
         {
             Estoque = new HashSet<Estoque>();
-            ItemOrdemServico = new HashSet<ItemOrdemServico>();
+            ItemList = new HashSet<ItemOrdemServico>();
         }
 
         public int CdOrdemServico { get; set; }
@@ -27,6 +27,6 @@ namespace BikeManagerAPI.Models
         public Conta Conta { get; set; }
         [JsonIgnore]
         public ICollection<Estoque> Estoque { get; set; }
-        public ICollection<ItemOrdemServico> ItemOrdemServico { get; set; }
+        public ICollection<ItemOrdemServico> ItemList { get; set; }
     }
 }

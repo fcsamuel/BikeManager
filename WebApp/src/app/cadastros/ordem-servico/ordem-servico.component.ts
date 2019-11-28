@@ -29,8 +29,8 @@ import { ContaService } from '../conta/conta.service';
 })
 export class OrdemServicoComponent implements OnInit {
 
-  itemColumns: string[] = ['countItem', 'dsProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
-  servicoColumns: string[] = ['dsProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
+  itemColumns: string[] = ['countItem', 'dsProduto', 'qtProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
+  servicoColumns: string[] = ['dsProduto', 'qtProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
 
   itemDataSource: any;
   servicoDataSource: any;
@@ -49,6 +49,7 @@ export class OrdemServicoComponent implements OnInit {
   itemList: Array<ItemOrdemServico> = new Array<ItemOrdemServico>();
   itemServicoList: Array<ItemOrdemServico> = new Array<ItemOrdemServico>();
   estoqueList: Array<Estoque> = new Array<Estoque>();
+  pagamentoList: Array<Pagamento> = new Array<Pagamento>();
 
   produto: Produto;
   servico: Produto;
@@ -57,6 +58,7 @@ export class OrdemServicoComponent implements OnInit {
   tbPreco: TabelaPreco;
   estoque: Estoque;
   lastEstoque: Estoque;
+  cliente: ClienteFornecedor;
 
   countItem: number;
   vlTotal: string;
@@ -104,7 +106,7 @@ export class OrdemServicoComponent implements OnInit {
     this.estoque = new Estoque();
     this.lastEstoque = new Estoque();
     this.itemList = new Array<ItemOrdemServico>();
-    this.conta.pagamentoList = new Array<Pagamento>();
+    //this.conta.pagamentoList = new Array<Pagamento>();
     this.countItem = 0;
   }
 
@@ -116,14 +118,14 @@ export class OrdemServicoComponent implements OnInit {
     this.ordemServicoService.save(this.ordemServico).subscribe(sucesso => {
       if (sucesso != null) {
         this.spinner.hide();
+        this.backwards();
         console.log("O.S salva.");
-        this.saveConta();
       }
     }, error => { console.log(error) });
   }
 
   backwards() {
-    this.router.navigate(["../ordem-servico-list"]);
+    this.router.navigate(["../ordemservico-list"]);
   }
 
   setLastId() {
@@ -133,23 +135,19 @@ export class OrdemServicoComponent implements OnInit {
     });
   }
 
-  
+
   setContaLastId() {
     this.contaService.getLastId().subscribe(sucesso => {
-      if (sucesso != null && sucesso != undefined) {
-        this.conta.cdConta = sucesso;
+      if (sucesso != null) {
+        /*this.conta.cdConta = sucesso;
         this.ordemServico.cdConta = sucesso;
-        console.log(sucesso);
+        console.log(sucesso);*/
       }
     })
   }
 
   setConta() {
-    this.contaService.getLastId().subscribe(sucesso => {
-      if (sucesso != null) {
-        this.conta.cdConta = sucesso;
-      }
-    });
+    this.setContaLastId();
     this.conta.dsTipo = 'AR';
     this.conta.dtVencimento = new Date();
     this.conta.dtVencimento.setDate(this.conta.dtVencimento.getDate() + 30);
@@ -193,6 +191,12 @@ export class OrdemServicoComponent implements OnInit {
       });
   }
 
+  setCliente(cliente: any) {
+    this.cliente = cliente;
+    this.ordemServico.cdClienteFornecedor = cliente.cdClienteFornecedor;
+
+  }
+
   loadProdutoList() {
     this.spinner.show();
     this.produtoService.listAll().subscribe(sucesso => {
@@ -234,7 +238,6 @@ export class OrdemServicoComponent implements OnInit {
     this.tbPrecoService.GetLastTbPrecoByProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
         this.tbPreco = sucesso;
-        console.log(sucesso);
         this.item.vlUnitario = this.tbPreco.vlVenda;
       }
     });
@@ -294,16 +297,18 @@ export class OrdemServicoComponent implements OnInit {
 /*
   geraPagamentos() {
     let pagamento = new Pagamento();
+    let cdPagamento;
     this.pagamentoService.getLastId().subscribe(sucesso => {
       if (sucesso != null)
-        pagamento.cdPagamento = sucesso;
+        cdPagamento = sucesso;
     });
     for (let i = 0; i < this.conta.qtParcelas; i++) {
+      pagamento.cdPagamento = cdPagamento++;
       pagamento.cdConta = this.conta.cdConta;
       this.conta.pagamentoList.push(pagamento);
     }
-  }
-*/
+  }*/
+
   setEstoque() {
     this.estoqueService.getLastId().subscribe(sucesso => {
       if (sucesso != null) {
