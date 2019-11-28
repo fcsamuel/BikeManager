@@ -8,7 +8,7 @@ namespace BikeManagerAPI.Models
     {
         public int CdProduto { get; set; }
         public int CdOrdemServico { get; set; }
-        public int CdTabelaPreco { get; set; }
+        public int? CdTabelaPreco { get; set; }
         public decimal VlUnitario { get; set; }
         public decimal VlTotal { get; set; }
         public int QtProduto { get; set; }
