@@ -26,6 +26,9 @@ export class ProdutoListComponent implements OnInit {
   marca: Marca;
   edit: boolean;
 
+  produtoServicoList: Array<Produto>;
+  produtoList: Array<Produto>;
+
   constructor(private produtoService: ProdutoService,
     private marcaService: MarcaService,
     public router: Router,
@@ -35,6 +38,8 @@ export class ProdutoListComponent implements OnInit {
 
   ngOnInit() {
     this.listAll();
+    this.produtoServicoList = new Array<Produto>();
+    this.produtoList = new Array<Produto>();
   }
 
   callUpdate(id: number) {
@@ -74,13 +79,15 @@ export class ProdutoListComponent implements OnInit {
     this.spinner.show();
     this.produtoService.listAll().subscribe(sucesso => {
       if (sucesso != null) {
-        this.updateTable(sucesso);
+        this.produtoServicoList = sucesso;
+        this.produtoServicoList.forEach(ps => ps.fgTipo == 'P' ? this.produtoList.push(ps) : null);
+        this.updateTable(this.produtoList);
         this.spinner.hide();
+        console.log("Passou pelo listAll() - servico-list.component.ts com sucesso.");
       }
-    },
-    error => {
+    }, error => {
       this.spinner.hide();
-      console.log("Erro no método list(id: number) - produto-list.component.ts");
+      console.log("Erro no método listAll().");
     });
   }
 
