@@ -185,7 +185,7 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   backwards() {
-    this.router.navigate(["../nota-entrada-list"]);
+    this.router.navigate(["../notaentrada-list"]);
   }
 
   getById(id: any) {
