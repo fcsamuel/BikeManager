@@ -1,12 +1,12 @@
 <!--#region SPINNER-->
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple">
- <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 <!--#endregion-->
+
+<div>
+  <app-menu></app-menu>
+</div>
 
 <!--#region CAMPOS FORMULARIO-->
 <div class="row">
@@ -28,8 +28,8 @@
   <div class="col s12 m12 l12">
     <div class="row footer-btn">
       <div class="button-row col s12">
-        <button mat-raised-button color="grey" (click)="this.backward()" >Voltar</button>
-        <button mat-raised-button color="blue" (click)="this.save()" >Salvar</button>
+        <button mat-raised-button color="grey" (click)="this.backward()">Voltar</button>
+        <button mat-raised-button color="blue" (click)="this.save()">Salvar</button>
       </div>
     </div>
   </div>

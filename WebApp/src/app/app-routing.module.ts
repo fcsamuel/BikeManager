@@ -17,9 +17,12 @@ import { ClienteFornecedorListComponent } from './cadastros/cliente-fornecedor/c
 import { BicicletaComponent } from './cadastros/bicicleta/bicicleta.component';
 import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
 import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servico-list/ordem-servico-list.component';
+import { AppComponent } from './app.component';
+import { MenuComponent } from './shared/menu/menu.component';
 
 
 const routes: Routes = [
+  {path: '', component: MenuComponent},
   {path: 'marca', component: MarcaComponent},
   {path: 'marca-list', component: MarcaListComponent},
   {path: 'marca-edit/:id', component: MarcaComponent},

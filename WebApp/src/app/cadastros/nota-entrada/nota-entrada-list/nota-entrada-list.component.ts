@@ -61,6 +61,8 @@ export class NotaEntradaListComponent implements OnInit {
   callNew() {
     this.router.navigate(["../notaentrada"]);
   }
+
+
 /*
   deleteConfirmation(id: any) {
     let dialogRef = this.dialog.open(DialogComponent, {

@@ -1,0 +1,25 @@
+<button mat-button [matMenuTriggerFor]="menu1">Ordem de serviço</button>
+<mat-menu #menu1="matMenu">
+    <button mat-menu-item (click)="this.callNewOs()">Lançar ordem de serviço</button>
+    <button mat-menu-item (click)="this.callOsList()">Consultar ordens de serviço</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu2">Nota de entrada</button>
+<mat-menu #menu2="matMenu">
+    <button mat-menu-item (click)="this.callNewNotaEntrada()">Lançar nota de entrada</button>
+    <button mat-menu-item (click)="this.callNotaEntradaList()">Consultar notas de entrada</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu3">Cliente/Fornecedor</button>
+<mat-menu #menu3="matMenu">
+    <button mat-menu-item (click)="this.callNewCliente()">Cadastrar cliente/fornecedor</button>
+    <button mat-menu-item (click)="this.callClienteList()">Consultar clientes/fornecedores</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu4">Produto</button>
+<mat-menu #menu4="matMenu">
+    <button mat-menu-item (click)="this.callNewProduto()">Cadastrar produto</button>
+    <button mat-menu-item (click)="this.callProdutoList()">Consultar produtos</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu5">Serviço</button>
+<mat-menu #menu5="matMenu">
+    <button mat-menu-item (click)="this.callNewServico()">Cadastrar serviço</button>
+    <button mat-menu-item (click)="this.callServicoList()">Consultar serviços</button>
+</mat-menu>

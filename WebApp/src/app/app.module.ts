@@ -31,6 +31,8 @@ import { BicicletaListComponent } from './cadastros/bicicleta/bicicleta-list/bic
 import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-list/nota-entrada-list.component';
 import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servico-list/ordem-servico-list.component';
 import { ContaComponent } from './cadastros/conta/conta.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { MenuComponent } from './shared/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { ContaComponent } from './cadastros/conta/conta.component';
     BicicletaListComponent,
     NotaEntradaListComponent,
     OrdemServicoListComponent,
-    ContaComponent
+    ContaComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,9 @@ import { ContaComponent } from './cadastros/conta/conta.component';
     MatCheckboxModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatSlideToggleModule  
+    MatSlideToggleModule,
+    MatMenuModule,
+
   ],
   providers: [
     HttpClient,
