@@ -31,6 +31,7 @@ export class OrdemServicoService extends BaseService {
     return this.http.delete(environment.urlWebAPI +"OrdemServico/"+ id)
       .catch((error: any) => Observable.throw(error.error));
   }
+  
 
   listAll() : Observable<any> {
     return this.http.get(environment.urlWebAPI +"OrdemServico/")

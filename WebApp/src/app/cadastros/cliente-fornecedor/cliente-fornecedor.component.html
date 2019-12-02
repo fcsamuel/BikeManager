@@ -12,7 +12,7 @@
                 disabled>
         </mat-form-field>
     </div>
-    <div class="col s12 m3 l3">
+    <div class="col s12 m5 l5">
         <mat-form-field>
             <mat-select placeholder="Tipo de cadastro" name="dsTipo" [(ngModel)]="clienteFornecedor.dsTipo">
                 <mat-option *ngFor="let element of this.tipoList" [value]="element.cdTipo">
@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m2 l2">
+    <div class="col s12 m4 l4">
         <mat-form-field>
             <input matInput placeholder="CPF/CNPJ" type="text" [(ngModel)]="clienteFornecedor.nrCpfCnpj" required>
         </mat-form-field>
@@ -38,7 +38,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m4 l4">
+    <div class="col s12 m6 l6">
         <mat-form-field>
             <input matInput placeholder="Nome/Razão Social" type="text" [(ngModel)]="clienteFornecedor.dsNomeRazao"
                 required>
@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m4 l4">
+    <div class="col s12 m6 l6">
         <mat-form-field>
             <input matInput placeholder="Nome Fantasia" type="text" [(ngModel)]="clienteFornecedor.dsFantasia" required>
         </mat-form-field>
@@ -55,7 +55,7 @@
 <!--#endregion-->
 <!--#region Enderecos-->
 <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel class="col s12 m8 l8">
         <mat-expansion-panel-header>
             <mat-panel-title>Endereço</mat-panel-title>
             <mat-panel-description>Insira informações do endereço do cliente</mat-panel-description>
@@ -71,7 +71,7 @@
                     <input matInput placeholder="Rua" type="text" [(ngModel)]="endereco.dsRua" required>
                 </mat-form-field>
             </div>
-            <div class="col s12 m1 l1">
+            <div class="col s12 m2 l2">
                 <mat-form-field>
                     <input matInput placeholder="Número" type="text" [(ngModel)]="endereco.nrNumero" required>
                 </mat-form-field>
@@ -88,7 +88,7 @@
                     <input matInput placeholder="Complemento" type="text" [(ngModel)]="endereco.dsComplemento">
                 </mat-form-field>
             </div>
-            <div class="col s12 m3 l3">
+            <div class="col s12 m4 l4">
                 <mat-form-field>
                     <input matInput placeholder="Referência" type="text" [(ngModel)]="endereco.dsReferencia">
                 </mat-form-field>
@@ -164,17 +164,17 @@
             <mat-panel-description>Insira contatos do cliente</mat-panel-description>
         </mat-expansion-panel-header>
         <div class="row">
-            <div class="col s2 m2 l2">
+            <div class="col s12 m3 l3">
                 <mat-form-field>
                     <input matInput placeholder="Nome" type="text" [(ngModel)]="contato.nmContato" required>
                 </mat-form-field>
             </div>
-            <div class="col s12 m2 l2">
+            <div class="col s12 m3 l3">
                 <mat-form-field>
                     <input matInput placeholder="Telefone" type="text" [(ngModel)]="contato.nrNumero" required>
                 </mat-form-field>
             </div>
-            <div class="col s13 m2 l2">
+            <div class="col s12 m3 l3">
                 <mat-form-field>
                     <input matInput placeholder="Email" type="text" [(ngModel)]="contato.dsEmail">
                 </mat-form-field>

@@ -8,12 +8,12 @@
 
 <!--#region Dados gerais da O.S-->
 <div class="row">
-  <div class="col s12 m1 l1">
+  <div class="col s12 m2 l2">
     <mat-form-field>
       <input matInput placeholder="Código" type="number" [(ngModel)]="ordemServico.cdOrdemServico" disabled>
     </mat-form-field>
   </div>
-  <div class="col s12 m1 l1">
+  <div class="col s12 m2 l2">
     <mat-form-field>
       <input matInput [matDatepicker]="dtAbertura" [min]="minDate" placeholder="Abertura"
         [(ngModel)]="ordemServico.dtAbertura" [formControl]="date">
@@ -21,7 +21,7 @@
       <mat-datepicker #dtAbertura></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="col s12 m1 l1">
+  <div class="col s12 m2 l2">
     <mat-form-field>
       <input matInput [matDatepicker]="dtPrevConclusao" [min]="minDate" placeholder="Prev. conclusão"
         [(ngModel)]="ordemServico.dtPrevConclusao" [formControl]="date">
@@ -29,7 +29,7 @@
       <mat-datepicker #dtPrevConclusao></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="col s12 m1 l1">
+  <div class="col s12 m2 l2">
     <mat-form-field>
       <input matInput [matDatepicker]="dtConclusao" [min]="minDate" placeholder="Conclusão"
         [(ngModel)]="ordemServico.dtConclusao" [formControl]="date">
@@ -39,7 +39,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col s12 m4 l4">
+  <div class="col s12 m8 l8">
     <mat-form-field>
         <mat-select placeholder="Cliente" name="cliente" [(ngModel)]="ordemServico.cdClienteFornecedor">
             <mat-option *ngFor="let element of this.clienteList" (onSelectionChange)="setCliente(element)" [value]="element.cdClienteFornecedor">
@@ -50,7 +50,7 @@
 </div>
 </div>
 <div class="row">
-  <div class="col s12 m4 l4">
+  <div class="col s12 m8 l8">
     <mat-form-field>
       <input matInput placeholder="Descrição da bicicleta do cliente" type="text"
         [(ngModel)]="ordemServico.dsBicicleta">
@@ -58,7 +58,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col s12 m4 l4">
+  <div class="col s12 m8 l8">
     <mat-form-field>
       <textarea matInput placeholder="Observações" type="text" [(ngModel)]="ordemServico.dsObservacao"
         matTextareaAutosize matAutosizeMinRows=5></textarea>
@@ -76,7 +76,7 @@
       </mat-expansion-panel-header>
       <!--#region Inserção do produto-->
       <div class="row">
-        <div class="col s12 m2 l2">
+        <div class="col s12 m4 l4">
           <mat-form-field>
               <mat-select placeholder="Produto" name="produto" [(ngModel)]="item.cdProduto">
                   <mat-option *ngFor="let element of this.produtoList" (onSelectionChange)="setProduto(element)" [value]="element.cdProduto">
@@ -85,18 +85,18 @@
               </mat-select>
           </mat-form-field>
       </div>
-        <div class="col s12 m1 l1">
+        <div class="col s12 m2 l2">
           <mat-form-field>
             <input matInput placeholder="Valor unitário (R$)" type="number" [(ngModel)]="tbPreco.vlVenda" disabled>
           </mat-form-field>
         </div>
-        <div class="col s12 m1 l1">
+        <div class="col s12 m2 l2">
           <mat-form-field>
             <input matInput placeholder="Quantidade" type="number" [(ngModel)]="item.qtProduto"
               (keyup)="calculaVlTotalItem()" required>
           </mat-form-field>
         </div>
-        <div class="col s12 m1 l1">
+        <div class="col s12 m2 l2">
           <mat-form-field>
             <input matInput placeholder="Total Produto (R$)" type="number" [(ngModel)]="item.vlTotal" disabled>
           </mat-form-field>
@@ -159,7 +159,7 @@
       </mat-expansion-panel-header>
       <!--#region Inserção de serviços-->
       <div class="row">
-        <div class="col s12 m2 l2">
+        <div class="col s12 m3 l3">
           <mat-form-field>
               <mat-select placeholder="Serviço" name="servico" [(ngModel)]="item.cdProduto">
                   <mat-option *ngFor="let element of this.servicoList" (onSelectionChange)="setServico(element)" [value]="element.cdProduto">
@@ -239,7 +239,7 @@
         <mat-panel-description>Insira o pagamento da nota</mat-panel-description>
       </mat-expansion-panel-header>
       <div class="row">
-        <div class="col s12 m1 l1">
+        <div class="col s12 m3 l3">
           <mat-form-field>
             <input matInput placeholder="Total da nota" type="number" [(ngModel)]="ordemServico.vlTotal" disabled>
           </mat-form-field>

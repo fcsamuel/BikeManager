@@ -7,31 +7,31 @@
 </div>
 
 <div class="row">
-    <div class="col s12 m1 l1">
+    <div class="col s12 m2 l2">
         <mat-form-field>
             <input matInput placeholder="Código" type="number" [(ngModel)]="produto.cdProduto" required>
         </mat-form-field>
     </div>
-    <div class="col s12 m3 l3">
+    <div class="col s12 m6 l6">
         <mat-form-field>
             <input matInput placeholder="Descrição" type="text" [(ngModel)]="produto.dsProduto" required>
         </mat-form-field>
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m2 l2">
+    <div class="col s12 m4 l4">
         <mat-form-field>
             <input matInput placeholder="Modelo" type="text" [(ngModel)]="produto.dsModelo">
         </mat-form-field>
     </div>
-    <div class="col s12 m2 l2">
+    <div class="col s14 m2 l4">
         <mat-form-field>
             <input matInput placeholder="Informações Adicionais" type="text" [(ngModel)]="produto.dsInfAdicionais">
         </mat-form-field>
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m2 l2">
+    <div class="col s12 m4 l4">
         <mat-form-field>
             <mat-select placeholder="Marca" name="marca" [(ngModel)]="produto.cdMarca">
                 <mat-option *ngFor="let element of this.marcaList" [value]="element.cdMarca">
@@ -40,7 +40,7 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="col s12 m2 l2">
+    <div class="col s12 m4 l4">
         <mat-form-field>
             <mat-select placeholder="Categoria" name="categoria" [(ngModel)]="produto.cdCategoria">
                 <mat-option *ngFor="let element of this.categoriaList" [value]="element.cdCategoria">
@@ -54,7 +54,7 @@
 <div class="row">
     <div class="col s12 m12 l12">
         <div class="row footer-btn">
-            <div class="button-row col s4">
+            <div class="button-row col s8">
                 <button mat-raised-button color="grey" (click)="this.backward()">Voltar</button>
                 <button mat-raised-button color="blue" (click)="this.save()">Salvar</button>
             </div>

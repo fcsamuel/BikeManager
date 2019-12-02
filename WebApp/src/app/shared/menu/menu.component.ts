@@ -53,4 +53,20 @@ export class MenuComponent implements OnInit {
     this.router.navigate(["../servico-list"]);
   }
 
+  callNewMarca() {
+    this.router.navigate(["../marca"]);
+  }
+
+  callMarcaList() {
+    this.router.navigate(["../marca-list"]);
+  }
+
+  callNewCategoria() {
+    this.router.navigate(["../categoria"]);
+  }
+
+  callCategoriaList() {
+    this.router.navigate(["../categoria-list"]);
+  }
+
 }

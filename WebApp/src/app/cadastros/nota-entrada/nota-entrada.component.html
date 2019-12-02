@@ -8,22 +8,22 @@
 
 <!--#region Informações gerais da Nota de Entrada-->
 <div class="row">
-    <div class="col s12 m1 s1">
+    <div class="col s12 m2 s2">
         <mat-form-field>
             <input matInput placeholder="Código" type="number" [(ngModel)]="notaEntrada.cdNotaEntrada" disabled>
         </mat-form-field>
     </div>
-    <div class="col s12 m1 s1">
+    <div class="col s12 m2 s2">
         <mat-form-field>
             <input matInput placeholder="Número" type="number" [(ngModel)]="notaEntrada.nrNota" required>
         </mat-form-field>
     </div>
-    <div class="col s12 m1 s1">
+    <div class="col s12 m2 s2">
         <mat-form-field>
             <input matInput placeholder="Série" type="number" [(ngModel)]="notaEntrada.nrSerie" required>
         </mat-form-field>
     </div>
-    <div class="col s12 m1 s1">
+    <div class="col s12 m2 s2">
         <mat-form-field>
             <input matInput [matDatepicker]="dtEmissao" [max]="maxDate" placeholder="Emissão"
                 [(ngModel)]="notaEntrada.dtEmissao">
@@ -33,7 +33,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m4 l4">
+    <div class="col s12 m8 l8">
         <mat-form-field class="cliente">
             <input matInput type="text" placeholder="Selecione o fornecedor" [matAutocomplete]="autoClient" required>
             <mat-autocomplete #autoClient="matAutocomplete">
@@ -46,13 +46,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12 m4 s4">
+    <div class="col s12 m8 s8">
         <mat-form-field>
             <input matInput placeholder="Chave de acesso" type="number" [minLength]="44" [maxLength]="54"
                 [(ngModel)]="notaEntrada.nrChaveAcesso" required>
         </mat-form-field>
     </div>
-    <div class="col s12 m1 s1">
+    <div class="col s12 m2 s2">
         <mat-form-field>
             <input matInput placeholder="Parcelas" type="number" [(ngModel)]="conta.qtParcelas" required>
         </mat-form-field>

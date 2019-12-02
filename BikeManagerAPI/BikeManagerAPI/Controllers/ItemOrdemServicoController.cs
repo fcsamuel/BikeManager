@@ -48,14 +48,14 @@ namespace BikeManagerAPI.Controllers
 
         // PUT: api/ItemList/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItemOrdemServico([FromRoute] int id, [FromBody] ItemOrdemServico itemOrdemServico)
+        public async Task<IActionResult> PutItemOrdemServico([FromRoute] int cdProduto, [FromRoute] int cdOrdemServico, [FromBody] ItemOrdemServico itemOrdemServico)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != itemOrdemServico.CdProduto)
+            if (cdProduto != itemOrdemServico.CdProduto && cdOrdemServico != itemOrdemServico.CdOrdemServico)
             {
                 return BadRequest();
             }
@@ -70,7 +70,7 @@ namespace BikeManagerAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemOrdemServicoExists(id))
+                if (!ItemOrdemServicoExists(cdProduto, cdOrdemServico))
                 {
                     return NotFound();
                 }
@@ -101,7 +101,7 @@ namespace BikeManagerAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ItemOrdemServicoExists(itemOrdemServico.CdProduto))
+                if (ItemOrdemServicoExists(itemOrdemServico.CdProduto, itemOrdemServico.CdOrdemServico))
                 {
                     return new StatusCodeResult(StatusCodes.Status409Conflict);
                 }
@@ -135,9 +135,9 @@ namespace BikeManagerAPI.Controllers
             return Ok(itemOrdemServico);
         }
 
-        private bool ItemOrdemServicoExists(int id)
+        private bool ItemOrdemServicoExists(int cdProduto, int cdOrdemServico)
         {
-            return _context.ItemOrdemServico.Any(e => e.CdProduto == id);
+            return _context.ItemOrdemServico.Any(e => e.CdProduto == cdProduto && e.CdOrdemServico == cdOrdemServico);
         }
     }
 }

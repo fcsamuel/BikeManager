@@ -1,3 +1,13 @@
 .mat-raised-button {
     margin-top: 15px;
+    margin-right: 60px;
+}
+
+.mat-form-field {
+    margin-left: 40px;
+}
+
+.mat-expansion-panel {
+    margin-left: 40px;
+    margin-right: 40px;
 }

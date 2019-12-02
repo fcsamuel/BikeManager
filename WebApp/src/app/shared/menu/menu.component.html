@@ -23,3 +23,13 @@
     <button mat-menu-item (click)="this.callNewServico()">Cadastrar serviço</button>
     <button mat-menu-item (click)="this.callServicoList()">Consultar serviços</button>
 </mat-menu>
+<button mat-button [matMenuTriggerFor]="menu6">Marca</button>
+<mat-menu #menu6="matMenu">
+    <button mat-menu-item (click)="this.callNewMarca()">Cadastrar marca</button>
+    <button mat-menu-item (click)="this.callMarcaList()">Consultar marcas</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu7">Categoria</button>
+<mat-menu #menu7="matMenu">
+    <button mat-menu-item (click)="this.callNewCategoria()">Cadastrar categoria</button>
+    <button mat-menu-item (click)="this.callCategoriaList()">Consultar categorias</button>
+</mat-menu>
