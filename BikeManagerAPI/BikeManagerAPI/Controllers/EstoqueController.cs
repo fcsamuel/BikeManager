@@ -24,7 +24,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet]
         public IEnumerable<Estoque> GetEstoque()
         {
-            return _context.Estoque;
+            return _context.Estoque.Include(p => p.Produto);
         }
 
         // GET: api/Estoque/5
@@ -143,7 +143,7 @@ namespace BikeManagerAPI.Controllers
         [HttpGet("FindStockByProduct/{id}")]
         public IEnumerable<Estoque> FindStockByProduct(int id)
         {
-            return _context.Estoque.Where(e => e.CdProduto == id);
+            return _context.Estoque.Where(e => e.CdProduto == id).Include(p => p.Produto).OrderByDescending(p => p.DtRegistro);
         }
 
         [HttpGet("GetLastId")]

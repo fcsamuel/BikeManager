@@ -9,6 +9,8 @@ export class ItemOrdemServico {
     vlUnitario: number;
     vlTotal: number;
     qtProduto: number;
+    vlCusto: number;
+    vlCustoMedio: number;
     dsObservacao: string;
     dtRegistro: Date;
     dtAlteracao: Date;

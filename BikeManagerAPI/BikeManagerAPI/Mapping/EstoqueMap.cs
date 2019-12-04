@@ -63,6 +63,10 @@ namespace BikeManagerAPI.Mapping
                 .WithMany(p => p.Estoque)
                 .HasForeignKey(d => d.CdOrdemServico)
                 .HasConstraintName("estoque_cd_ordemservico_fkey");
+
+            entity.HasOne(d => d.Produto)
+                .WithMany(p => p.Estoque)
+                .HasForeignKey(d => d.CdProduto);
         }
     }
 }

@@ -87,7 +87,7 @@
       </div>
         <div class="col s12 m2 l2">
           <mat-form-field>
-            <input matInput placeholder="Valor unitário (R$)" type="number" [(ngModel)]="tbPreco.vlVenda" disabled>
+            <input matInput placeholder="Valor unitário (R$)" type="number" [(ngModel)]="item.vlUnitario" disabled>
           </mat-form-field>
         </div>
         <div class="col s12 m2 l2">
@@ -244,24 +244,6 @@
             <input matInput placeholder="Total da nota" type="number" [(ngModel)]="ordemServico.vlTotal" disabled>
           </mat-form-field>
         </div>
-        <!--
-        <div class="row">
-          <div class="col s12 m2 l2">
-            <mat-form-field>
-              <mat-select placeholder="Forma de pagamento" name="formaPagamento"
-                [(ngModel)]="pagamento.cdFormaPagamento">
-                <mat-option *ngFor="let element of this.formaPagamentoList" [value]="element.cdFormaPagamento">
-                  {{element.dsFormaPagamento}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col footer-btn">
-            <div class="button-col col s12">
-              <button mat-raised-button color="grey" (click)="this.addPagamento()">Adicionar Pagamento +</button>
-            </div>
-          </div>
-          -->
       </div>
     </mat-expansion-panel>
   </mat-accordion>

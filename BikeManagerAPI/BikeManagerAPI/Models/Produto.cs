@@ -30,6 +30,8 @@ namespace BikeManagerAPI.Models
         public Categoria Categoria { get; set; }
         public Marca Marca { get; set; }
         [JsonIgnore]
+        public ICollection<Estoque> Estoque { get; set; }
+        [JsonIgnore]
         public ICollection<Bicicleta> Bicicleta { get; set; }
         [JsonIgnore]
         public ICollection<ItemNotaEntrada> ItemNotaEntrada { get; set; }

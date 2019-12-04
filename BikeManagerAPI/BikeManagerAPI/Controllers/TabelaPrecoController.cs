@@ -92,7 +92,7 @@ namespace BikeManagerAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            tabelaPreco.DtAlteracao = DateTime.Now;
+            tabelaPreco.DtRegistro = DateTime.Now;
 
             _context.TabelaPreco.Add(tabelaPreco);
             try

@@ -14,6 +14,7 @@ namespace BikeManagerAPI.Models
         public decimal QtProduto { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        [JsonIgnore]
         public NotaEntrada NotaEntrada { get; set; }
         [JsonIgnore]
         public Produto Produto { get; set; }

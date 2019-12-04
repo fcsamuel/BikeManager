@@ -14,7 +14,7 @@ namespace BikeManagerAPI.Models
 
         public int CdTabelaPreco { get; set; }
         public int CdProduto { get; set; }
-        public decimal VlVenda { get; set; }
+        public decimal VlTotal { get; set; }
         public decimal NrMargemLucro { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }

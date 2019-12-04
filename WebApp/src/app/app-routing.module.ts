@@ -19,6 +19,7 @@ import { NotaEntradaListComponent } from './cadastros/nota-entrada/nota-entrada-
 import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servico-list/ordem-servico-list.component';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './shared/menu/menu.component';
+import { EstoqueListComponent } from './cadastros/estoque/estoque-list/estoque-list.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path: 'notaentrada', component: NotaEntradaComponent},
   {path: 'notaentrada-list', component: NotaEntradaListComponent},
   {path: 'bicicleta', component: BicicletaComponent},
+  {path: 'estoque-list', component: EstoqueListComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

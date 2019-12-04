@@ -47,8 +47,10 @@ export class NotaEntradaComponent implements OnInit {
   produtoServicoList: Array<Produto> = new Array<Produto>();
   produtoList: Array<Produto> = new Array<Produto>();
   estoqueList: Array<Estoque> = new Array<Estoque>();
+  estoqueListGeral: Array<Estoque> = new Array<Estoque>();
   formaPagamentoList: Array<FormaPagamento> = new Array<FormaPagamento>();
   pagamentoList: Array<Pagamento> = new Array<Pagamento>();
+  tbPrecoList: Array<TabelaPreco> = new Array<TabelaPreco>();
 
   fornecedor = new ClienteFornecedor();
   produto: Produto;
@@ -61,6 +63,9 @@ export class NotaEntradaComponent implements OnInit {
   dsFormaPagamento: string = '';
 
   custoTotal: number;
+
+  estoqueLastId : number;
+  tbPrecoLastId : number;
 
   date = new FormControl(new Date());
   minDate = new Date();
@@ -85,6 +90,8 @@ export class NotaEntradaComponent implements OnInit {
     this.loadProdutoList();
     this.loadFormaPagamentoList();
     this.initObjects();
+    this.getLastIdEstoque();
+    this.getLastIdTbPreco();
     this.notaEntradaService.getLastId().subscribe(sucesso => {
       if (sucesso)
         this.notaEntrada.cdNotaEntrada = sucesso;
@@ -109,6 +116,7 @@ export class NotaEntradaComponent implements OnInit {
     this.tbPreco = new TabelaPreco();
     this.estoque = new Estoque();
     this.item.estoqueList = new Array<Estoque>();
+    this.estoqueListGeral = new Array<Estoque>();
     this.notaEntrada.itemList = new Array<ItemNotaEntrada>();
     this.conta = new Conta();
     this.formaPagamento = new FormaPagamento();
@@ -122,14 +130,14 @@ export class NotaEntradaComponent implements OnInit {
     this.spinner.show();
     this.setConta();
     this.notaEntrada.clienteFornecedor = null;
-    this.notaEntrada.fgLancada = true;
     console.log(this.notaEntrada);
     if (!this.edit) {
       try {
         this.notaEntradaService.save(this.notaEntrada).subscribe(sucesso => {
           if (sucesso != null) {
-            this.saveEstoque();
-            this.saveTbPreco();
+            this.saveAllEstoque(this.estoqueListGeral);
+            this.saveAllTbPreco(this.tbPrecoList);
+            this.notaEntrada.fgLancada = true;
             this.spinner.hide();
             this.backwards();
             this.notaEntrada.itemList.forEach(i => { this.itemService.save(i).subscribe(sucesso, error => { console.log("Erro ao salvar item") }) });
@@ -203,7 +211,6 @@ export class NotaEntradaComponent implements OnInit {
       if (sucesso != null && sucesso != undefined) {
         this.conta.cdConta = sucesso;
         this.notaEntrada.cdConta = sucesso;
-        console.log(sucesso);
       }
     })
   }
@@ -260,17 +267,11 @@ export class NotaEntradaComponent implements OnInit {
 
   setProduto(produto: any) {
     this.cleanItems();
-    this.estoqueService.findStockByProduct(produto.cdProduto).subscribe(sucesso => {
-      if (sucesso != null) {
-        this.item.estoqueList = sucesso;
-        console.log(this.item.estoqueList);
-      }
-    });
+    this.getEstoque(produto.cdProduto);
     this.item.qtProduto = 1;
     this.item.produto = produto;
     this.item.cdProduto = produto.cdProduto;
     this.estoque.cdProduto = produto.cdProduto;
-    this.getEstoque(produto.cdProduto);
 
   }
 
@@ -280,16 +281,21 @@ export class NotaEntradaComponent implements OnInit {
         this.estoqueList = sucesso;
       }
     }, error => {
-      console.log("Erro no setProduto(produto)");
+      console.log("Erro no getEstoque(id)");
+    });
+  }
+
+  getLastIdEstoque() {
+    this.estoqueService.getLastId().subscribe(sucesso => {
+      if (sucesso != null)
+        this.estoqueLastId = sucesso;
     });
   }
 
   setEstoque() {
-    this.estoqueService.getLastId().subscribe(sucesso => {
-      if (sucesso != null) {
-        this.estoque.cdEstoque = sucesso;
-      }
-    });
+    console.log("CdEstoque:");
+    console.log(this.estoqueLastId);
+    this.estoque.cdEstoque = this.estoqueLastId++;
     this.estoque.cdProduto = this.item.cdProduto;
     this.estoque.cdNotaEntrada = this.notaEntrada.cdNotaEntrada;
     this.estoque.qtProduto = this.item.qtProduto;
@@ -302,41 +308,68 @@ export class NotaEntradaComponent implements OnInit {
     } else {
       this.estoque.qtAtual = 0 + this.estoque.qtProduto;
     }
-
+    this.estoqueListGeral.push(this.estoque);
   }
 
-  saveEstoque() {
-    this.estoqueService.save(this.estoque).subscribe(sucesso => {
+  saveEstoque(estoque: any) {
+    this.estoqueService.save(estoque).subscribe(sucesso => {
       if (sucesso != null) {
         console.log("Estoque salvo");
       }
     }, error => {
       console.log("Erro ao salvar estoque");
-    })
+    });
   }
 
-  saveTbPreco() {
-    this.tbPrecoService.save(this.estoque).subscribe(sucesso => {
+  saveAllEstoque(estoqueList: any) {
+    this.estoqueListGeral.forEach(e => this.saveEstoque(e));
+  }
+
+  saveAllTbPreco(tbPrecoList: any) {
+    this.tbPrecoList.forEach(tb => this.saveTbPreco(tb));
+  }
+
+  saveTbPreco(tbPreco: any) {
+    this.tbPrecoService.save(tbPreco).subscribe(sucesso => {
       if (sucesso != null) {
         console.log("TabelaPreco Salva");
       }
     }, error => {
       console.log("Erro ao salvar TbPreco");
-    })
+    });
+  }
+
+  getLastIdTbPreco(){
+    this.tbPrecoService.getLastId().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.tbPrecoLastId = sucesso;
+      }
+    });
+  }
+
+  setTbPreco() {
+    console.log("CdTabelaPreco:");
+    console.log(this.tbPrecoLastId);
+    this.tbPreco.cdTabelaPreco = this.tbPrecoLastId++;
+    this.tbPreco.cdProduto = this.item.cdProduto;
+    this.tbPrecoList.push(this.tbPreco);
   }
 
   cleanItems() {
     this.item.produto = new Produto();
+    this.item.estoqueList = new Array<Estoque>();
     this.estoque = new Estoque();
     this.estoqueList = new Array<Estoque>();
+    this.tbPreco = new TabelaPreco();
   }
 
   addItem() {
     this.setTbPreco();
     this.setEstoque();
     this.item.cdNotaEntrada = this.notaEntrada.cdNotaEntrada;
+    this.item.vlUnitario = this.item.vlCusto;
     this.notaEntrada.itemList.push(this.item);
-    this.notaEntrada.vlTotal += this.item.vlTotal;
+    this.notaEntrada.vlTotal += this.item.vlUnitario;
     this.listAllItems();
   }
 
@@ -386,16 +419,6 @@ export class NotaEntradaComponent implements OnInit {
     this.notaEntrada.conta = this.conta;
   }
 
-  setTbPreco() {
-    this.tbPrecoService.getLastId().subscribe(sucesso => {
-      if (sucesso != null) {
-        this.tbPreco.cdTabelaPreco = sucesso;
-      }
-    });
-    this.tbPreco.cdProduto = this.item.cdProduto;
-    this.tbPreco.vlVenda = this.item.vlTotal;
-  }
-
   calculaCustoMedio() {
     this.item.vlTotal = 0.00;
     var qtEstoque = this.item.estoqueList.length;
@@ -410,7 +433,7 @@ export class NotaEntradaComponent implements OnInit {
   }
 
   calculaPrecoVenda() {
-    this.tbPreco.vlVenda = this.item.vlCustoMedio + (this.item.vlCustoMedio * this.tbPreco.nrMargemLucro / 100);
+    this.tbPreco.vlTotal = this.item.vlCustoMedio + (this.item.vlCustoMedio * this.tbPreco.nrMargemLucro / 100);
   }
 
   updateItemTable(item: any) {

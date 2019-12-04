@@ -8,6 +8,8 @@ import { ClienteFornecedor } from '../../models/clienteFornecedor';
 import { ItemNotaEntrada } from '../../models/itemNotaEntrada';
 import { NotaEntradaService } from '../nota-entrada.service';
 import { ClienteFornecedorService } from '../../cliente-fornecedor/cliente-fornecedor.service';
+import { ExcelService } from '../../../shared/excel/excel.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nota-entrada-list',
@@ -30,7 +32,9 @@ export class NotaEntradaListComponent implements OnInit {
   constructor(private router: Router,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
-    private notaEntradaService: NotaEntradaService) { }
+    private notaEntradaService: NotaEntradaService,
+    private excelService: ExcelService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.listAll();
@@ -82,6 +86,18 @@ export class NotaEntradaListComponent implements OnInit {
     this.dataSource = new MatTableDataSource<NotaEntrada>(notaEntrada);
     this.dataSource.paginator = this.paginatorCustom;
     this.dataSource.sort = this.sortCustom;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
+      return {
+        Emissão: this.datePipe.transform(value.dtEmissao,"dd/MM/yyyy"),
+        Número: value.nrNota != null ? value.nrNota: '',
+        Cliente: value.clienteFornecedor != null ? value.clienteFornecedor.dsNomeRazao : '',
+        Valor: value.vlTotal != null ? value.vlTotal: '',
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")     
+      }
+    }), 'nota_entrada_');   
   }
 
 

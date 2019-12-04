@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
 })
 export class OrdemServicoListComponent implements OnInit {
 
-  displayedColumns: string[] = ['cdOrdemServico', 'dsClienteFornecedor', 'vlTotal', 'dtPrevConclusao', 'dtConclusao', 'editColumn'];
+  displayedColumns: string[] = ['cdOrdemServico', 'dsClienteFornecedor', 'vlTotal', 'dtPrevConclusao', 'dtConclusao', 'dtRegistro', 'editColumn'];
   dataSource: any;
 
   conta: Conta;

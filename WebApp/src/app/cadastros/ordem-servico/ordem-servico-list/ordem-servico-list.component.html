@@ -30,10 +30,15 @@
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="dtConclusao">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Data conclusão</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Data concusão</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{datePipe.transform(element.dtPrevConclusao, 'dd/MM/yyyy')}}
                 </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="dtRegistro">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Data Lançamento</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{datePipe.transform(element.dtRegistro, 'dd/MM/yyyy')}}
+                    </mat-cell>
+                </ng-container>
             <ng-container matColumnDef="editColumn">
                 <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
                 <mat-cell *matCellDef="let element">

@@ -3,7 +3,7 @@
 </ngx-spinner>
 
 <div>
-    <app-menu></app-menu>
+  <app-menu></app-menu>
 </div>
 
 <div class="row">
@@ -28,6 +28,11 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Total</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{"R$" + element.vlTotal}} </mat-cell>
       </ng-container>
+      <ng-container matColumnDef="dtRegistro">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Data Lançamento</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{datePipe.transform(element.dtRegistro, 'dd/MM/yyyy')}}
+          </mat-cell>
+      </ng-container>
       <ng-container matColumnDef="editColumn">
         <mat-header-cell *matHeaderCellDef>Edição</mat-header-cell>
         <mat-cell *matCellDef="let element">
@@ -44,5 +49,12 @@
       <mat-row *matRowDef="let row; columns: this.displayedColumns;"></mat-row>
     </mat-table>
     <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+<div class="row">
+  <div class="row footer-btn">
+    <div class="button-row col s12">
+      <button mat-raised-button color="green" (click)="this.exportAsXLSX()">Gerar relatório em Excel</button>
+    </div>
   </div>
 </div>

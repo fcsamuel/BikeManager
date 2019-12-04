@@ -33,6 +33,8 @@ import { OrdemServicoListComponent } from './cadastros/ordem-servico/ordem-servi
 import { ContaComponent } from './cadastros/conta/conta.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { MenuComponent } from './shared/menu/menu.component';
+import { ExcelService } from './shared/excel/excel.service';
+import { EstoqueListComponent } from './cadastros/estoque/estoque-list/estoque-list.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { MenuComponent } from './shared/menu/menu.component';
     NotaEntradaListComponent,
     OrdemServicoListComponent,
     ContaComponent,
-    MenuComponent
+    MenuComponent,
+    EstoqueListComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,8 @@ import { MenuComponent } from './shared/menu/menu.component';
   providers: [
     HttpClient,
     DatePipe,
-    DialogComponent
+    DialogComponent,
+    ExcelService
   ],
   entryComponents: [DialogComponent],
   bootstrap: [AppComponent]

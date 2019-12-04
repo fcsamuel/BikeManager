@@ -27,6 +27,12 @@ namespace BikeManagerAPI.Controllers
             return _context.Produto.Include(p => p.Marca).Include(p => p.Categoria).Include(p => p.TabelaPrecoList);
         }
 
+        [HttpGet("GetOnlyProduto")]
+        public IEnumerable<Produto> GetOnlyProduto()
+        {
+            return _context.Produto.Include(p => p.Marca).Include(p => p.Categoria).Include(p => p.TabelaPrecoList).Where(p => p.FgTipo == "P");
+        }
+
         // GET: api/Produto/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduto([FromRoute] int id)

@@ -21,6 +21,7 @@ import { Pagamento } from '../models/pagamento';
 import { PagamentoService } from '../pagamento/pagamento.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatProgressSpinnerModule } from '@angular/material';
 import { ContaService } from '../conta/conta.service';
+import { ItemOrdemServicoService } from '../item-ordem-servico/item-ordem-servico.service';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -60,6 +61,9 @@ export class OrdemServicoComponent implements OnInit {
   lastEstoque: Estoque;
   cliente: ClienteFornecedor;
 
+  estoqueLastId : number;
+  tbPrecoLastId : number;
+
   countItem: number;
   vlTotal: string;
 
@@ -76,11 +80,14 @@ export class OrdemServicoComponent implements OnInit {
     private estoqueService: EstoqueService,
     private tbPrecoService: TabelaPrecoService,
     private pagamentoService: PagamentoService,
-    private contaService: ContaService) { }
+    private contaService: ContaService,
+    private itemService: ItemOrdemServicoService) { }
 
   ngOnInit() {
     this.initObjects();
     this.setLastId();
+    this.getLastIdEstoque();
+    this.getLastIdTbPreco();
     this.loadClienteList();
     this.loadProdutoList();
     this.loadFormaPagamentoList();
@@ -231,6 +238,7 @@ export class OrdemServicoComponent implements OnInit {
     this.produto = new Produto();
     this.produto = produto;
     this.getTbPreco(produto.cdProduto);
+    this.item.vlUnitario = this.tbPreco.vlTotal;
     this.getEstoque(produto.cdProduto);
   }
 
@@ -238,17 +246,35 @@ export class OrdemServicoComponent implements OnInit {
     this.tbPrecoService.GetLastTbPrecoByProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
         this.tbPreco = sucesso;
-        this.item.vlUnitario = this.tbPreco.vlVenda;
       }
     });
   }
 
-  getEstoque(id: any) {
-    this.estoqueService.getLastStockOfProduct(id).subscribe(sucesso => {
+  getLastIdEstoque() {
+    this.estoqueService.getLastId().subscribe(sucesso => {
+      if (sucesso != null)
+        this.estoqueLastId = sucesso;
+    });
+  }
+
+  getLastIdTbPreco(){
+    this.tbPrecoService.getLastId().subscribe(sucesso => {
       if (sucesso != null) {
-        this.estoque = sucesso;
+        this.tbPrecoLastId = sucesso;
       }
-    })
+    });
+  }
+  
+  setTbPreco() {
+    this.tbPrecoService.getLastId().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.tbPreco.cdTabelaPreco = sucesso;
+      }
+    });
+    this.tbPreco.cdProduto = this.item.cdProduto;
+    this.tbPreco.vlTotal = this.item.vlUnitario;
+    let vlUnit = this.item.vlUnitario;
+    this.tbPreco.vlTotal = vlUnit.valueOf();
   }
 
   calculaVlTotal() {
@@ -262,6 +288,8 @@ export class OrdemServicoComponent implements OnInit {
 
 
   addItem() {
+    this.setTbPreco();
+    this.setEstoque();
     this.countItem = this.itemList.length;
     this.item.countItem = ++this.countItem;
     this.item.produto = this.produto;
@@ -309,19 +337,28 @@ export class OrdemServicoComponent implements OnInit {
     }
   }*/
 
-  setEstoque() {
-    this.estoqueService.getLastId().subscribe(sucesso => {
+  getEstoque(id: any) {
+    this.estoqueService.getLastStockOfProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
-        this.estoque.cdEstoque = sucesso;
+        this.estoque = sucesso;
       }
-    });
+    })
+  }
+
+
+  setEstoque() {
+    console.log("CdEstoque:");
+    console.log(this.estoqueLastId);
+    this.estoque.cdEstoque = this.estoqueLastId++;
     this.estoque.cdProduto = this.item.cdProduto;
     this.estoque.cdOrdemServico = this.ordemServico.cdOrdemServico;
     this.estoque.qtProduto = this.item.qtProduto;
-    this.estoque.tpLancamento = 'NE';
+    this.estoque.tpLancamento = 'OS';
+    this.estoque.vlCusto = this.item.vlCusto;
+    this.estoque.vlCustoMedio = this.item.vlCustoMedio;
     let i = this.estoqueList.length;
     if (this.estoqueList[i - 1] != undefined) {
-      this.estoque.qtAtual = (this.estoqueList[i - 1].qtAtual + this.estoque.qtProduto);
+      this.estoque.qtAtual = (this.estoqueList[i - 1].qtAtual - this.estoque.qtProduto);
     } else {
       this.estoque.qtAtual = 0 + this.estoque.qtProduto;
     }
@@ -331,9 +368,11 @@ export class OrdemServicoComponent implements OnInit {
   saveEstoque() {
     this.estoqueService.save(this.estoque).subscribe(sucesso => {
       if (sucesso != null) {
-        console.log("Estoque salvo.");
+        console.log("Estoque salvo");
       }
-    })
+    }, error => {
+      console.log("Erro ao salvar estoque");
+    });
   }
 
   updateItemTable(item: any) {

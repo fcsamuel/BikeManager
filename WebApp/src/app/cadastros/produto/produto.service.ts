@@ -47,4 +47,9 @@ export class ProdutoService extends BaseService {
     return this.http.get(environment.urlWebAPI +"Produto/GetLastId")
       .catch((error: any) => Observable.throw(error.error));
   }
+
+  getOnlyProduto() : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"Produto/GetOnlyProduto")
+      .catch((error: any) => Observable.throw(error.error));
+  }
 }

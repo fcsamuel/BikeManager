@@ -15,6 +15,7 @@ namespace BikeManagerAPI.Models
         public string DsObservacao { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        [JsonIgnore]
         public OrdemServico OrdemServico { get; set; }
         public Produto Produto { get; set; }
         public TabelaPreco TabelaPreco { get; set; }

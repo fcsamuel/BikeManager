@@ -4,7 +4,7 @@ export class TabelaPreco {
     cdTabelaPreco: number;
     cdProduto: number;
     produto: Produto;
-    vlVenda: number;
+    vlTotal: number;
     nrMargemLucro: number;
     dtRegistro: Date;
     dtAlteracao: Date;

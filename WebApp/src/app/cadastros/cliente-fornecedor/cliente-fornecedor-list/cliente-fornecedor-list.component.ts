@@ -10,6 +10,8 @@ import { ContatoService } from '../../contato/contato.service';
 import { EnderecoService } from '../../endereco/endereco.service';
 import { Endereco } from '../../models/endereco';
 import { Contato } from '../../models/contato';
+import { ExcelService } from '../../../shared/excel/excel.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-fornecedor-list',
@@ -34,7 +36,9 @@ export class ClienteFornecedorListComponent implements OnInit {
     private contatoService: ContatoService,
     private enderecoService: EnderecoService,
     private dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private excelService: ExcelService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.listAll();
@@ -113,6 +117,18 @@ export class ClienteFornecedorListComponent implements OnInit {
 
   getContato(){
 
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
+      return {
+        Emissão: this.datePipe.transform(value.dtEmissao,"dd/MM/yyyy"),
+        Número: value.nrNota != null ? value.nrNota: '',
+        Cliente: value.clienteFornecedor != null ? value.clienteFornecedor.dsNomeRazao : '',
+        Valor: value.vlTotal != null ? value.vlTotal: '',
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")     
+      }
+    }), 'cliente_fornecedor_');   
   }
 
 }

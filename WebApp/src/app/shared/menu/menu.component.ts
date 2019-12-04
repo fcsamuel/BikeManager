@@ -69,4 +69,8 @@ export class MenuComponent implements OnInit {
     this.router.navigate(["../categoria-list"]);
   }
 
+  callEstoqueList() {
+    this.router.navigate(["../estoque-list"]);
+  }
+
 }

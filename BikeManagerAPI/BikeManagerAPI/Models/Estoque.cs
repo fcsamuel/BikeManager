@@ -19,5 +19,6 @@ namespace BikeManagerAPI.Models
         public DateTime? DtAlteracao { get; set; }
         public NotaEntrada NotaEntrada { get; set; }
         public OrdemServico OrdemServico { get; set; }
+        public Produto Produto { get; set; }
     }
 }

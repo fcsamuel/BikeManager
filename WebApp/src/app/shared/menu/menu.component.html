@@ -33,3 +33,7 @@
     <button mat-menu-item (click)="this.callNewCategoria()">Cadastrar categoria</button>
     <button mat-menu-item (click)="this.callCategoriaList()">Consultar categorias</button>
 </mat-menu>
+<button mat-button [matMenuTriggerFor]="menu8">Estoque</button>
+<mat-menu #menu8="matMenu">
+    <button mat-menu-item (click)="this.callEstoqueList()">Consultar estoque</button>
+</mat-menu>
