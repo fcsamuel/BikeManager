@@ -157,5 +157,13 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.OrdemServico.Count() + 1;
         }
+
+        [HttpGet("GetOrdemServicoByCliente")]
+        public IEnumerable<OrdemServico> GetOrdemServicoByCliente(int id)
+        {
+            return _context.OrdemServico.Where(os => os.CdClienteFornecedor == id);
+        }
+
+
     }
 }
