@@ -9,6 +9,9 @@ export class Pagamento {
     conta: Conta;
     vlPago: number;
     fgPago: boolean;
+    nrParcela: number;
+    vlParcela: number;
+    dtBaixa: Date;
     dtPagamento: Date;
     dtRegistro: Date;
     dtAlteracao: Date;

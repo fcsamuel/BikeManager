@@ -22,6 +22,8 @@ import { PagamentoService } from '../pagamento/pagamento.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatProgressSpinnerModule } from '@angular/material';
 import { ContaService } from '../conta/conta.service';
 import { ItemOrdemServicoService } from '../item-ordem-servico/item-ordem-servico.service';
+import { MatOptionSelectionChange } from '@angular/material';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -32,9 +34,11 @@ export class OrdemServicoComponent implements OnInit {
 
   itemColumns: string[] = ['countItem', 'dsProduto', 'qtProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
   servicoColumns: string[] = ['dsProduto', 'qtProduto', 'vlUnitario', 'vlTotal', 'editColumn'];
+  pagColumns: string[] = ['nrParcela', 'dtPagamento', 'vlParcela'];
 
   itemDataSource: any;
   servicoDataSource: any;
+  pagamentoDataSource: any;
 
   @ViewChild(MatPaginator, { static: false }) paginatorCustom: MatPaginator;
   @ViewChild(MatSort, { static: false }) sortCustom: MatSort;
@@ -50,6 +54,7 @@ export class OrdemServicoComponent implements OnInit {
   itemList: Array<ItemOrdemServico> = new Array<ItemOrdemServico>();
   itemServicoList: Array<ItemOrdemServico> = new Array<ItemOrdemServico>();
   estoqueList: Array<Estoque> = new Array<Estoque>();
+  estoqueListGeral: Array<Estoque> = new Array<Estoque>();
   pagamentoList: Array<Pagamento> = new Array<Pagamento>();
 
   produto: Produto;
@@ -60,9 +65,14 @@ export class OrdemServicoComponent implements OnInit {
   estoque: Estoque;
   lastEstoque: Estoque;
   cliente: ClienteFornecedor;
+  pagamento: Pagamento;
+  dtPagamento: Date;
+  dtPag: Date;
 
-  estoqueLastId : number;
-  tbPrecoLastId : number;
+  estoqueLastId: number;
+  tbPrecoLastId: number;
+  pagamentoLastId: number;
+  contaLastId: number;
 
   countItem: number;
   vlTotal: string;
@@ -81,13 +91,15 @@ export class OrdemServicoComponent implements OnInit {
     private tbPrecoService: TabelaPrecoService,
     private pagamentoService: PagamentoService,
     private contaService: ContaService,
-    private itemService: ItemOrdemServicoService) { }
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.initObjects();
     this.setLastId();
     this.getLastIdEstoque();
     this.getLastIdTbPreco();
+    this.getLastIdConta();
+    this.getLastIdPagamento();
     this.loadClienteList();
     this.loadProdutoList();
     this.loadFormaPagamentoList();
@@ -113,20 +125,25 @@ export class OrdemServicoComponent implements OnInit {
     this.estoque = new Estoque();
     this.lastEstoque = new Estoque();
     this.itemList = new Array<ItemOrdemServico>();
-    //this.conta.pagamentoList = new Array<Pagamento>();
+    this.pagamento = new Pagamento();
+    this.dtPagamento = new Date();
+    this.pagamentoList = new Array<Pagamento>();
+    this.conta.pagamentoList = new Array<Pagamento>();
     this.countItem = 0;
   }
 
   save() {
+    console.log(this.ordemServico);
     this.spinner.show();
-    this.setConta();
     this.concatItemServico();
     console.log(this.ordemServico);
+    this.geraParcelas();
     this.ordemServicoService.save(this.ordemServico).subscribe(sucesso => {
       if (sucesso != null) {
         this.spinner.hide();
         this.backwards();
         console.log("O.S salva.");
+        this.saveAllEstoque(this.estoqueListGeral);
       }
     }, error => { console.log(error) });
   }
@@ -143,18 +160,17 @@ export class OrdemServicoComponent implements OnInit {
   }
 
 
-  setContaLastId() {
+  setContaLastId(pagamento: Pagamento) {
     this.contaService.getLastId().subscribe(sucesso => {
       if (sucesso != null) {
         /*this.conta.cdConta = sucesso;
         this.ordemServico.cdConta = sucesso;
-        console.log(sucesso);*/
+        pagamento.cdConta = sucesso;*/
       }
     })
   }
 
   setConta() {
-    this.setContaLastId();
     this.conta.dsTipo = 'AR';
     this.conta.dtVencimento = new Date();
     this.conta.dtVencimento.setDate(this.conta.dtVencimento.getDate() + 30);
@@ -234,18 +250,20 @@ export class OrdemServicoComponent implements OnInit {
       });
   }
 
-  setProduto(produto: any) {
-    this.produto = new Produto();
-    this.produto = produto;
-    this.getTbPreco(produto.cdProduto);
-    this.item.vlUnitario = this.tbPreco.vlTotal;
-    this.getEstoque(produto.cdProduto);
+  setProduto(event: any, produto: any) {
+    if (event.isUserInput) {
+      this.produto = new Produto();
+      this.getTbPreco(produto.cdProduto);
+      this.getEstoqueOfProduct(produto.cdProduto);
+      this.getEstoqueList(produto.cdProduto);
+    }
   }
 
   getTbPreco(id: any) {
     this.tbPrecoService.GetLastTbPrecoByProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
         this.tbPreco = sucesso;
+        this.item.vlUnitario = this.tbPreco.vlTotal;
       }
     });
   }
@@ -257,14 +275,14 @@ export class OrdemServicoComponent implements OnInit {
     });
   }
 
-  getLastIdTbPreco(){
+  getLastIdTbPreco() {
     this.tbPrecoService.getLastId().subscribe(sucesso => {
       if (sucesso != null) {
         this.tbPrecoLastId = sucesso;
       }
     });
   }
-  
+
   setTbPreco() {
     this.tbPrecoService.getLastId().subscribe(sucesso => {
       if (sucesso != null) {
@@ -295,12 +313,18 @@ export class OrdemServicoComponent implements OnInit {
     this.item.produto = this.produto;
     this.item.cdOrdemServico = this.ordemServico.cdOrdemServico;
     this.item.cdTabelaPreco = this.tbPreco.cdTabelaPreco;
+    this.item.cdProduto = this.produto.cdProduto;
     this.itemList.push(this.item);
     this.updateItemTable(this.itemList);
-    console.log(this.item);
     this.calculaVlTotalOrdem();
+    this.cleanItems();
+  }
+
+  cleanItems() {
     this.item = new ItemOrdemServico();
     this.produto = new Produto();
+    this.estoque = new Estoque();
+    this.estoqueList = new Array<Estoque>();
   }
 
   concatItemServico() {
@@ -322,22 +346,44 @@ export class OrdemServicoComponent implements OnInit {
     console.log(this.item);
     this.item = new ItemOrdemServico();
   }
-/*
-  geraPagamentos() {
-    let pagamento = new Pagamento();
-    let cdPagamento;
+
+  getLastIdPagamento() {
     this.pagamentoService.getLastId().subscribe(sucesso => {
       if (sucesso != null)
-        cdPagamento = sucesso;
+        this.pagamentoLastId = sucesso;
     });
-    for (let i = 0; i < this.conta.qtParcelas; i++) {
-      pagamento.cdPagamento = cdPagamento++;
-      pagamento.cdConta = this.conta.cdConta;
-      this.conta.pagamentoList.push(pagamento);
-    }
-  }*/
+  }
 
-  getEstoque(id: any) {
+  getLastIdConta() {
+    this.contaService.getLastId().subscribe(sucesso => {
+      if (sucesso != null) {
+        this.contaLastId = sucesso;
+      }
+    });
+  }
+
+  geraParcelas() {
+    this.setConta();
+    var vlParcela = this.ordemServico.vlTotal.valueOf() / this.conta.qtParcelas.valueOf();
+    var parcela = 1;
+    for (let i = 0; i < this.conta.qtParcelas; i++) {
+      this.pagamento = new Pagamento();
+      this.pagamento.nrParcela = parcela++;
+      this.pagamento.cdPagamento = this.pagamentoLastId++;
+      this.pagamento.cdConta = this.contaLastId;
+      this.pagamento.fgPago = false;
+      this.pagamento.dtPagamento = new Date();
+      this.pagamento.dtPagamento.setMonth(this.pagamento.dtPagamento.getMonth() + (i + 1));
+      this.pagamento.vlParcela = parseFloat(vlParcela.toFixed(2));
+      this.conta.pagamentoList.push(this.pagamento);
+      this.updatePagamentoTable(this.conta.pagamentoList);
+    }
+   /* this.updatePagamentoTable(this.pagamentoList);
+    console.log(this.pagamentoList);
+    this.conta.pagamentoList = this.pagamentoList;*/
+  }
+
+  getEstoqueOfProduct(id: any) {
     this.estoqueService.getLastStockOfProduct(id).subscribe(sucesso => {
       if (sucesso != null) {
         this.estoque = sucesso;
@@ -345,10 +391,19 @@ export class OrdemServicoComponent implements OnInit {
     })
   }
 
+  getEstoqueList(id: any) {
+    this.estoqueService.findStockByProduct(id).subscribe(sucesso => {
+      if (sucesso != null) {
+        this.estoqueList = sucesso;
+      }
+    })
+  }
+
+  saveAllEstoque(estoqueList: any) {
+    this.estoqueListGeral.forEach(e => this.saveEstoque(e));
+  }
 
   setEstoque() {
-    console.log("CdEstoque:");
-    console.log(this.estoqueLastId);
     this.estoque.cdEstoque = this.estoqueLastId++;
     this.estoque.cdProduto = this.item.cdProduto;
     this.estoque.cdOrdemServico = this.ordemServico.cdOrdemServico;
@@ -358,15 +413,15 @@ export class OrdemServicoComponent implements OnInit {
     this.estoque.vlCustoMedio = this.item.vlCustoMedio;
     let i = this.estoqueList.length;
     if (this.estoqueList[i - 1] != undefined) {
-      this.estoque.qtAtual = (this.estoqueList[i - 1].qtAtual - this.estoque.qtProduto);
+      this.estoque.qtAtual = (this.estoqueList[i - 1].qtAtual.valueOf() - this.estoque.qtProduto.valueOf());
     } else {
-      this.estoque.qtAtual = 0 + this.estoque.qtProduto;
+      this.estoque.qtAtual = 0 + this.estoque.qtProduto.valueOf();
     }
-
+    this.estoqueListGeral.push(this.estoque);
   }
 
-  saveEstoque() {
-    this.estoqueService.save(this.estoque).subscribe(sucesso => {
+  saveEstoque(estoque: any) {
+    this.estoqueService.save(estoque).subscribe(sucesso => {
       if (sucesso != null) {
         console.log("Estoque salvo");
       }
@@ -385,6 +440,12 @@ export class OrdemServicoComponent implements OnInit {
     this.servicoDataSource = new MatTableDataSource<ItemOrdemServico>(servico);
     this.servicoDataSource.paginator = this.paginatorCustom;
     this.servicoDataSource.sort = this.sortCustom;
+  }
+
+  updatePagamentoTable(pagamento: any) {
+    this.pagamentoDataSource = new MatTableDataSource<Pagamento>(pagamento);
+    this.pagamentoDataSource.paginator = this.paginatorCustom;
+    this.pagamentoDataSource.sort = this.sortCustom;
   }
 
   calculaVlTotalOrdem() {

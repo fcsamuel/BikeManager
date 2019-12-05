@@ -5,6 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ProdutoService } from '../../produto/produto.service';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Produto } from '../../models/produto';
+import { ExcelService } from '../../../shared/excel/excel.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-servico-list',
@@ -25,7 +27,9 @@ export class ServicoListComponent implements OnInit {
   constructor(private servicoService: ProdutoService,
     public router: Router,
     public dialog: MatDialog,
-    public spinner: NgxSpinnerService) { }
+    public spinner: NgxSpinnerService,
+    private excelService: ExcelService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.servicoList = new Array<Produto>();
@@ -98,6 +102,17 @@ export class ServicoListComponent implements OnInit {
     this.dataSource.paginator = this.paginatorCustom;
     this.dataSource.sort = this.sortCustom;
     console.log("Passou pelo updateTable(servico: any) - servico-list.component.ts com sucesso.");
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
+      return {
+        Código: value.cdProduto != null ? value.cdProduto: '',
+        Descrição: value.dsProduto != null ? value.dsProduto : '',
+        Valor: value.vlServico != null ? value.vlServico : '',
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")
+      }
+    }), 'servico_');
   }
 
 }

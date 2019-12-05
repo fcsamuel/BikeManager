@@ -9,16 +9,16 @@
 <div class="row">
     <div class="col s12 m4 l4">
         <mat-form-field>
-            <mat-select placeholder="Produto" name="produto" [(ngModel)]="produto.cdProduto">
-                <mat-option *ngFor="let element of this.produtoList" [value]="element.cdProduto">
-                    {{element.dsProduto + " - " + element.dsModelo}}
+            <mat-select placeholder="Cliente" name="clienteFornecedor" [(ngModel)]="cliente">
+                <mat-option *ngFor="let element of this.clienteFornecedorList" [value]="element">
+                    {{element.dsNomeRazao + " - " + element.Fantasia != null ? element.dsFantasia : ''}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div class="col footer-btn">
         <div class="button-col col s12">
-            <button mat-raised-button color="green" (click)="this.getEstoque()">Filtrar</button>
+            <button mat-raised-button color="green" (click)="this.getParcelas(element.cdClienteFornecedor)">Filtrar</button>
         </div>
     </div>
 </div>

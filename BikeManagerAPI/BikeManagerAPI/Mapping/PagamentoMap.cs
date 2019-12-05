@@ -40,8 +40,20 @@ namespace BikeManagerAPI.Mapping
                 .HasColumnName("vl_pago")
                 .HasColumnType("numeric(15,2)");
 
+            entity.Property(e => e.VlParcela)
+                .HasColumnName("vl_parcela")
+                .HasColumnType("numeric(15,2)");
+
+            entity.Property(e => e.NrParcela)
+                .HasColumnName("nr_parcela")
+                .HasColumnType("integer");
+
+            entity.Property(e => e.DtBaixa)
+                .HasColumnName("dt_baixa")
+                .HasColumnType("date");
+
             entity.HasOne(d => d.Conta)
-                .WithMany(p => p.Pagamento)
+                .WithMany(p => p.PagamentoList)
                 .HasForeignKey(d => d.CdConta)
                 .HasConstraintName("pagamento_cd_conta_fkey");
 

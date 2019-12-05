@@ -61,11 +61,14 @@ export class NotaEntradaComponent implements OnInit {
   pagamento: Pagamento;
   formaPagamento: FormaPagamento;
   dsFormaPagamento: string = '';
+  dtPagamento: Date;
 
   custoTotal: number;
 
   estoqueLastId : number;
   tbPrecoLastId : number;
+  pagamentoLastId: number;
+  contaLastId: number;
 
   date = new FormControl(new Date());
   minDate = new Date();
@@ -121,6 +124,7 @@ export class NotaEntradaComponent implements OnInit {
     this.conta = new Conta();
     this.formaPagamento = new FormaPagamento();
     this.pagamento = new Pagamento();
+    this.dtPagamento = new Date();
   }
 
   save() {
@@ -140,7 +144,7 @@ export class NotaEntradaComponent implements OnInit {
             this.notaEntrada.fgLancada = true;
             this.spinner.hide();
             this.backwards();
-            this.notaEntrada.itemList.forEach(i => { this.itemService.save(i).subscribe(sucesso, error => { console.log("Erro ao salvar item") }) });
+            //this.notaEntrada.itemList.forEach(i => { this.itemService.save(i).subscribe(sucesso, error => { console.log("Erro ao salvar item") }) });
           }
         },
           error => {
@@ -265,15 +269,34 @@ export class NotaEntradaComponent implements OnInit {
     this.notaEntrada.cdClienteFornecedor = fornecedor.cdClienteFornecedor;
   }
 
-  setProduto(produto: any) {
-    this.cleanItems();
-    this.getEstoque(produto.cdProduto);
-    this.item.qtProduto = 1;
-    this.item.produto = produto;
-    this.item.cdProduto = produto.cdProduto;
-    this.estoque.cdProduto = produto.cdProduto;
-
-  }
+  setProduto(event: any, produto: any) {
+    if (event.isUserInput) {
+      this.cleanItems();
+      this.getEstoque(produto.cdProduto);
+      this.item.qtProduto = 1;
+      this.item.produto = produto;
+      this.item.cdProduto = produto.cdProduto;
+      this.estoque.cdProduto = produto.cdProduto;
+      console.log(produto);
+    };
+  } 
+/*
+  geraParcelas() {
+    this.conta.pagamentoList = new Array<Pagamento>();
+    this.setConta();
+    var vlParcela = this.notaEntrada.vlTotal.valueOf() / this.conta.qtParcelas.valueOf();
+    for (let i = 0; i < this.conta.qtParcelas; i++) {
+      this.pagamento = new Pagamento();
+      this.pagamento.cdPagamento = this.pagamentoLastId++;
+      this.pagamento.cdConta = this.contaLastId;
+      this.pagamento.dtPagamento = new Date(this.dtPagamento.getDay(), month++, this.dtPagamento.getFullYear());
+      this.pagamento.fgPago = false;
+      this.pagamento.vlParcela = parseFloat(vlParcela.toFixed(2));
+      this.conta.pagamentoList.push(this.pagamento);
+      //this.updatePagamentoTable(this.conta.pagamentoList);
+    }
+    console.log(this.conta.pagamentoList);
+  }*/
 
   getEstoque(id: any) {
     this.estoqueService.findStockByProduct(id).subscribe(sucesso => {
@@ -370,6 +393,7 @@ export class NotaEntradaComponent implements OnInit {
     this.item.vlUnitario = this.item.vlCusto;
     this.notaEntrada.itemList.push(this.item);
     this.notaEntrada.vlTotal += this.item.vlUnitario;
+    this.produtoList.splice(this.produtoList.indexOf(this.item.produto), 1);
     this.listAllItems();
   }
 
@@ -382,27 +406,18 @@ export class NotaEntradaComponent implements OnInit {
     this.updatePagamentoTable(this.pagamentoList);
   }
 
-  /*addPagamento() {
-    this.setPagamento();
-    this.conta.pagamentoList.push(this.pagamento);
-    this.listAllPagamentos();
-    this.cleanPagamento();
-  }/*
-
-  /*setPagamento() {
-    this.formaPagamentoService.list(this.pagamento.cdFormaPagamento).subscribe(sucesso => {
-      if (sucesso != null) {
-        this.pagamento.formaPagamento = sucesso;
-      }
-    });
-    this.notaEntrada.conta = this.conta;
-    this.pagamento.cdConta = this.conta.cdConta;
-    this.conta.vlPago += this.pagamento.vlPago;
-  }*/
-
   cleanPagamento() {
     this.pagamento = new Pagamento();
   }
+
+  removeItem(item: any) {
+    console.log(item);
+    /*this.produtoList.push(item);
+    let posicao = this.notaEntrada.itemList.indexOf(item); 
+    this.notaEntrada.itemList.splice(posicao, 1);
+    this.updateItemTable(this.gera.itemList);*/
+  }
+
 
   setConta() {
     this.contaService.getLastId().subscribe(sucesso => {
@@ -425,6 +440,7 @@ export class NotaEntradaComponent implements OnInit {
     this.item.estoqueList.forEach(e => { this.item.vlTotal += e.vlCusto });
     this.item.vlTotal += this.item.vlCusto;
     this.item.vlCustoMedio = (this.item.vlTotal / (qtEstoque + 1));
+    this.estoque.vlCustoMedio = this.item.vlCustoMedio;
     this.calculaCustoTotal();
   }
 

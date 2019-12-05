@@ -115,18 +115,15 @@ export class ClienteFornecedorListComponent implements OnInit {
     console.log("Passou pelo updateTable(categoria: any) - categoria-list.component.ts com sucesso.");
   }
 
-  getContato(){
-
-  }
-
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
       return {
-        Emissão: this.datePipe.transform(value.dtEmissao,"dd/MM/yyyy"),
-        Número: value.nrNota != null ? value.nrNota: '',
-        Cliente: value.clienteFornecedor != null ? value.clienteFornecedor.dsNomeRazao : '',
-        Valor: value.vlTotal != null ? value.vlTotal: '',
-        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")     
+        Código: value.cdClienteFornecedor != null ? value.cdClienteFornecedor: '',
+        NomeRazão: value.dsNomeRazao != null ? value.dsNomeRazao : '',
+        CPFCNPJ: value.nrCpfCnpj != null ? value.nrCpfCnpj : '',
+        DataNascimento: value.dtNascimento != null ? value.dtNascimento: '',
+        Tipo: value.fgTipo != null ? value.fgTipo: '',
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")
       }
     }), 'cliente_fornecedor_');   
   }

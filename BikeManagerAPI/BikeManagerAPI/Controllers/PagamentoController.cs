@@ -139,5 +139,22 @@ namespace BikeManagerAPI.Controllers
         {
             return _context.Pagamento.Any(e => e.CdConta == id);
         }
+
+        [HttpGet("GetLastId")]
+        public int GetLastId()
+        {
+            return _context.Pagamento.Count() + 1;
+        }
+
+        /*[HttpGet("GetParcelasByOrdemServicoList")]
+        public IEnumerable<Pagamento> GetParcelasByOrdemServicoList(IEnumerable<OrdemServico> ordemServicoList)
+        {
+            foreach(OrdemServico os in ordemServicoList)
+            {
+                os.ClienteFornecedor
+            }
+            return _context.Pagamento.Where(p => p.);
+        }*/
+
     }
 }

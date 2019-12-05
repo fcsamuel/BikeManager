@@ -18,6 +18,7 @@ export class EstoqueListComponent implements OnInit {
 
   displayedColumns: string[] = ['dsProduto', 'dtRegistro', 'tpLancamento', 'qtProduto', 'qtAtual'];
   dataSource: any;
+  excelSource: any;
 
   produtoList: Array<Produto>;
   produto: Produto;
@@ -72,13 +73,14 @@ export class EstoqueListComponent implements OnInit {
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
       return {
-        Emissão: this.datePipe.transform(value.dtEmissao,"dd/MM/yyyy"),
-        Número: value.nrNota != null ? value.nrNota: '',
-        Cliente: value.clienteFornecedor != null ? value.clienteFornecedor.dsNomeRazao : '',
-        Valor: value.vlTotal != null ? value.vlTotal: '',
-        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")     
+        CdEstoque: value.cdEstoque != null ? value.cdEstoque: '',
+        Produto: value.produto.dsProduto  != null ? value.produto.dsProduto: '',
+        Origem: value.tpLancamento != null ? value.tpLancamento: '',
+        QuantidadeAlterada: value.qtProduto != null ? value.qtProduto : '',
+        QuantidadeAtual: value.qtAtual != null ? value.qtAtual: '',
+        DataAlteração: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")
       }
-    }), 'nota_entrada_');   
+    }), 'estoque_');
   }
 
   updateTable(estoque: any) {

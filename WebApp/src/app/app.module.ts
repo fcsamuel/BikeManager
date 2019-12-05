@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatRadioModule, MatButtonModule, MatTableModule, MatIconModule,
-  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatAutocompleteModule, MatSlideToggleModule, MatAccordion } from '@angular/material';
+  MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatAutocompleteModule, MatSlideToggleModule, MatAccordion, MatListModule, MatOptionModule } from '@angular/material';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MarcaListComponent } from './cadastros/marca/marca-list/marca-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -35,6 +35,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MenuComponent } from './shared/menu/menu.component';
 import { ExcelService } from './shared/excel/excel.service';
 import { EstoqueListComponent } from './cadastros/estoque/estoque-list/estoque-list.component';
+import { PagamentoComponent } from './cadastros/pagamento/pagamento/pagamento.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EstoqueListComponent } from './cadastros/estoque/estoque-list/estoque-l
     OrdemServicoListComponent,
     ContaComponent,
     MenuComponent,
-    EstoqueListComponent
+    EstoqueListComponent,
+    PagamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +91,8 @@ import { EstoqueListComponent } from './cadastros/estoque/estoque-list/estoque-l
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatMenuModule,
+    MatListModule,
+    MatOptionModule,
 
   ],
   providers: [

@@ -9,6 +9,7 @@ import { ClienteFornecedor } from '../../models/clienteFornecedor';
 import { ItemOrdemServicoService } from '../../item-ordem-servico/item-ordem-servico.service';
 import { ItemOrdemServico } from '../../models/itemOrdemServico';
 import { DatePipe } from '@angular/common';
+import { ExcelService } from '../../../shared/excel/excel.service';
 
 @Component({
   selector: 'app-ordem-servico-list',
@@ -33,7 +34,8 @@ export class OrdemServicoListComponent implements OnInit {
   private spinner: NgxSpinnerService,
   private dialog: MatDialog,
   private ordemServicoService: OrdemServicoService,
-  private datePipe: DatePipe) { }
+  private datePipe: DatePipe,
+  private excelService: ExcelService) { }
 
   ngOnInit() {
 
@@ -70,6 +72,18 @@ export class OrdemServicoListComponent implements OnInit {
     this.dataSource = new MatTableDataSource<OrdemServico>(ordemServico);
     this.dataSource.paginator = this.paginatorCustom;
     this.dataSource.sort = this.sortCustom;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
+      return {
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy"),
+        Número: value.cdOrdemServico != null ? value.cdOrdemServico: '',
+        Cliente: value.clienteFornecedor != null ? value.clienteFornecedor.dsNomeRazao : '',
+        Valor: value.vlTotal != null ? value.vlTotal: '',
+        DataConclusão: value.dtConclusao != null ? value.dtConclusao: '',
+      }
+    }), 'ordem_servico_');   
   }
 
 

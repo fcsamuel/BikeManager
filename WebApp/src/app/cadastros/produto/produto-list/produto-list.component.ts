@@ -8,6 +8,7 @@ import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { DatePipe } from '@angular/common';
 import { MarcaService } from '../../marca/marca.service';
 import { Marca } from '../../models/marca';
+import { ExcelService } from '../../../shared/excel/excel.service';
 
 @Component({
   selector: 'app-produto-list',
@@ -34,7 +35,8 @@ export class ProdutoListComponent implements OnInit {
     public router: Router,
     public dialog: MatDialog,
     public spinner: NgxSpinnerService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private excelService: ExcelService) { }
 
   ngOnInit() {
     this.listAll();
@@ -109,5 +111,18 @@ export class ProdutoListComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Produto>(produto);
     this.dataSource.paginator = this.paginatorCustom;
     this.dataSource.sort = this.sortCustom;
+  }
+  
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.dataSource.data.map(value => {
+      return {
+        Código: value.cdProduto != null ? value.cdProduto: '',
+        Descrição: value.dsProduto != null ? value.dsProduto : '',
+        Modelo: value.dsModelo != null ? value.dsModelo : '',
+        Marca: value.marca.dsMarca != null ? value.marca.dsMarca : '',
+        Categoria: value.categoria.dsCategoria != null ? value.categoria.dsCategoria : '',
+        Registro: this.datePipe.transform(value.dtRegistro,"dd/MM/yyyy")
+      }
+    }), 'produto_');
   }
 }

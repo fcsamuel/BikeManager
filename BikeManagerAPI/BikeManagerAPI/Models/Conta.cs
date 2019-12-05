@@ -10,7 +10,7 @@ namespace BikeManagerAPI.Models
         {
             NotaEntrada = new HashSet<NotaEntrada>();
             OrdemServico = new HashSet<OrdemServico>();
-            Pagamento = new HashSet<Pagamento>();
+            PagamentoList = new HashSet<Pagamento>();
         }
 
         public int CdConta { get; set; }
@@ -26,7 +26,6 @@ namespace BikeManagerAPI.Models
         public ICollection<NotaEntrada> NotaEntrada { get; set; }
         [JsonIgnore]
         public ICollection<OrdemServico> OrdemServico { get; set; }
-        [JsonIgnore]
-        public ICollection<Pagamento> Pagamento { get; set; }
+        public ICollection<Pagamento> PagamentoList { get; set; }
     }
 }

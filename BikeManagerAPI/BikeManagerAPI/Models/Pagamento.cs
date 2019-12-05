@@ -7,12 +7,16 @@ namespace BikeManagerAPI.Models
     public partial class Pagamento
     {
         public int CdPagamento { get; set; }
-        public int CdFormaPagamento { get; set; }
+        public int? CdFormaPagamento { get; set; }
         public int CdConta { get; set; }
-        public decimal VlPago { get; set; }
-        public DateTime DtPagamento { get; set; }
+        public decimal? VlPago { get; set; }
+        public decimal VlParcela { get; set; }
+        public DateTime? DtPagamento { get; set; }
+        public DateTime? DtBaixa { get; set; }
         public DateTime DtRegistro { get; set; }
         public DateTime? DtAlteracao { get; set; }
+        public int NrParcela { get; set; }
+        [JsonIgnore]
         public Conta Conta { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
     }

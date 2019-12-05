@@ -47,4 +47,9 @@ export class PagamentoService extends BaseService {
     return this.http.get(environment.urlWebAPI +"Pagamento/GetLastId")
       .catch((error: any) => Observable.throw(error.error));
   }
+
+  getParcelasByCliente(id: number) : Observable<any> {
+    return this.http.get(environment.urlWebAPI +"Pagamento/GetParcelasByCliente")
+      .catch((error: any) => Observable.throw(error.error));
+  }
 }

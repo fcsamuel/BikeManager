@@ -70,11 +70,10 @@
             <div class="row">
                 <div class="col s12 m3 l3">
                     <mat-form-field class="produto">
-                        <input matInput type="text" placeholder="Selecione o produto" [matAutocomplete]="autoProduct"
-                            required>
+                        <input matInput type="text" placeholder="Selecione o produto" [matAutocomplete]="autoProduct" required>
                         <mat-autocomplete #autoProduct="matAutocomplete">
                             <mat-option *ngFor="let element of this.produtoList"
-                                (onSelectionChange)="setProduto(element)" [value]="element.dsProduto">
+                                (onSelectionChange)="setProduto($event,element)" [value]="element.dsProduto">
                                 {{element.dsProduto + " - " + element.dsModelo}}
                             </mat-option>
                         </mat-autocomplete>
@@ -146,7 +145,7 @@
                             <mat-icon (click)="this.callUpdate(element.cdNotaEntrada)">edit</mat-icon>
                         </button>
                         <button mat-icon-button>
-                            <mat-icon (click)="this.deleteConfirmation(element.cdNotaEntrada)">delete</mat-icon>
+                            <mat-icon (click)="this.removeItem(element)">delete</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
